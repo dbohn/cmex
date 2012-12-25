@@ -5,8 +5,10 @@
  <head>
     <title>Project X  {{ $title }}</title>
     <meta charset="utf-8" />
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
     <script src="http://use.edgefonts.net/maven-pro.js"></script>
     <link rel="stylesheet" href="{{ asset("templates/default/style.css") }}" />
     {{ $head }}

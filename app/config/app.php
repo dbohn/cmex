@@ -148,7 +148,8 @@ return array(
 		'Validator'  => 'Illuminate\Support\Facades\Validator',
 		'View'       => 'Illuminate\Support\Facades\View',
 		'Form'		 => 'Form\Form',
-		'Html'		 => 'Html\Html'
+		'Html'		 => 'Html\Html',
+		'Asset'		 => 'Cmex\Asset'
 
 	),
 

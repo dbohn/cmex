@@ -8,7 +8,8 @@
 			"app/controllers",
 			"app/models",
 			"app/database/migrations",
-			"app/tests/TestCase.php"
+			"app/tests/TestCase.php",
+			"app/libraries"
 		],
 		"psr-0": {"Cmex\\Chunks\\": "chunks/"},
 		"files": ["app/helpers/chunks.php"]

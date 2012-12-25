@@ -16,8 +16,17 @@ class PageController extends BaseController {
         // Look up page in database
         $dbpage = Page::where('identifier', $page)->first();
         if(!is_null($dbpage)) {
-            
-            return View::make($template.'/'.$dbpage->template)->with(array('head' => '', 'scripts' => 'Hallo1', 'page' => $page, 'title' => $dbpage->title));
+            $view = View::make($template.'/'.$dbpage->template, array(
+                    'head' => '__head__',
+                    'scripts' => '__scripts__', 
+                    'page' => $page, 
+                    'title' => $dbpage->title
+                ));
+            //Asset::add("jquery", "http://code.jquery.com/jquery.min.js");
+            $view = str_replace('__scripts__', Asset::getScripts(), $view);
+            $view = str_replace('__head__', Asset::getStylesheets(), $view);
+
+            return $view;
         }
         //return Response::error('404');
         return "Seite nicht gefunden: ". $page;
