@@ -1,6 +1,7 @@
 {
 	"require": {
-		"illuminate/foundation": "1.2.*"
+		"illuminate/foundation": "1.2.*",
+		"raftalks/form": "1.2.*"
 	},
 	"autoload": {
 		"classmap": [
@@ -8,7 +9,9 @@
 			"app/models",
 			"app/database/migrations",
 			"app/tests/TestCase.php"
-		]
+		],
+		"psr-0": {"Cmex\\Chunks\\": "chunks/"},
+		"files": ["app/helpers/chunks.php"]
 	},
 	"minimum-stability": "dev"
 }

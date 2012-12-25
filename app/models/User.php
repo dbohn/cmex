@@ -28,6 +28,10 @@ class User extends Eloquent implements UserInterface {
 		return $this->getKey();
 	}
 
+	public function getFullName() {
+		return $this->firstname . " " . $this->lastname;
+	}
+
 	/**
 	 * Get the password for the user.
 	 *

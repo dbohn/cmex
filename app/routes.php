@@ -11,7 +11,20 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
+Route::get('admin', function() {
+    return Redirect::to('admin/overview');
 });
+
+Route::any('/admin/{module}', array('before' => 'auth', function($module) {
+    return "Administration - Sie sind eingeloggt als: ".Auth::user()->getFullName();
+}));
+
+Route::get('login', array('as' => 'login', 'uses' => 'LoginController@login'));
+
+Route::get('logoff', 'LoginController@logoff');
+
+Route::post('doLogin', 'LoginController@auth');
+
+Route::get('{page}', 'PageController@handlePageRequest');
+
+Route::get('/', 'PageController@showHomePage');

@@ -1,0 +1,25 @@
+body {
+    background: #f5f5f5;
+}
+
+.container {
+    background: #fff;
+}
+
+.header h1 {
+    margin-left: 5px;
+    font-family: maven-pro, serif;
+}
+
+.header h2 {
+    font-size: 110%;
+    margin-left: 10px;
+}
+
+.active {
+    font-weight: bold;
+}
+
+.footer p {
+    text-align: center;
+}
