@@ -11,6 +11,7 @@ if(!function_exists('chunk')) {
         } else {
             $properties = null;
         }
+        //echo "Asset added";
         if(($class = isValidChunk($type)) !== false) {
             $chunk = new $class();
 

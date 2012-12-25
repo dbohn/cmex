@@ -21,8 +21,7 @@ class PageController extends BaseController {
                     'scripts' => '__scripts__', 
                     'page' => $page, 
                     'title' => $dbpage->title
-                ));
-            //Asset::add("jquery", "http://code.jquery.com/jquery.min.js");
+                ))->render();
             $view = str_replace('__scripts__', Asset::getScripts(), $view);
             $view = str_replace('__head__', Asset::getStylesheets(), $view);
 

@@ -32,7 +32,7 @@ class MenuChunk extends \Chunk {
             )
         );*/
 
-        //print_r(json_decode($this->content));
+        //\Asset::add("jquery", "http://code.jquery.com/jquery.min.js");
         return $this->makeMenu(json_decode($this->content));
     }
 
