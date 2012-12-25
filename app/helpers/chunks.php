@@ -2,6 +2,8 @@
 
 if(!function_exists('chunk')) {
     function chunk($name, $type, $scope) {
+        //View::inject('scripts', 'Hallo');
+        //print_r(app());
         if(func_num_args() > 3) {
             $properties = func_get_args();
             unset($properties[0]);

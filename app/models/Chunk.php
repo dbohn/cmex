@@ -14,6 +14,10 @@ abstract class Chunk {
      */
     public abstract function config();
 
+    /**
+     * Creates the basic view
+     * @return HTML code
+     */
     public abstract function show($properties);
 
     public function setProperty($property, $value) {
