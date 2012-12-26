@@ -19,7 +19,7 @@ class AssetHandler {
                 $this->scripts[$name] = $url;
             }
         } else {
-            if(!isset($this->$stylesheets[$name])) {
+            if(!isset($this->stylesheets[$name])) {
                 $this->stylesheets[$name] = $url;
             }
         }

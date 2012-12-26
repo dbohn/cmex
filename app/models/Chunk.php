@@ -6,6 +6,17 @@ abstract class Chunk {
     protected $content = "";
     protected $page = "";
 
+    public function __construct() {
+        // echo get_called_class();
+    }
+
+    public function handleConfig() {
+        // Show edit button etc. pp.
+        $return = '<div class="configbutton">&#x2699;</div>';
+        // Finally handle chunk config-code:
+        return $return . $this->config();
+    }
+
     /**
      * In this method you can define your configuration
      * You're free to use any way of config, you want.

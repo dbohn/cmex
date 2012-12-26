@@ -4,9 +4,9 @@ namespace Cmex\Chunks;
 
 class ContainerChunk extends \Chunk {
     public function config() {
-
+        return "";
     }
-    
+
     public function show($properties = array()) {
         $chunks = json_decode($this->content);
         

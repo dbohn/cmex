@@ -16,6 +16,9 @@ class PageController extends BaseController {
         // Look up page in database
         $dbpage = Page::where('identifier', $page)->first();
         if(!is_null($dbpage)) {
+            if(Auth::check()) {
+                Asset::add('adminstyle', 'admin/style.css');
+            }
             $view = View::make($template.'/'.$dbpage->template, array(
                     'head' => '__head__',
                     'scripts' => '__scripts__', 

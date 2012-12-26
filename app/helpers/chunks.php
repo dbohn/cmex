@@ -11,7 +11,7 @@ if(!function_exists('chunk')) {
         } else {
             $properties = null;
         }
-        //echo "Asset added";
+        
         if(($class = isValidChunk($type)) !== false) {
             $chunk = new $class();
 
@@ -20,6 +20,9 @@ if(!function_exists('chunk')) {
             }
 
             if($chunk->fetchByChunkName($scope . "_" . $name)) {
+                if(Auth::check()) {
+                    return $chunk->handleConfig() . $chunk->show();
+                }
                 return $chunk->show();
             } else {
                 return "{{ Chunk data was not found! }}";

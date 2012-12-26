@@ -4,7 +4,7 @@ namespace Cmex\Chunks;
 
 class MenuChunk extends \Chunk {
     public function config() {
-
+        return "";
     }
 
     public function show($properties=array()) {
