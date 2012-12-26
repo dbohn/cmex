@@ -14,5 +14,12 @@ return array(
         'template' => 'main',
         'created_at' => new DateTime,
         'updated_at' => new DateTime
+    ),
+    array(
+        'title' => 'Über uns',
+        'identifier' => 'aboutus',
+        'template' => 'main',
+        'created_at' => new DateTime,
+        'updated_at' => new DateTime
     )
 );

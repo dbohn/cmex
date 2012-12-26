@@ -69,6 +69,6 @@ class MenuChunk extends \Chunk {
     }
 
     public function handleInput($data) {
-
+        
     }
 }

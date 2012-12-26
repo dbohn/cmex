@@ -2,7 +2,6 @@
 
 if(!function_exists('chunk')) {
     function chunk($name, $type, $scope) {
-        //print_r(app());
         if(func_num_args() > 3) {
             $properties = func_get_args();
             unset($properties[0]);
@@ -19,7 +18,10 @@ if(!function_exists('chunk')) {
                 $chunk->setProperties((array)$properties);
             }
 
-            if($chunk->fetchByChunkName($scope . "_" . $name)) {
+            if($chunk->fetchByChunkName($scope, $name)) {
+                if(Input::has("chunk") && Input::get("chunk") == $scope . "_" . $name) {
+                    $chunk->handleInput(Input::get());
+                }
                 if(Auth::check()) {
                     return $chunk->handleConfig() . $chunk->show();
                 }

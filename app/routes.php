@@ -25,6 +25,6 @@ Route::get('logoff', 'LoginController@logoff');
 
 Route::post('doLogin', 'LoginController@auth');
 
-Route::get('{page}', 'PageController@handlePageRequest');
+Route::any('{page}', 'PageController@handlePageRequest');
 
 Route::get('/', 'PageController@showHomePage');

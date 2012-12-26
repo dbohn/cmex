@@ -12,7 +12,23 @@ return array(
     array(
         'name' => 'contact_content',
         'type' => 'Container',
+        'content' => '[{"name":"main","type":"text"},{"name":"mailform","type":"contact"}]',
+        'page' => 2,
+        'created_at' => new DateTime,
+        'updated_at' => new DateTime
+    ),
+    array(
+        'name' => 'aboutus_content',
+        'type' => 'Container',
         'content' => '[{"name":"main","type":"text"}]',
+        'page' => 3,
+        'created_at' => new DateTime,
+        'updated_at' => new DateTime
+    ),
+    array(
+        'name' => 'contact_mailform',
+        'type' => 'Contact',
+        'content' => 'davbohn@googlemail.com',
         'page' => 2,
         'created_at' => new DateTime,
         'updated_at' => new DateTime
@@ -30,6 +46,14 @@ return array(
         'type' => 'Text',
         'content' => '<p>Wir freuen uns über jede Ihrer Anfragen. Selbstverständlich unterbreiten wir Ihnen auch unverbindliche Angebote zu Ihren Projekten.</p>',
         'page' => 2,
+        'created_at' => new DateTime,
+        'updated_at' => new DateTime
+    ),
+    array(
+        'name' => 'aboutus_main',
+        'type' => 'Text',
+        'content' => '<p>Wir über uns</p>',
+        'page' => 3,
         'created_at' => new DateTime,
         'updated_at' => new DateTime
     ),

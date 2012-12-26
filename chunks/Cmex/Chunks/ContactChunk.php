@@ -4,43 +4,45 @@ namespace Cmex\Chunks;
 
 class ContactChunk extends \Chunk {
     public function config() {
-
+        return "";
     }
     
     public function show($properties = array()) {
-        \Form::macro('group_text',function($name, $label=null)
+        $form = $this->getForm();
+        //var_dump($this->getForm());
+        $form->macro('group_text',function($name, $label=null) use($form)
         {
-            return \Form::template('div', function($form) use($name, $label)
+            return $form->template('div', function($innerform) use($name, $label, $form)
             {
-                $form->label($label)->class('control-label');
+                $innerform->label($label)->class('control-label');
 
-                $form->div(function($form) use($name)
+                $innerform->div(function($innerform) use($name)
                 {
-                    $form->text($name)->class('span6');
-                    $form->setClass('controls');
+                    $innerform->text($name)->class('span6');
+                    $innerform->setClass('controls');
                 });
 
-                $form->setClass('control-group');
+                $innerform->setClass('control-group');
             });
         });
 
-        \Form::macro('group_textarea',function($name, $label=null)
+        $form->macro('group_textarea',function($name, $label=null) use($form)
         {
-            return \Form::template('div', function($form) use($name, $label)
+            return $form->template('div', function($innerform) use($name, $label)
             {
-                $form->label($label)->class('control-label');
+                $innerform->label($label)->class('control-label');
 
-                $form->div(function($form) use($name)
+                $innerform->div(function($innerform) use($name)
                 {
-                    $form->textarea()->name($name)->class('span6');
-                    $form->setClass('controls');
+                    $innerform->textarea()->name($name)->class('span6');
+                    $innerform->setClass('controls');
                 });
 
-                $form->setClass('control-group');
+                $innerform->setClass('control-group');
             });
         });
 
-        return \Form::make(function($form) {
+        return $form->make(function($form) {
             $form->setMethod('POST');
             $form->setClass('form-horizontal');
             $form->group_text('sender', 'Absender');
@@ -55,5 +57,6 @@ class ContactChunk extends \Chunk {
 
     public function handleInput($data) {
         // Send mail
+        echo "Es wurde was gepostet!";
     }
 }

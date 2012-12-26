@@ -19,11 +19,12 @@ class PageController extends BaseController {
             if(Auth::check()) {
                 Asset::add('adminstyle', 'admin/style.css');
             }
+
             $view = View::make($template.'/'.$dbpage->template, array(
-                    'head' => '__head__',
-                    'scripts' => '__scripts__', 
-                    'page' => $page, 
-                    'title' => $dbpage->title
+                'head' => '__head__',
+                'scripts' => '__scripts__', 
+                'page' => $page, 
+                'title' => $dbpage->title
                 ))->render();
             $view = str_replace('__scripts__', Asset::getScripts(), $view);
             $view = str_replace('__head__', Asset::getStylesheets(), $view);
