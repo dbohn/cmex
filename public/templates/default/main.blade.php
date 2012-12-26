@@ -17,6 +17,9 @@
     <div class="container">
         <div class="row">
             <div class="span12 header">
+                <div class="search">
+                    {{ chunk("sidesearch", "search_SmallSearchForm", "global") }}
+                </div>
                 <h1>cmex! ~ Project X</h1>
                 <h2>{{ $title }}</h2>
             </div>
@@ -24,6 +27,7 @@
         <div class="row">
             <div class="span3 sidebar">
                 {{ chunk("vertmenu", "menu", "global", $page) }}
+
             </div>
             <div class="span9">
                 {{ chunk("content", "container", $page) }}

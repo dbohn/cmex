@@ -40,6 +40,16 @@ abstract class Chunk {
                 });
             });
 
+            // Add CSRF Token to all fields!
+            $form->include_all(function() use ($form)
+            {
+                return $form->template('div',function($f)
+                {
+                    $f->hidden('csrf_token')->value(Session::getToken());
+                    $f->setClass('token');
+                });
+            });
+
             $this->form = $form;
             return $this->form;
         } else {

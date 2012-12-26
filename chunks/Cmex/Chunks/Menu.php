@@ -2,7 +2,7 @@
 
 namespace Cmex\Chunks;
 
-class MenuChunk extends \Chunk {
+class Menu extends \Chunk {
     public function config() {
         return "";
     }

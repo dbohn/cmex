@@ -28,7 +28,7 @@ return array(
     array(
         'name' => 'contact_mailform',
         'type' => 'Contact',
-        'content' => 'davbohn@googlemail.com',
+        'content' => '{"to":"davbohn@googlemail.com", "template":"contactform"}',
         'page' => 2,
         'created_at' => new DateTime,
         'updated_at' => new DateTime
@@ -61,6 +61,14 @@ return array(
         'name' => 'global_vertmenu',
         'type' => 'Menu',
         'content' => '[{"title":"Startseite","page":"home","children":[]},{"title":"\u00dcber uns","page":"aboutus","children":[{"title":"Kontakt","page":"contact","children":[]},{"title":"cancrisoft.net","extern":"http:\/\/cancrisoft.net","children":[]}]}]',
+        'page' => 0,
+        'created_at' => new DateTime,
+        'updated_at' => new DateTime
+    ),
+    array(
+        'name' => 'global_sidesearch',
+        'type' => 'Search_SmallSearchForm',
+        'content' => '{"page":"searchresults", "chunk":"myresults"}',
         'page' => 0,
         'created_at' => new DateTime,
         'updated_at' => new DateTime

@@ -2,7 +2,9 @@
 
 namespace Cmex\Chunks;
 
-class ContactChunk extends \Chunk {
+class Contact extends \Chunk {
+    private $status = null;
+
     public function config() {
         return "";
     }
@@ -10,6 +12,7 @@ class ContactChunk extends \Chunk {
     public function show($properties = array()) {
         $form = $this->getForm();
         //var_dump($this->getForm());
+        //var_dump(json_decode($this->content));
         $form->macro('group_text',function($name, $label=null) use($form)
         {
             return $form->template('div', function($innerform) use($name, $label, $form)
@@ -41,10 +44,21 @@ class ContactChunk extends \Chunk {
                 $innerform->setClass('control-group');
             });
         });
-
-        return $form->make(function($form) {
+        $status = $this->status;
+        return $form->make(function($form) use($status) {
             $form->setMethod('POST');
             $form->setClass('form-horizontal');
+            if(isset($status['success'])) {
+                $form->div(function($div) use ($status) {
+                    $div->setClass('alert alert-success');
+                    $div->putText($status['success']);
+                });
+            } else if(isset($status['error'])) {
+                $form->div(function($div) use ($status) {
+                    $div->setClass('alert alert-error');
+                    $div->putText($status['error']);
+                });
+            }
             $form->group_text('sender', 'Absender');
             $form->group_text('subject', 'Betreff');
             $form->group_textarea('mailtext', 'Text');
@@ -57,6 +71,15 @@ class ContactChunk extends \Chunk {
 
     public function handleInput($data) {
         // Send mail
-        echo "Es wurde was gepostet!";
+        //print_r($data);
+        $content = json_decode($this->content);
+        // echo $content;
+        if(\Mail::send($content->template, array('mailtext' => strip_tags($data['mailtext'])), function($m) use($content, $data) {
+            $m->to($content->to)->subject($data['subject'])->from($data['sender']);
+        })) {
+            $this->status = array('success' => 'Mail wurde versandt!');
+        } else {
+            $this->status = array('error' => 'Mail konnte nicht versandt werden!');
+        }
     }
 }
