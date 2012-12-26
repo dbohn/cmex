@@ -1,5 +1,34 @@
 <?php
 
+if(!function_exists('rawChunk')) {
+    function rawChunk($name, $type, $scope) {
+        if(func_num_args() > 3) {
+            $properties = func_get_args();
+            unset($properties[0]);
+            unset($properties[1]);
+            unset($properties[2]);
+        } else {
+            $properties = null;
+        }
+        
+        if(($class = isValidChunk($type)) !== false) {
+            $chunk = new $class();
+
+            /*if(!is_null($properties)) {
+                $chunk->setProperties((array)$properties);
+            }*/
+
+            if($chunk->fetchByChunkName($scope, $name)) {
+                return $chunk;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+}
+
 if(!function_exists('chunk')) {
     function chunk($name, $type, $scope) {
         if(func_num_args() > 3) {

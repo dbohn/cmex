@@ -73,13 +73,28 @@ class Contact extends \Chunk {
         // Send mail
         //print_r($data);
         $content = json_decode($this->content);
-        // echo $content;
-        if(\Mail::send($content->template, array('mailtext' => strip_tags($data['mailtext'])), function($m) use($content, $data) {
-            $m->to($content->to)->subject($data['subject'])->from($data['sender']);
-        })) {
-            $this->status = array('success' => 'Mail wurde versandt!');
+        $rules = array(
+            'sender' => 'required|email',
+            'subject' => 'required',
+            'mailtext' => 'required'
+            );
+
+        $validation = \Validator::make($data, $rules);
+        if($validation->fails()) {
+            echo "FAIL";
+            var_dump($validation->getMessages()->first('sender'));
+            //var_dump($validation->getMessages());
+            //$this->status = array('error' => $validation->errors);
         } else {
-            $this->status = array('error' => 'Mail konnte nicht versandt werden!');
+            // echo $content;
+            if(\Mail::send($content->template, array('mailtext' => strip_tags($data['mailtext'])), function($m) use($content, $data) {
+                $m->to($content->to)->subject($data['subject'])->from($data['sender']);
+            })) {
+                $this->status = array('success' => 'Mail wurde versandt!');
+            } else {
+                $this->status = array('error' => 'Mail konnte nicht versandt werden!');
+            }
         }
+        
     }
 }

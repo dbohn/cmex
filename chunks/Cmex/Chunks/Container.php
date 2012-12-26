@@ -1,10 +1,25 @@
 <?php
 
 namespace Cmex\Chunks;
+use \Cmex\Chunks\Search\SearchableInterface;
 
-class Container extends \Chunk {
+class Container extends \Chunk implements SearchableInterface {
     public function config() {
         return "";
+    }
+
+    public function getIndex() {
+        $ret = array();
+        $chunks = json_decode($this->content);
+
+        foreach($chunks as $chunk) {
+            if($inst = rawChunk($chunk->name, $chunk->type, $scope)) {
+                if($inst instanceof SearchableInterface) {
+                    $ret[] = array('name' => $chunk->name, 'index' => $inst->getIndex());
+                }
+            }
+        }
+        return $ret;
     }
 
     public function show($properties = array()) {
@@ -19,7 +34,12 @@ class Container extends \Chunk {
             } else {
                 $scope = $this->page;
             }
-            $ret .= chunk($chunk->name, $chunk->type, $scope, array());
+            if(property_exists($chunk, 'properties')) {
+                $ret .= call_user_func_array('chunk', array_merge(array($chunk->name, $chunk->type, $scope), $chunk->properties));
+            } else
+            {
+                $ret .= chunk($chunk->name, $chunk->type, $scope);
+            }
         }
 
         return $ret;

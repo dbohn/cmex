@@ -3,7 +3,7 @@
  it requires somes basic containers to build a page -->
  <html>
  <head>
-    <title>Project X  {{ $title }}</title>
+    <title>Project X - {{ $title }}</title>
     <meta charset="utf-8" />
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
     {{ Asset::add("jquery", "http://code.jquery.com/jquery.min.js") }}
@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row">
             <div class="span12 header">
-                <div class="search">
+                <div class="search pull-right">
                     {{ chunk("sidesearch", "search_SmallSearchForm", "global") }}
                 </div>
                 <h1>cmex! ~ Project X</h1>
@@ -35,7 +35,7 @@
         </div>
         <div class="row">
             <div class="footer span12">
-                <p>&copy; 2012 David Bohn</p>
+                <p class="muted">&copy; 2012 David Bohn</p>
             </div>
         </div>
     </div>
