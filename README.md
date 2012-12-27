@@ -14,16 +14,18 @@ It should work with all databases supported by Laravel 4, but currently only MyS
 
 I assume, that you have a global installation of composer.
 
-Just type:
+Just run in this directory:
 ```
 composer install
 ```
 
 This might take a couple of minutes as composer has to fetch all illuminate components.
 
-After this process has finished, type:
+After this process has finished, modify the file app/config/database.php to match your config and run the following commands in your shell:
 ```
-php artisan migrate --seed
+php artisan migrate:install
+php artisan migrate
+php artisan db:seed
 ```
 
 and you should be good to go!
