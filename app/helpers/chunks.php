@@ -2,15 +2,6 @@
 
 if(!function_exists('rawChunk')) {
     function rawChunk($name, $type, $scope) {
-        // if(func_num_args() > 3) {
-        //     $properties = func_get_args();
-        //     unset($properties[0]);
-        //     unset($properties[1]);
-        //     unset($properties[2]);
-        // } else {
-        //     $properties = null;
-        // }
-        
         if(($class = isValidChunk($type)) !== false) {
             $chunk = new $class();
 

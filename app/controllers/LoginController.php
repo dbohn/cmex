@@ -1,11 +1,28 @@
 <?php
 
 class LoginController extends BaseController {
+    /**
+     * login 
+     * shows Loginform
+     *
+     * @access public
+     * @return void
+     */
     public function login() {
-        //echo Input::get('name');
-        return View::make('loginform');
+        if(!Auth::check()) {
+		return View::make('loginform');
+	} else {
+		return Redirect::to('');
+	}
     }
 
+    /**
+     * auth
+     * Handles authentication 
+     * 
+     * @access public
+     * @return void
+     */
     public function auth() {
         if(Input::has('name') && Input::has('password')) {
             $credentials = array('name' => Input::get('name'), 
@@ -21,6 +38,13 @@ class LoginController extends BaseController {
         }
     }
 
+    /**
+     * logoff 
+     * Handles logout
+     *
+     * @access public
+     * @return void
+     */
     public function logoff() {
         if(Auth::check()) {
             Auth::logout();
