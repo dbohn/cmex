@@ -4,7 +4,7 @@ return array(
     array(
         'title' => 'Startseite',
         'identifier' => 'home',
-        'template' => 'main',
+        'template' => 'homepage',
         'created_at' => new DateTime,
         'updated_at' => new DateTime
     ),
