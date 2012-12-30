@@ -20,6 +20,7 @@ class PageController extends BaseController {
     	    // Load admin styles if authenticated
             if(Auth::check()) {
                 Asset::add('adminstyle', 'admin/style.css');
+                Asset::add('requirejs', 'http://requirejs.org/docs/release/2.1.2/minified/require.js', array('data-main' => 'admin/app.js'));
             }
 
     	    // Load view

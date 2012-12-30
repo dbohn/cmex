@@ -6,13 +6,13 @@
 @import url("iconic_fill.css");
 
  .configbutton {
-    position: relative;
-    left: 10px;
-    top: 0;
+    position: absolute;
+    /*left: 10px;
+    top: 0;*/
 
     width: 20px;
     height: 20px;
-    margin: 0;
+    margin: 3px;
 
     padding: 3px;
     display: block;
@@ -34,5 +34,14 @@
     font-size: 18px;
     text-shadow: 1px 1px 0px #fff;
     cursor: pointer;
+    opacity: 0.8;
     /* Versatz links - Versatz oben - Unschärfe (Blur) - Farbe */
+}
+
+.configbutton:hover {
+    opacity: 1;
+}
+
+.highlightFrame {
+    box-shadow: 3px 3px 5px 6px #ccc;
 }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="de">
 <head>
 	<title>Willkommen!</title>
 	<meta charset="utf-8" />
@@ -15,9 +15,11 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="hero-unit">
-				<h1>cmex! ~ Project X</h1>
-				<p>Das CMS der nächsten Generation. Ultra flexibel, ultra einfach.</p>
+			<div class="span12">
+				<div class="hero-unit">
+					<h1>cmex! ~ Project X</h1>
+					<p>Das CMS der nächsten Generation. Ultra flexibel, ultra einfach, ultra schnell.</p>
+				</div>
 			</div>
 		</div>
 

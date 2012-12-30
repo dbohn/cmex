@@ -39,9 +39,9 @@ if(!function_exists('chunk')) {
                     $chunk->handleInput(Input::get());
                 }
                 if(Auth::check()) {
-                    return $chunk->handleConfig() . $chunk->show();
+                    return '<div id="'.$scope.'_'.$name.'">'.$chunk->handleConfig() . $chunk->show().'</div>';
                 }
-                return $chunk->show();
+                return '<div id="'.$scope.'_'.$name.'">'.$chunk->show().'</div>';
             } else {
                 return "{{ Chunk data was not found! }}";
             }

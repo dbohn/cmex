@@ -16,7 +16,7 @@ Route::get('admin', function() {
 });
 
 Route::any('/admin/{module}', array('before' => 'auth', function($module) {
-    return "Administration - Sie sind eingeloggt als: ".Auth::user()->getFullName();
+    return "Administration - Sie sind eingeloggt als: ".Auth::user()->getFullName() . "<a href='".URL::to('/')."'>Startseite</a>";
 }));
 
 Route::get('login', array('as' => 'login', 'uses' => 'LoginController@login'));

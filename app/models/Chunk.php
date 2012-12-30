@@ -52,7 +52,7 @@ abstract class Chunk {
 
     public function handleConfig() {
         // Show edit button etc. pp.
-        $return = '<div class="configbutton" title="Edit chunk of type: '.$this->type.'">&#x2699;</div>';
+        $return = '<div class="configbutton" title="Edit chunk of type: '.$this->type.'" rel="'.$this->page.'_'.$this->name.'">&#x2699;</div>';
         // Finally handle chunk config-code:
         return $return . $this->config();
     }

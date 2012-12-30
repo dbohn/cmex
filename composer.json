@@ -2,7 +2,7 @@
 	"require": {
 		"illuminate/foundation": "1.2.*",
 		"raftalks/form": "1.2.*",
-		"guzzle/guzzle": "3.0.*@dev"
+		"guzzle/guzzle": "v3.0.7"
 	},
 	"autoload": {
 		"classmap": [

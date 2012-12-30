@@ -13,32 +13,41 @@ class AssetHandler {
             $url = asset($path);
         }
 
+        $args = "";
+        if(func_num_args() == 3 && is_array(func_get_arg(2))) {
+            foreach (func_get_arg(2) as $key => $value) {
+                $args .= ' '.$key.'="'.$value.'"';
+            }
+        }
+
         // Determine type
         if(substr($path, strlen($path) - 2) == "js") {
             if(!isset($this->scripts[$name])) {
-                $this->scripts[$name] = $url;
+                $this->scripts[$name] = '<script src="'.$url.'"'.$args.'></script>';
             }
         } else {
             if(!isset($this->stylesheets[$name])) {
-                $this->stylesheets[$name] = $url;
+                $this->stylesheets[$name] = '<link rel="stylesheet" href="'.$url.'"'.$args.' />';
             }
         }
     }
 
     public function getScripts() {
-        $ret = "";
+        /*$ret = "";
         foreach($this->scripts as $name => $path) {
             $ret .= '<script src="'.$path.'"></script>';
         }
-        return $ret;
+        return $ret;*/
+        return implode("", $this->scripts);
     }
 
     public function getStylesheets() {
-        $ret = "";
+        /*$ret = "";
         foreach($this->stylesheets as $name => $path) {
             $ret .= '<link rel="stylesheet" href="'.$path.'" />';
         }
-        return $ret;
+        return $ret;*/
+        return implode("", $this->stylesheets);
     }
 
     public function get() {
