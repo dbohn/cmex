@@ -88,7 +88,6 @@ return array(
 		'Illuminate\CookieServiceProvider',
 		'Illuminate\Database\DatabaseServiceProvider',
 		'Illuminate\EncryptionServiceProvider',
-		'Illuminate\Events\EventServiceProvider',
 		'Illuminate\FilesystemServiceProvider',
 		'Illuminate\Hashing\HashServiceProvider',
 		'Illuminate\Log\LogServiceProvider',
