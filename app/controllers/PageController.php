@@ -12,8 +12,9 @@ class PageController extends BaseController {
      */
     public function handlePageRequest($page) {
         // TODO: Change this to a config lookup
-        $template = "default";
-
+        $conf = Config::get('cmex');
+        //echo get_class($conf['homepage']);
+        $template = $conf['template'];
         // Look up page in database
         $dbpage = Page::where('identifier', $page)->first();
         if(!is_null($dbpage)) {
@@ -44,6 +45,12 @@ class PageController extends BaseController {
 
     public function showHomePage() {
         // TODO: Homepage should not only be the page with identifier "home", add this to config...
-        return $this->handlePageRequest("home");
+        // Illuminate\Http\RedirectResponse
+        $conf = Config::get('cmex');
+        if($conf['homepage'] instanceof Illuminate\Http\RedirectResponse) {
+            return $conf['homepage'];
+        }
+
+        return $this->handlePageRequest($conf['homepage']);
     }
 }

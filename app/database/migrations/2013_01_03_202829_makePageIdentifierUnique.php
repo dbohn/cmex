@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFilesTable extends Migration {
+class MakePageIdentifierUnique extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,10 +11,9 @@ class CreateFilesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('files', function($table)
+		Schema::table('page', function($table)
 		{
-			$table->increments('id');
-			
+			$table->unique('identifier');
 		});
 	}
 
@@ -25,7 +24,10 @@ class CreateFilesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('files');
+		Schema::table('page', function($table)
+		{
+			$table->drop_unique('identifier');
+		});
 	}
 
 }
