@@ -11,28 +11,21 @@ require.config({
 });
 
 require(['jquery', 'jquery-ui'], function($) {
-	//$('.configbutton').css('color', '#fff');
-	$('.configbutton').each(function(el) {
-		//console.log($(this).attr('rel'));
-		$(this).position({
-			of: $('#'+$(this).attr('rel')),
-			my: 'left bottom',
-			at: 'left top',
-			offset: '-2px',
-			collision: 'flipfit flipfit'
-		}).hover(function() {
-			$('#' + $(this).attr('rel')).addClass('highlightFrame');
-			console.log('hover');
-		}, function() {
-			$('#' + $(this).attr('rel')).removeClass('highlightFrame');
-			console.log('out');
+	$(function() {
+		$('.configbutton').each(function(el) {
+			$(this).position({
+				of: $('#'+$(this).attr('rel')),
+				my: 'left bottom',
+				at: 'left top',
+				offset: '-2px',
+				collision: 'flipfit flipfit'
+			}).hover(function() {
+				$('#' + $(this).attr('rel')).addClass('highlightFrame');
+				console.log('hover');
+			}, function() {
+				$('#' + $(this).attr('rel')).removeClass('highlightFrame');
+				console.log('out');
+			});
 		});
 	});
-	/*$('.configbutton').position({
-		of: $('#'+$(this).attr('rel')),
-		my: 'left bottom',
-		at: 'left top',
-		offset: '-10px',
-		collision: 'flip flip'
-	});*/
 })
