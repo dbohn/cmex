@@ -36,7 +36,7 @@ return array(
     array(
         'name' => 'home_main',
         'type' => 'Text',
-        'content' => '<h1>Inhalt</h1> <p>Wenn wir diesen Text sehen, sind wir schon sehr weit!</p>',
+        'content' => '<h4>Download</h4> <p>Laden Sie die neueste Version herunter!</p>',
         'page' => 1,
         'created_at' => new DateTime,
         'updated_at' => new DateTime

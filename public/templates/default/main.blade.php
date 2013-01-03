@@ -35,7 +35,7 @@
         </div>
         <div class="row">
             <div class="footer span12">
-                <p class="muted">&copy; 2012 David Bohn</p>
+                <p class="muted">&copy; 2012 - {{ date("Y") }} David Bohn</p>
             </div>
         </div>
     </div>

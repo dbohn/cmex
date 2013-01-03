@@ -1,6 +1,6 @@
 <?php
 
-namespace Cmex\Chunks\Search;
+namespace Chunks\Cmex\Search;
 
 class SmallSearchForm extends \Chunk {
     public function config() {

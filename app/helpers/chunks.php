@@ -54,7 +54,7 @@ if(!function_exists('chunk')) {
 if(!function_exists('isValidChunk')) {
     function isValidChunk($name, $core = false) {
         $name = str_replace("_", "\\", $name);
-        $class = "Cmex\\Chunks\\".ucfirst($name);
+        $class = "Chunks\\Cmex\\".ucfirst($name);
         return class_exists($class) ? $class : false;
     }
 }

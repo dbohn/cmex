@@ -26,8 +26,7 @@
 		<div class="row">
 			<div class="span3 homemenu">{{ chunk("vertmenu", "menu", "global", $page) }}</div>
 			<div class="span3">
-				<h4>Download</h4>
-				<p>Laden Sie die neueste Version herunter!</p>
+				{{ chunk("content", "container", $page) }}
 			</div>
 			<div class="span3"><h4>Social Networks</h4><p>Besuchen Sie uns:</p></div>
 			<div class="span3">
@@ -35,6 +34,11 @@
 				<p>... ein Page Template, extra für die Home-Page in cmex!</p>
 			</div>
 		</div>
+		<div class="row">
+            <div class="footer span12">
+                <p class="muted">&copy; 2012 - {{ date("Y") }} David Bohn</p>
+            </div>
+        </div>
 	</div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Cmex\Chunks;
+namespace Chunks\Cmex;
 
 class Menu extends \Chunk {
     public function config() {

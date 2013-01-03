@@ -1,6 +1,6 @@
 <?php
 
-namespace Cmex\Chunks;
+namespace Chunks\Cmex;
 use Guzzle\Http\Client;
 
 class Contact extends \Chunk {
@@ -96,7 +96,7 @@ class Contact extends \Chunk {
             $apikey = 'eec041dd12d3b0ed4d12064e2825d9d0';
 
             $reqData = array(
-                'blog' => root_url(),
+                'blog' => \URL::to('/'),
                 'user_ip' => \Request::getClientIp(),
                 'user_agent' => $_SERVER['HTTP_USER_AGENT'],
                 'referrer'  =>  $_SERVER['HTTP_REFERER'],

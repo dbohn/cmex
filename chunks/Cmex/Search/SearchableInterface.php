@@ -1,6 +1,6 @@
 <?php
 
-namespace Cmex\Chunks\Search;
+namespace Chunks\Cmex\Search;
 
 interface SearchableInterface {
     public function getIndex();

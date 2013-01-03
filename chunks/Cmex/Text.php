@@ -1,6 +1,6 @@
 <?php
-namespace Cmex\Chunks;
-use Cmex\Chunks\Search\SearchableInterface;
+namespace Chunks\Cmex;
+use Chunks\Cmex\Search\SearchableInterface;
 
 class Text extends \Chunk implements SearchableInterface {
     public function config() {
