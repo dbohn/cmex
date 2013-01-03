@@ -26,6 +26,14 @@ return array(
         'updated_at' => new DateTime
     ),
     array(
+        'name' => 'searchresults_content',
+        'type' => 'Container',
+        'content' => '[{"name":"myresults","type":"search_SearchResults"}]',
+        'page' => 4,
+        'created_at' => new DateTime,
+        'updated_at' => new DateTime
+    ),
+    array(
         'name' => 'contact_mailform',
         'type' => 'Contact',
         'content' => '{"to":"davbohn@googlemail.com", "template":"contactform"}',
@@ -54,6 +62,14 @@ return array(
         'type' => 'Text',
         'content' => '<p>Wir über uns</p>',
         'page' => 3,
+        'created_at' => new DateTime,
+        'updated_at' => new DateTime
+    ),
+    array(
+        'name' => 'searchresults_myresults',
+        'type' => 'search_SearchResults',
+        'content' => '{}',
+        'page' => 4,
         'created_at' => new DateTime,
         'updated_at' => new DateTime
     ),

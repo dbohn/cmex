@@ -24,7 +24,7 @@ class PageController extends BaseController {
             }
 
     	    // Load view
-            $view = View::make($template.'/'.$dbpage->template, array(
+            $view = View::make($template.'.'.$dbpage->template, array(
                 'head' => '__head__',
                 'scripts' => '__scripts__', 
                 'page' => $page, 

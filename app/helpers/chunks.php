@@ -39,7 +39,7 @@ if(!function_exists('chunk')) {
                     $chunk->handleInput(Input::get());
                 }
                 if(Auth::check()) {
-                    return '<div id="'.$scope.'_'.$name.'">'.$chunk->handleConfig() . $chunk->show().'</div>';
+                    return '<div id="'.$scope.'_'.$name.'">'. $chunk->handleConfig() . $chunk->show() . '</div>';
                 }
                 return '<div id="'.$scope.'_'.$name.'">'.$chunk->show().'</div>';
             } else {
