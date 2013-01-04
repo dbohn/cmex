@@ -33,20 +33,10 @@ class AssetHandler {
     }
 
     public function getScripts() {
-        /*$ret = "";
-        foreach($this->scripts as $name => $path) {
-            $ret .= '<script src="'.$path.'"></script>';
-        }
-        return $ret;*/
         return implode("", $this->scripts);
     }
 
     public function getStylesheets() {
-        /*$ret = "";
-        foreach($this->stylesheets as $name => $path) {
-            $ret .= '<link rel="stylesheet" href="'.$path.'" />';
-        }
-        return $ret;*/
         return implode("", $this->stylesheets);
     }
 

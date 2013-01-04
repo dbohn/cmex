@@ -15,6 +15,6 @@ class SmallSearchForm extends \Chunk {
     }
 
     public function handleInput($data) {
-        // Add chunk to container etc...
+        
     }
 }

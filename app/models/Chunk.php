@@ -119,8 +119,6 @@ abstract class Chunk {
         } else {
             return null;
         }
-
-        //return $chunkdb->type;
     }
 
     /**

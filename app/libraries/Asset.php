@@ -12,17 +12,8 @@ class Asset {
     {
         if (is_object(static::$handler)) return static::$handler;
 
-        //$decorator = static::getDecorator();
-
         return static::$handler = new AssetHandler($decorator);
     }
-
-    /*public static function getDecorator()
-    {
-        if (is_object(static::$decorator)) return static::$decorator;
-
-        return static::$decorator = new TagDecorator();
-    }*/
 
     /**
      * Handle dynamic, static calls to the object.

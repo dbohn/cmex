@@ -22,6 +22,7 @@ Route::any('/admin/{module}', array('before' => 'auth', function($module) {
 Route::get('login', array('as' => 'login', 'uses' => 'LoginController@login'));
 
 Route::get('logoff', 'LoginController@logoff');
+Route::get('logout', 'LoginController@logoff');
 
 Route::post('doLogin', 'LoginController@auth');
 
