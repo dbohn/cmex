@@ -14,6 +14,10 @@ class PageController extends BaseController {
         
         $conf = Config::get('cmex');
         
+        Event::listen('Load chunk', function($scope, $name) {
+            echo $scope . "_" . $name . " wurde geladen!<br />";
+        });
+
         $template = $conf['template'];
         // Look up page in database
         $dbpage = Page::where('identifier', $page)->first();

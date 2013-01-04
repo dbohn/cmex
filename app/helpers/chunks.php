@@ -35,6 +35,7 @@ if(!function_exists('chunk')) {
             }
 
             if($chunk->fetchByChunkName($scope, $name)) {
+                Event::fire('Load chunk', array($scope, $name));
                 if(Input::has("chunk") && Input::get("chunk") == $scope . "_" . $name) {
                     $chunk->handleInput(Input::get());
                 }
