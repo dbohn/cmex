@@ -14,11 +14,11 @@ return array(
 	*/
 
 	"accepted"        => "The :attribute must be accepted.",
-	"activeurl"       => "The :attribute is not a valid URL.",
+	"active_url"      => "The :attribute is not a valid URL.",
 	"after"           => "The :attribute must be a date after :date.",
 	"alpha"           => "The :attribute may only contain letters.",
-	"alphadash"       => "The :attribute may only contain letters, numbers, and dashes.",
-	"alphanum"        => "The :attribute may only contain letters and numbers.",
+	"alpha_dash"      => "The :attribute may only contain letters, numbers, and dashes.",
+	"alpha_num"       => "The :attribute may only contain letters and numbers.",
 	"before"          => "The :attribute must be a date before :date.",
 	"between"         => array(
 		"numeric" => "The :attribute must be between :min - :max.",
@@ -48,6 +48,7 @@ return array(
 	"notin"           => "The selected :attribute is invalid.",
 	"numeric"         => "The :attribute must be a number.",
 	"required"        => "The :attribute field is required.",
+	"required_with"   => "The :attribute field is required when :values is present.",
 	"same"            => "The :attribute and :other must match.",
 	"size"            => array(
 		"numeric"    => "The :attribute must be :size.",
