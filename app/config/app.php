@@ -119,7 +119,7 @@ return array(
 	|
 	*/
 
-	'manifest' => __DIR__.'/../storage/meta/services.json',
+	'manifest' => __DIR__.'/../storage/meta',
 
 	/*
 	|--------------------------------------------------------------------------
