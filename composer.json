@@ -1,12 +1,8 @@
 {
 	"require": {
-<<<<<<< HEAD
-		"illuminate/foundation": "1.2.*",
+		"laravel/framework": "4.0.*",
 		"raftalks/form": "1.2.*",
 		"guzzle/guzzle": "v3.0.7"
-=======
-		"laravel/framework": "4.0.*"
->>>>>>> 9ac34515eeac66193cece14228d8cbcc70bff20f
 	},
 	"autoload": {
 		"classmap": [
