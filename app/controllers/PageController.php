@@ -14,8 +14,8 @@ class PageController extends BaseController {
         
         $conf = Config::get('cmex');
         
-        Event::listen('Load chunk', function($scope, $name) {
-            echo $scope . "_" . $name . " wurde geladen!<br />";
+        Event::listen('Load chunk', function($event) {
+            return $event->scope . '_' . $event->name . ' wurde geladen!<br />';
         });
 
         $template = $conf['template'];

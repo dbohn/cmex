@@ -26,7 +26,7 @@ class MakePageIdentifierUnique extends Migration {
 	{
 		Schema::table('page', function($table)
 		{
-			$table->drop_unique('identifier');
+			$table->dropUnique('identifier');
 		});
 	}
 
