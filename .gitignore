@@ -1,5 +1,8 @@
-vendor
+/vendor
 composer.phar
 composer.lock
 .DS_Store
+<<<<<<< HEAD
 projectxtest.php
+=======
+>>>>>>> 9ac34515eeac66193cece14228d8cbcc70bff20f
