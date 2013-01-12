@@ -3,11 +3,11 @@
 abstract class Chunk {
     protected $properties = array();
     protected $name = "";
-    protected $content = "";
-    protected $page = "";
+    protected $scope = "";
     protected $type = "";
     protected $form = null;
     private $tagdecorator = null;
+    private $chunkstorage = null;
 
     public function __construct() {
         // Determine chunk type
@@ -30,13 +30,13 @@ abstract class Chunk {
         if(is_null($this->form)) {
             $this->tagdecorator = new \Html\TagDecorator();
             $form = new \Form\FormHandler($this->tagdecorator);
-            $page = $this->page;
+            $scope = $this->scope;
             $name = $this->name;
 
             // Add hidden field with chunk name
-            $form->include_all(function() use ($form, $page, $name) {
-                return $form->template('div', function($f) use ($page, $name) {
-                    $f->hidden('chunk')->value($page . "_" . $name);
+            $form->include_all(function() use ($form, $scope, $name) {
+                return $form->template('div', function($f) use ($scope, $name) {
+                    $f->hidden('chunk')->value($scope . "_" . $name);
 
                     $f->hidden('csrf_token')->value(Session::getToken());
                     $f->setClass('sys');
@@ -54,16 +54,16 @@ abstract class Chunk {
      * Generates the form open tag, quite useful because it adds additional candy like chunk-field etc.
      * @param $method get|post
      * @param $formname name parameter of the form
-     * @param $action Full URL where the form is handled. Let empty for current page
+     * @param $action Full URL where the form is handled. Let empty for current scope
      * @param $handler if you want a different chunk to handle the form, add its identifier here
      * @param $fileupload set to true if you want to upload files
      * @param $csrf true for automatic token addition
      */
     protected function openForm($method="post", $formname="", $action="", $handler="", $fileupload=false, $csrf=true) {
-        $chunk = $this->page . "_" . $this->name;
+        $chunk = $this->scope . "_" . $this->name;
 
         if($action == "" || is_null($action)) {
-            //$action = \URL::to($page);
+            //$action = \URL::to($scope);
             $action = \Request::fullUrl();
         }
 
@@ -90,7 +90,7 @@ abstract class Chunk {
 
     public function handleConfig() {
         // Show edit button etc. pp.
-        $return = '<div class="configbutton" title="Edit chunk of type: '.$this->type.'" rel="'.$this->page.'_'.$this->name.'">&#x2699;</div>';
+        $return = '<div class="configbutton" title="Edit chunk of type: '.$this->type.'" rel="'.$this->scope.'_'.$this->name.'">&#x2699;</div>';
         // Finally handle chunk config-code:
         return $return . $this->config();
     }
@@ -103,22 +103,26 @@ abstract class Chunk {
         $this->properties = array_merge($this->properties, $properties);
     }
 
-    /**
-     * This method fetches the chunk information by the name
-     * of the chunk, see it as an init-Method
-     */
-    public function fetchByChunkName($scope, $name) {
-        //$pagename = explode("_", $name);
-        $this->page = $scope;
-        $chunkdb = DB::table('chunks')->where('name', $scope . "_" . $name)->first();
-        if(!is_null($chunkdb))
-        {
-            $this->name = $name;
-            $this->content = $chunkdb->content;
-            return $this;
-        } else {
-            return null;
+    public function setChunkName($scope, $name) {
+        $this->scope = $scope;
+        $this->name = $name;
+    }
+
+    public function __get($key) {
+        if($key == 'content') {
+            if($this->chunkstorage === null) {
+                $chunkdb = DB::table('chunks')->where('name', $this->scope . "_" . $this->name)->first();
+                if($chunkdb === null) {
+                    throw new ChunkNotFoundException('Chunk was not found!');
+                }
+                $this->chunkstorage = array('content' => $chunkdb->content);
+            }
+            return $this->chunkstorage['content'];
+        } else if($key == 'identifier') {
+            return $this->scope . '_' . $this->name;
         }
+
+        throw new IllegalArgumentException('Unknown property!');
     }
 
     /**

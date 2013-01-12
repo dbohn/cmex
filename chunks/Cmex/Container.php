@@ -32,7 +32,7 @@ class Container extends \Chunk implements SearchableInterface {
             if(property_exists($chunk, 'scope')) {
                 $scope = $chunk->scope;
             } else {
-                $scope = $this->page;
+                $scope = $this->scope;
             }
             if(property_exists($chunk, 'properties')) {
                 $ret .= call_user_func_array('chunk', array_merge(array($chunk->name, $chunk->type, $scope), $chunk->properties));

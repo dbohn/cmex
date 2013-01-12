@@ -12,7 +12,12 @@ class Text extends \Chunk implements SearchableInterface {
     }
 
     public function show($properties=array()) {
-        return $this->content;
+        $_ = $this;
+        $value = \Cache::rememberForever($this->identifier, function() use($_) {
+            return $_->content;
+        });
+        //return $this->content;
+        return $value;
     }
 
     public function handleInput($data) {

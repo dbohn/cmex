@@ -34,18 +34,23 @@ if(!function_exists('chunk')) {
                 $chunk->setProperties((array)$properties);
             }
 
-            if($chunk->fetchByChunkName($scope, $name)) {
-                Event::fire('Load chunk', array('scope' => $scope, 'name' => $name));
+            $chunk->setChunkName($scope, $name);
+            try {
+                Event::fire('Loading chunk', array('scope' => $scope, 'name' => $name));
                 if(Input::has("chunk") && Input::get("chunk") == $scope . "_" . $name) {
                     $chunk->handleInput(Input::get());
                 }
                 if(Auth::check()) {
                     return '<div id="'.$scope.'_'.$name.'">'. $chunk->handleConfig() . $chunk->show() . '</div>';
                 }
-                return '<div id="'.$scope.'_'.$name.'">'.$chunk->show().'</div>';
-            } else {
+
+                return $chunk->show();
+            } catch(ChunkNotFoundException $e) {
                 return "{{ Chunk data was not found! }}";
+            } catch(Exception $generalException) {
+                return $generalException->getMessage();
             }
+            //}
         } else {
             return "{{ Chunk " . $type . " not found }}";
         }
