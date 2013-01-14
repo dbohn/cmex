@@ -57,9 +57,10 @@ abstract class Chunk {
      * @param $action Full URL where the form is handled. Let empty for current scope
      * @param $handler if you want a different chunk to handle the form, add its identifier here
      * @param $fileupload set to true if you want to upload files
+     * @param $attributes further attributes for the form tag
      * @param $csrf true for automatic token addition
      */
-    protected function openForm($method="post", $formname="", $action="", $handler="", $fileupload=false, $csrf=true) {
+    protected function openForm($method="post", $formname="", $action="", $handler="", $fileupload=false, $attributes=array(), $csrf=true) {
         $chunk = $this->scope . "_" . $this->name;
 
         if($action == "" || is_null($action)) {
@@ -80,12 +81,17 @@ abstract class Chunk {
             $chunk = $handler;
         }
 
+        $attstring = "";
+        foreach($attributes as $attr=>$value) {
+            $attstring .= ' ' . $attr . '="'.$value.'"';
+        }
+
         $hiddenfield = '<input type="hidden" name="chunk" value="'.$chunk.'" />';
         if($csrf) {
             $hiddenfield .= '<input type="hidden" name="csrf_token" value="'.Session::getToken().'" />';
         }
 
-        return '<form action="'.$action.'" method="'.$method.'"'.$formname.'>'.$hiddenfield;
+        return '<form action="'.$action.'" method="'.$method.'"'.$formname . $attstring .'>'.$hiddenfield;
     }
 
     public function handleConfig() {

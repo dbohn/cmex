@@ -8,32 +8,7 @@ class Menu extends \Chunk {
     }
 
     public function show($properties=array()) {
-        /*$menu = array(
-            array(
-                'title' => 'Startseite', 
-                'page' => 'home', 
-                'children' => array()
-            ), 
-            array(
-                'title' => 'Über uns', 
-                'page' => 'aboutus', 
-                'children' => array(
-                    array(
-                        'title' => 'Kontakt', 
-                        'page' => 'contact', 
-                        'children' => array()
-                    ),
-                    array(
-                        'title' => 'cancrisoft.net',
-                        'extern' => 'http://cancrisoft.net',
-                        'children' => array()
-                    )
-                )
-            )
-        );*/
-
-        //\Asset::add("jquery", "http://code.jquery.com/jquery.min.js");
-        return $this->makeMenu(json_decode($this->content));
+        return $this->makeMenu($this->name);
     }
 
     /**
@@ -43,28 +18,52 @@ class Menu extends \Chunk {
      * @param $menu array deserialized JSON-data
      * @return HTML tree
      */
-    private function makeMenu($menu) {
-        $ret = "<ul>";
-        foreach($menu as $item) {
-            $href = "";
-            if(property_exists($item, 'page')) {
-                $href = \URL::to($item->page);
-            } else if(property_exists($item, 'extern')) {
-                $href = $item->extern;
+    private function makeMenu($menu, $startLeft=1) {
+        //$items = \DB::table('menu')->select(\DB::raw('COUNT(*)-1 as level, title, ROUND((rgt-lft-1)/2) AS offspring'))->get();
+        $pfx = \Config::get('database.connections.'.\Config::get('database.default').'.prefix');
+
+        $items = \DB::select(
+            'SELECT n.title as ptitle, n.path as path, COUNT(*)-1 AS level, 
+            ROUND ((n.rgt - n.lft - 1) / 2) AS offspring
+            FROM '.$pfx.'menu AS n,
+            '.$pfx.'menu AS p
+            WHERE n.lft BETWEEN p.lft AND p.rgt AND n.menu = ? AND p.menu = ?
+            GROUP BY n.lft
+            ORDER BY n.lft',
+            array($menu, $menu)
+        );
+
+        $ret = '';
+        $curLevel = 0;
+
+        foreach($items as $item) {
+            if($curLevel > $item->level) {
+                $ret .= '</ul></li>';
+                $curLevel--;
             }
 
-            $class = '';
-            if(property_exists($item, 'page') && $item->page == $this->properties[0]) {
-                $class = ' class="active"';
+            if($item->ptitle != 'root') {
+                $class = '';
+                if($item->path == $this->properties[0]) {
+                    $class = ' class="active"';
+                }
+
+                $ret .= '<li><a href="'.\URL::to($item->path).'"'. $class . '>' . $item->ptitle . '</a>';
             }
 
-            $ret .= '<li><a'.$class.' href="'.$href.'">' . $item->title . "</a>";
-            if(!empty($item->children)) {
-                $ret .= $this->makeMenu($item->children);
+            if($item->offspring > 0) {
+                $ret .= '<ul>';
+                $curLevel++;
+            } else {
+                $ret .= '</li>';
             }
-            $ret .= "</li>";
         }
-        $ret .= "</ul>";
+        while($curLevel > 1) {
+            $ret .= '</ul></li>';
+            $curLevel--;
+        }
+        $ret .= '</ul>';
+
         return $ret;
     }
 

@@ -44,7 +44,8 @@ class PageController extends BaseController {
         }
         // TODO: Better Page not found handling!
         //return Response::error('404');
-        return "Seite nicht gefunden: ". $page;
+        App::abort(404);
+        //return "Seite nicht gefunden: ". $page;
     }
 
     public function showHomePage() {

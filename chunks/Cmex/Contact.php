@@ -11,64 +11,9 @@ class Contact extends \Chunk {
     }
     
     public function show($properties = array()) {
-        $form = $this->getForm();
-        //var_dump($this->getForm());
-        //var_dump(json_decode($this->content));
-        $form->macro('group_text',function($name, $label=null) use($form)
-        {
-            return $form->template('div', function($innerform) use($name, $label, $form)
-            {
-                $innerform->label($label)->class('control-label');
-
-                $innerform->div(function($innerform) use($name)
-                {
-                    $innerform->text($name)->class('span6');
-                    $innerform->setClass('controls');
-                });
-
-                $innerform->setClass('control-group');
-            });
-        });
-
-        $form->macro('group_textarea',function($name, $label=null) use($form)
-        {
-            return $form->template('div', function($innerform) use($name, $label)
-            {
-                $innerform->label($label)->class('control-label');
-
-                $innerform->div(function($innerform) use($name)
-                {
-                    $innerform->textarea()->name($name)->rows(10)->class('span6');
-                    $innerform->setClass('controls');
-                });
-
-                $innerform->setClass('control-group');
-            });
-        });
-        $status = $this->status;
-        return $form->make(function($form) use($status) {
-            $form->setMethod('POST');
-            $form->setClass('form-horizontal');
-            if(isset($status['success'])) {
-                $form->div(function($div) use ($status) {
-                    $div->setClass('alert alert-success');
-                    $div->putText($status['success']);
-                });
-            } else if(isset($status['error'])) {
-                $form->div(function($div) use ($status) {
-                    $div->setClass('alert alert-error');
-                    $div->putText($status['error']);
-                });
-            }
-            $form->group_text('sendername', 'Ihr Name');
-            $form->group_text('sender', 'Ihre E-Mail-Adresse');
-            $form->group_text('subject', 'Betreff');
-            $form->group_textarea('mailtext', 'Text');
-            $form->div(function($button) {
-                $button->submit('Absenden')->class('btn btn-primary');
-                $button->setClass('controls');
-            });
-        });
+        return \View::make('Cmex.Contact.contactForm', array(
+            'openForm' => $this->openForm("post", "contactForm", null, "", false, array('class' => 'form-horizontal'), true),
+            'status' => $this->status));
     }
 
     public function handleInput($data) {
