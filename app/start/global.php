@@ -26,10 +26,20 @@ Log::useDailyFiles(__DIR__.'/../storage/logs/log.txt');
 |
 */
 
-App::missing(function($exception) {
-	if(View::exists(Config::get('cmex.template').".".Config::get('cmex.404view'))) {
-		return View::make(Config::get('cmex.template').".".Config::get('cmex.404view'));
-	} else {
+// App::missing(function($exception) {
+// 	if(View::exists(Config::get('cmex.template').".".Config::get('cmex.error404_default'))) {
+// 		return View::make(Config::get('cmex.template').".".Config::get('cmex.404view'));
+// 	} else {
+// 		return View::make('error404');
+// 	}
+// });
+
+App::error(function(Symfony\Component\HttpKernel\Exception\HttpException $exception) {
+	try {
+		// Try loading templates default view
+		return View::make(Config::get('cmex.template').".".Config::get('cmex.error404_default'));
+	} catch(InvalidArgumentException $e) {
+		// otherwise load cmex-default
 		return View::make('error404');
 	}
 });
