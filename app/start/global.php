@@ -37,10 +37,18 @@ Log::useDailyFiles(__DIR__.'/../storage/logs/log.txt');
 App::error(function(Symfony\Component\HttpKernel\Exception\HttpException $exception) {
 	try {
 		// Try loading templates default view
-		return View::make(Config::get('cmex.template').".".Config::get('cmex.error404_default'));
+		$view = View::make(Config::get('cmex.template').".".Config::get('cmex.error404_default'));
+
+		$response = Response::make($view, 404);
+
+		return $response;
 	} catch(InvalidArgumentException $e) {
 		// otherwise load cmex-default
-		return View::make('error404');
+		$view = View::make('error404');
+
+		$response = Response::make($view, 404);
+
+		return $response;
 	}
 });
 
