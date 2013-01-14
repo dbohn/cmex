@@ -2,7 +2,8 @@
 	"require": {
 		"laravel/framework": "4.0.*",
 		"raftalks/form": "1.2.*",
-		"guzzle/guzzle": "v3.0.7"
+		"guzzle/guzzle": "v3.0.7",
+		"cartalyst/sentry": "2.0.*"
 	},
 	"autoload": {
 		"classmap": [

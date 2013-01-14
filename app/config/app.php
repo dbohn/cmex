@@ -105,6 +105,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+		'Cartalyst\Sentry\SentryServiceProvider'
 
 	),
 
@@ -165,7 +166,8 @@ return array(
 		'View'       => 'Illuminate\Support\Facades\View',
 		'Form'		 => 'Form\Form',
 		'Html'		 => 'Html\Html',
-		'Asset'		 => 'Cmex\Asset'
+		'Asset'		 => 'Cmex\Asset',
+		'Sentry'	 => 'Cartalyst\Sentry\Facades\Sentry'
 
 	),
 
