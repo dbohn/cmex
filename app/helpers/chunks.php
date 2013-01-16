@@ -5,7 +5,7 @@ if(!function_exists('rawChunk')) {
         if(($class = isValidChunk($type)) !== false) {
             $chunk = new $class();
 
-            if($chunk->fetchByChunkName($scope, $name)) {
+            if($chunk->setChunkName($scope, $name)) {
                 return $chunk;
             } else {
                 return false;
@@ -36,11 +36,10 @@ if(!function_exists('chunk')) {
 
             $chunk->setChunkName($scope, $name);
             try {
-                Event::fire('Loading chunk', array('scope' => $scope, 'name' => $name));
                 if(Input::has("chunk") && Input::get("chunk") == $scope . "_" . $name) {
                     $chunk->handleInput(Input::get());
                 }
-                if(Auth::check()) {
+                if(Sentry::check()) {
                     return '<div id="'.$scope.'_'.$name.'">'. $chunk->handleConfig() . $chunk->show() . '</div>';
                 }
 

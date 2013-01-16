@@ -13,17 +13,13 @@ class PageController extends BaseController {
     public function handlePageRequest($page) {
         
         $conf = Config::get('cmex');
-        
-        Event::listen('Load chunk', function($event) {
-            return $event->scope . '_' . $event->name . ' wurde geladen!<br />';
-        });
 
         $template = $conf['template'];
         // Look up page in database
         $dbpage = Page::where('identifier', $page)->first();
         if(!is_null($dbpage)) {
     	    // Load admin styles if authenticated
-            if(Auth::check()) {
+            if(Sentry::check()) {
                 Asset::add('adminstyle', 'admin/style.css');
                 Asset::add('requirejs', 'http://requirejs.org/docs/release/2.1.2/minified/require.js', array('data-main' => 'admin/app.js'));
             }
