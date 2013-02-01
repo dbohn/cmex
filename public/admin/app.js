@@ -6,11 +6,14 @@ require.config({
 	shim: {
 		'jquery-ui': {
 			deps: ['jquery']
+		},
+		'create': {
+			deps: ['jquery-ui', 'vie']
 		}
 	}
 });
 
-require(['jquery', 'jquery-ui'], function($) {
+require(['jquery', 'create'], function($) {
 	$(function() {
 		$('.configbutton').each(function(el) {
 			$(this).position({
@@ -21,10 +24,8 @@ require(['jquery', 'jquery-ui'], function($) {
 				collision: 'flipfit flipfit'
 			}).hover(function() {
 				$('#' + $(this).attr('rel')).addClass('highlightFrame');
-				console.log('hover');
 			}, function() {
 				$('#' + $(this).attr('rel')).removeClass('highlightFrame');
-				console.log('out');
 			});
 		});
 	});
