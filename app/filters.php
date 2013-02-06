@@ -35,12 +35,12 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (!Sentry::check()) return Redirect::route('login');
+	if (!Authentication::check()) return Redirect::route('login');
 });
 
 Route::filter('guest', function()
 {
-	if (Sentry::check()) return Redirect::to('/');
+	if (Authentication::check()) return Redirect::to('/');
 });
 
 /*

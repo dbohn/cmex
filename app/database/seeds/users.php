@@ -2,9 +2,8 @@
 
 return array(
 	array(
-		'name'				  => 'admin',
 		'email'				  => 'admin@admin.com',
-		'password'			  => '$2a$08$yCKxPEWky6AATb9i$',
+		'password'			  => '$2y$10$4n/34xkQRdzOvDHmeoMpNORYDVsvPrs6csF1SEt7NYay0Cjej7T8u',
 		'activation_hash'	  => null,
 		'reset_password_hash' => null,
 		'activated'			  => true,

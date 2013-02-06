@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAuthenticationThrottleTable extends Migration {
+class MigrationCartalystSentryInstallThrottle extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,8 +13,8 @@ class CreateAuthenticationThrottleTable extends Migration {
 	{
 		Schema::create('throttle', function($table)
 		{
-			$table->increments('id');
-			$table->string('user_id');
+			$table->increments('id')->unsigned();
+			$table->integer('user_id')->unsigned();
 			$table->integer('attempts');
 			$table->boolean('suspended');
 			$table->boolean('banned');

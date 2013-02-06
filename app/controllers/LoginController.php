@@ -9,7 +9,7 @@ class LoginController extends BaseController {
      * @return void
      */
     public function login() {
-        if(!Sentry::check()) {
+        if(!Authentication::check()) {
             return View::make('loginform');
         } else {
             return Redirect::to('');
@@ -30,19 +30,25 @@ class LoginController extends BaseController {
                     'email' => Input::get('name'), 
                     'password' => Input::get('password')
                 );
+
+                $rememberMe = (Input::has("remember-me") && Input::get("remember-me") == "remember-me") ? true : false;
         
-                if($user = Sentry::authenticate($credentials)) {
+                if($user = Authentication::authenticate($credentials, $rememberMe)) {
                     return Redirect::to('admin/overview');
                 } else {
                     return Redirect::to('login')->with('error', 'Falsche Logindaten!');
                 }
             } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+                Log::info($e->getMessage());
                 return Redirect::to('login')->with('error', 'Der Benutzer wurde nicht gefunden!');
             } catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
+                Log::info($e->getMessage());
                 return Redirect::to('login')->with('error', 'Es muss ein Login-Feld angegeben werden!');
             } catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {
+                Log::info($e->getMessage());
                 return Redirect::to('login')->with('error', 'Der Nutzer ist nicht aktiviert!');
             } catch (Exception $e) {
+                Log::error($e->getMessage());
                 return Redirect::to('login')->with('error', $e->getMessage());
             }
             
@@ -59,43 +65,10 @@ class LoginController extends BaseController {
      * @return void
      */
     public function logoff() {
-        if(Sentry::check()) {
-            Sentry::logout();
+        if(Authentication::check()) {
+            Authentication::logout();
         }
 
         return Redirect::to('login')->with('success', 'Erfolgreich abgemeldet!');
-    }
-
-    public function userCreator() {
-        try
-        {
-            $user = Sentry::getUserProvider()->create(array(
-                'name'          =>  'admin',
-                'email'         => 'admin@admin.com',
-                'password'      => 'admin',
-                'first_name'    => 'David',
-                'last_name'     => 'Bohn',
-                'permissions' => array(
-                    'test'  => 1,
-                    'other' => -1,
-                    'admin' => 1,
-                )
-            ));
-        }
-        catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
-        {
-            echo 'Login field required.';
-        }
-        catch (Cartalyst\Sentry\Users\UserExistsException $e)
-        {
-            echo 'User with login already exists.';
-        }
-        catch (Cartalyst\Sentry\Users\InvalidPermissionsException $e) {
-            echo 'Not enough permissions!';
-        }
-        catch (Exception $e) {
-            echo 'Exception!';
-            echo $e->getMessage();
-        }
     }
 }

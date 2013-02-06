@@ -174,7 +174,7 @@ return array(
 		'Form'		 	  => 'Form\Form',
 		'Html'		 	  => 'Html\Html',
 		'Asset'		 	  => 'Cmex\Asset',
-		'Sentry'	 	  => 'Cartalyst\Sentry\Facades\Laravel\Sentry'
+		'Authentication'  => 'Cartalyst\Sentry\Facades\Laravel\Sentry'
 
 	),
 

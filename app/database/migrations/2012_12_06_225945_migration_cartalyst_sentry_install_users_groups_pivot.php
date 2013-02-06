@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserGroupsTable extends Migration {
+class MigrationCartalystSentryInstallUsersGroupsPivot extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,9 +13,9 @@ class CreateUserGroupsTable extends Migration {
 	{
 		Schema::create('users_groups', function($table)
 		{
-			$table->increments('id');
-			$table->integer('user_id');
-			$table->integer('group_id');
+			$table->increments('id')->unsigned();
+			$table->integer('user_id')->unsigned();
+			$table->integer('group_id')->unsigned();
 		});
 	}
 

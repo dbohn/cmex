@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '10.0.2.15',
+			'host'      => 'localhost',
 			'database'  => 'projectx',
 			'username'  => 'root',
-			'password'  => 'vagrant',
+			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => 'cmx_',

@@ -52,7 +52,7 @@
         <input type="text" name="name" class="input-block-level" placeholder="Benutzername">
         <input type="password" name="password" class="input-block-level" placeholder="Passwort">
         <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Angemeldet bleiben
+          <input type="checkbox" name="remember-me" value="remember-me"> Angemeldet bleiben
         </label>
         <button class="btn btn-large btn-primary" type="submit">Login</button>
       </form>

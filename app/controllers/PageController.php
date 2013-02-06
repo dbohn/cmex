@@ -19,7 +19,7 @@ class PageController extends BaseController {
         $dbpage = Page::where('identifier', $page)->first();
         if(!is_null($dbpage)) {
     	    // Load admin styles if authenticated
-            if(Sentry::check()) {
+            if(Authentication::check()) {
                 Asset::add('adminstyle', 'admin/style.css');
                 Asset::add('requirejs', 'http://requirejs.org/docs/release/2.1.2/minified/require.js', array('data-main' => 'admin/app.js'));
             }

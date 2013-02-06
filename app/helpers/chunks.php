@@ -39,7 +39,7 @@ if(!function_exists('chunk')) {
                 if(Input::has("chunk") && Input::get("chunk") == $scope . "_" . $name) {
                     $chunk->handleInput(Input::get());
                 }
-                if(Sentry::check()) {
+                if(Authentication::check()) {
                     return '<div id="'.$scope.'_'.$name.'">'. $chunk->handleConfig() . $chunk->show() . '</div>';
                 }
 

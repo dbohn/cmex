@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupsTable extends Migration {
+class MigrationCartalystSentryInstallGroups extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGroupsTable extends Migration {
 	{
 		Schema::create('groups', function($table)
 		{
-			$table->increments('id');
+			$table->increments('id')->unsigned();
 			$table->string('name');
 			$table->text('permissions')->nullable();
 			$table->timestamps();

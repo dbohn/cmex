@@ -16,7 +16,7 @@ Route::get('admin/', function() {
 });
 
 Route::any('/admin/{module}', array('before' => 'auth', function($module) {
-    return "Administration - Sie sind eingeloggt als: ". Sentry::getUser()->first_name . " " . Sentry::getUser()->last_name . "<a href='".URL::to('/')."'>Startseite</a>";
+    return "Administration - Sie sind eingeloggt als: ". Authentication::getUser()->first_name . " " . Authentication::getUser()->last_name . "<a href='".URL::to('/')."'>Startseite</a>";
 }));
 
 Route::get('login', array('as' => 'login', 'uses' => 'LoginController@login'));
@@ -25,6 +25,13 @@ Route::get('logoff', 'LoginController@logoff');
 Route::get('logout', 'LoginController@logoff');
 
 Route::post('doLogin', 'LoginController@auth');
+
+Route::get('/test', function()
+{
+    $hasher = new \Cartalyst\Sentry\Hashing\NativeHasher();
+
+    return $hasher->hash("admin");
+});
 
 Route::any('{page}', 'PageController@handlePageRequest');
 

@@ -2,8 +2,6 @@
 
 /*
 |--------------------------------------------------------------------------
-<<<<<<< HEAD
-=======
 | Register The Laravel Class Loader
 |--------------------------------------------------------------------------
 |
@@ -22,7 +20,6 @@ ClassLoader::addDirectories(array(
 
 /*
 |--------------------------------------------------------------------------
->>>>>>> 106d3b7287108e168af39da737102cc8f8859370
 | Application Error Logger
 |--------------------------------------------------------------------------
 |
@@ -55,7 +52,7 @@ Log::useDailyFiles(__DIR__.'/../storage/logs/log.txt');
 // 	}
 // });
 
-App::error(function(Symfony\Component\HttpKernel\Exception\HttpException $exception) {
+App::missing(function($exception) {
 	try {
 		// Try loading templates default view
 		$view = View::make(Config::get('cmex.template').".".Config::get('cmex.error404_default'));
