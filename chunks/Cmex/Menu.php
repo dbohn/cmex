@@ -44,7 +44,7 @@ class Menu extends \Chunk {
 
             if($item->ptitle != 'root') {
                 $class = '';
-                if($item->path == $this->properties[0]) {
+                if($item->path == \ChunkManager::getPageIdentifier()) {
                     $class = ' class="active"';
                 }
 

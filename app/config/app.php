@@ -174,6 +174,7 @@ return array(
 		'Form'		 	  => 'Form\Form',
 		'Html'		 	  => 'Html\Html',
 		'Asset'		 	  => 'Cmex\Asset',
+		'ChunkManager'	  => 'Cmex\ChunkManager\ChunkManagerProvider',
 		'Authentication'  => 'Cartalyst\Sentry\Facades\Laravel\Sentry'
 
 	),

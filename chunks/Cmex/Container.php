@@ -4,42 +4,53 @@ namespace Chunks\Cmex;
 use \Chunks\Cmex\Search\SearchableInterface;
 
 class Container extends \Chunk implements SearchableInterface {
+    private $loadedChunks = array();
+
     public function config() {
         return "";
     }
 
+    public function initialize()
+    {
+        $chunks = json_decode($this->content);
+        foreach($chunks as $chunk)
+        {
+            if (property_exists($chunk, 'scope'))
+            {
+                $scope = $chunk->scope;
+            } else
+            {
+                $scope = $this->scope;
+            }
+
+            $this->loadedChunks[] = \ChunkManager::add($chunk->name, $chunk->type, $scope);
+        }
+    }
+
     public function getIndex() {
         $ret = array();
-        $chunks = json_decode($this->content);
+        //$chunks = json_decode($this->content);
 
-        foreach($chunks as $chunk) {
-            if($inst = rawChunk($chunk->name, $chunk->type, $scope)) {
-                if($inst instanceof SearchableInterface) {
-                    $ret[] = array('name' => $chunk->name, 'index' => $inst->getIndex());
-                }
+        foreach($this->loadedChunks as $chunk)
+        {
+            $inst = \ChunkManager::getChunkForKey($chunk);
+
+            if($inst instanceof SearchableInterface)
+            {
+                $ret[] = array('name' => $chunk, 'index' => $inst->getIndex());
             }
         }
+        
         return $ret;
     }
 
-    public function show($properties = array()) {
-        $chunks = json_decode($this->content);
+    public function show() {
         
         $ret = "";
-        foreach($chunks as $chunk) {
-            // Wenn ein Scope angegeben wurde, wähle diesen,
-            // ansonsten lokaler Scope
-            if(property_exists($chunk, 'scope')) {
-                $scope = $chunk->scope;
-            } else {
-                $scope = $this->scope;
-            }
-            if(property_exists($chunk, 'properties')) {
-                $ret .= call_user_func_array('chunk', array_merge(array($chunk->name, $chunk->type, $scope), $chunk->properties));
-            } else
-            {
-                $ret .= chunk($chunk->name, $chunk->type, $scope);
-            }
+
+        foreach($this->loadedChunks as $chunk)
+        {
+            $ret .= \ChunkManager::getChunkForKey($chunk)->show();
         }
 
         return $ret;

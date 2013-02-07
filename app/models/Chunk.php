@@ -1,12 +1,12 @@
 <?php
 
+use Cmex\ChunkManager\ChunkNotFoundException;
+
 abstract class Chunk {
     protected $properties = array();
     protected $name = "";
     protected $scope = "";
     protected $type = "";
-    protected $form = null;
-    private $tagdecorator = null;
     private $chunkstorage = null;
 
     public function __construct() {
@@ -16,38 +16,6 @@ abstract class Chunk {
         $type = explode("\\", $type);
         $this->type = end($type);
         
-    }
-
-    /**
-     * Returns a prepared form instance.
-     * It automatically prepends the chunk name to fields
-     * We don't want to use the Singleton-like Laravel Interface,
-     * because we have to prepend different things for every chunk
-     * that way we don't have to care about how to remove the previous
-     * settings in the class
-     **/
-    protected function getForm() {
-        if(is_null($this->form)) {
-            $this->tagdecorator = new \Html\TagDecorator();
-            $form = new \Form\FormHandler($this->tagdecorator);
-            $scope = $this->scope;
-            $name = $this->name;
-
-            // Add hidden field with chunk name
-            $form->include_all(function() use ($form, $scope, $name) {
-                return $form->template('div', function($f) use ($scope, $name) {
-                    $f->hidden('chunk')->value($scope . "_" . $name);
-
-                    $f->hidden('csrf_token')->value(Session::getToken());
-                    $f->setClass('sys');
-                });
-            });
-
-            $this->form = $form;
-            return $this->form;
-        } else {
-            return $this->form;
-        }
     }
 
     /**
@@ -138,12 +106,6 @@ abstract class Chunk {
      * a contact widget could instead just show a form to set recipient
      */
     public abstract function config();
-
-    /**
-     * Creates the basic view
-     * @return HTML code
-     */
-    public abstract function show($properties);
 
     public abstract function handleInput($data);
 }

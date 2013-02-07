@@ -15,16 +15,21 @@ class PageController extends BaseController {
         $conf = Config::get('cmex');
 
         $template = $conf['template'];
+
         // Look up page in database
         $dbpage = Page::where('identifier', $page)->first();
         if(!is_null($dbpage)) {
+
+            // Inject the page into the ChunkManager
+            ChunkManager::setPage($dbpage);
+
     	    // Load admin styles if authenticated
             if(Authentication::check()) {
                 Asset::add('adminstyle', 'admin/style.css');
                 Asset::add('requirejs', 'http://requirejs.org/docs/release/2.1.2/minified/require.js', array('data-main' => 'admin/app.js'));
             }
 
-    	    // Load view
+    	    // Load view - with that step, all chunks are initialized
             $view = View::make($template.'.'.$dbpage->template, array(
                 'head' => '__head__',
                 'scripts' => '__scripts__', 
@@ -32,8 +37,16 @@ class PageController extends BaseController {
                 'title' => $dbpage->title
             ))->render();
 
-    	    // Insert Assets and other head elements
-    	    $view = str_replace('__scripts__', Asset::getScripts(), $view);
+            ChunkManager::handleInput();
+            
+            foreach(ChunkManager::getLoadedChunks() as $chunk)
+            {
+                //echo $chunk;
+                $view = str_replace('__'.$chunk.'__', ChunkManager::showForKey($chunk), $view);
+            }
+
+            // Insert Assets and other head elements
+            $view = str_replace('__scripts__', Asset::getScripts(), $view);
             $view = str_replace('__head__', Asset::getStylesheets(), $view);
 
             return $view;

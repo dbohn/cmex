@@ -1,65 +1,28 @@
 <?php
 
-if(!function_exists('rawChunk')) {
-    function rawChunk($name, $type, $scope) {
-        if(($class = isValidChunk($type)) !== false) {
-            $chunk = new $class();
-
-            if($chunk->setChunkName($scope, $name)) {
-                return $chunk;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-}
-
 if(!function_exists('chunk')) {
-    function chunk($name, $type, $scope) {
-        if(func_num_args() > 3) {
-            $properties = func_get_args();
-            unset($properties[0]);
-            unset($properties[1]);
-            unset($properties[2]);
-        } else {
-            $properties = null;
-        }
-        
-        if(($class = isValidChunk($type)) !== false) {
-            $chunk = new $class();
+    function chunk($name, $type, $scope=null)
+    {
+        try {
+            if(($chunkKey = ChunkManager::add($name, $type, $scope)) !== false)
+            {
+                if(func_num_args() > 3) {
+                    $properties = func_get_args();
+                    unset($properties[0]);
+                    unset($properties[1]);
+                    unset($properties[2]);
 
-            if(!is_null($properties)) {
-                $chunk->setProperties((array)$properties);
-            }
-
-            $chunk->setChunkName($scope, $name);
-            try {
-                if(Input::has("chunk") && Input::get("chunk") == $scope . "_" . $name) {
-                    $chunk->handleInput(Input::get());
-                }
-                if(Authentication::check()) {
-                    return '<div id="'.$scope.'_'.$name.'">'. $chunk->handleConfig() . $chunk->show() . '</div>';
+                    ChunkManager::getChunkForKey($chunkKey)->setProperties((array)$properties);
                 }
 
-                return $chunk->show();
-            } catch(ChunkNotFoundException $e) {
-                return "{{ Chunk data was not found! }}";
-            } catch(Exception $generalException) {
-                return $generalException->getMessage();
+                return '__' . $chunkKey . '__';
             }
-            //}
-        } else {
-            return "{{ Chunk " . $type . " not found }}";
+        } catch (\Cmex\ChunkManager\ChunkAlreadyExistsException $e)
+        {
+            return "{{ There are two chunks with the same name! }}";
+        } catch (\Cmex\ChunkManager\InvalidChunkTypeException $e)
+        {
+            return "{{ " . $e->getMessage() . " }}";
         }
-    }
-}
-
-if(!function_exists('isValidChunk')) {
-    function isValidChunk($name, $core = false) {
-        $name = str_replace("_", "\\", $name);
-        $class = "Chunks\\Cmex\\".ucfirst($name);
-        return class_exists($class) ? $class : false;
     }
 }
