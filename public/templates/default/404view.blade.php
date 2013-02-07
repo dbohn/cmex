@@ -3,8 +3,10 @@
 	<head>
 		<title>Error 404 - Page not found</title>
 		<meta charset="utf-8">
-		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="{{ asset("templates/default/style.css") }}" />
+		<!--<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">-->
+        <link rel="stylesheet" href="{{ asset("templates/default/css/bootstrap.min.css") }}" />
+        <link rel="stylesheet" href="{{ asset("templates/default/css/bootstrap-responsive.min.css") }}" />
+		<link rel="stylesheet" href="{{ asset("templates/default/css/style.css") }}" />
 		<script src="http://use.edgefonts.net/lobster-two.js"></script>
     	<script src="http://use.edgefonts.net/open-sans.js"></script>
 	</head>
@@ -13,7 +15,6 @@
         <div class="container">
             <div class="row">
                 <div class="span12">
-                    
                     <h1>cmex!</h1>
                 </div>
             </div>

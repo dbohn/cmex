@@ -25,6 +25,7 @@ body {
     font-size: 250%;
     color: #E08E79;
     font-family: lobster-two, serif;
+    line-height: 90%;
 }
 
 .center .hero-unit {
@@ -82,7 +83,7 @@ a:hover {
 }
 
 .form-actions {
-    background: #E08E79;
+    background: #F1D4AF;
 }
 
 .footer p {

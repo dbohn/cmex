@@ -3,14 +3,15 @@
 <head>
 	<title>Willkommen!</title>
 	<meta charset="utf-8" />
-	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{{ asset("templates/default/css/bootstrap.min.css") }}" />
+    <link rel="stylesheet" href="{{ asset("templates/default/css/bootstrap-responsive.min.css") }}" />
 	{{ Asset::add("jquery", "http://code.jquery.com/jquery.min.js") }}
 	{{ $scripts }}
 	{{ $head }}
-	<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+	<!--<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>-->
 	<script src="http://use.edgefonts.net/lobster-two.js"></script>
 	<script src="http://use.edgefonts.net/open-sans.js"></script>
-	<link rel="stylesheet" href="{{ asset("templates/default/style.css") }}" />
+	<link rel="stylesheet" href="{{ asset("templates/default/css/style.css") }}" />
 
 </head>
 <body>

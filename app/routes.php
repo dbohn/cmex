@@ -11,13 +11,19 @@
 |
 */
 
-Route::get('admin/', function() {
-    return Redirect::to('admin/overview');
-});
+Route::group(array('prefix' => 'admin'), function()
+{
+    Route::get('/', function()
+    {
+        return Redirect::to('admin/overview');
+    });
 
-Route::any('/admin/{module}', array('before' => 'auth', function($module) {
-    return "Administration - Sie sind eingeloggt als: ". Authentication::getUser()->first_name . " " . Authentication::getUser()->last_name . "<a href='".URL::to('/')."'>Startseite</a>";
-}));
+    Route::get('{module}', array('before' => 'auth', function()
+    {
+        return "Administration - Sie sind eingeloggt als: ". Authentication::getUser()->first_name . " " . Authentication::getUser()->last_name . "<a href='".URL::to('/')."'>Startseite</a>";
+    }));
+
+});
 
 Route::get('login', array('as' => 'login', 'uses' => 'LoginController@login'));
 
@@ -25,13 +31,6 @@ Route::get('logoff', 'LoginController@logoff');
 Route::get('logout', 'LoginController@logoff');
 
 Route::post('doLogin', 'LoginController@auth');
-
-Route::get('/test', function()
-{
-    $hasher = new \Cartalyst\Sentry\Hashing\NativeHasher();
-
-    return $hasher->hash("admin");
-});
 
 Route::any('{page}', 'PageController@handlePageRequest');
 

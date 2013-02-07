@@ -1,32 +1,51 @@
-require.config({
+/*require.config({
 	paths: {
 		'jquery': 'http://code.jquery.com/jquery-1.8.3',
-		'jquery-ui': 'http://code.jquery.com/ui/1.9.2/jquery-ui'
+		'jquery-ui': 'http://code.jquery.com/ui/1.9.2/jquery-ui',
+		'aloha': 'http://cdn.aloha-editor.org/latest/lib/aloha',
+		'modernizr': 'http://modernizr.com/downloads/modernizr-latest'
 	},
 	shim: {
 		'jquery-ui': {
 			deps: ['jquery']
 		},
+		'backbone-min': {
+			deps: ['underscore-min']
+		},
 		'create': {
-			deps: ['jquery-ui', 'vie']
+			deps: ['jquery-ui', 'modernizr', 'backbone-min', 'vie']
 		}
 	}
 });
 
-require(['jquery', 'create'], function($) {
+require([
+	'jquery', 
+	'underscore-min', 
+	'backbone-min', 
+	'aloha',
+	'create'], 
+	function($, _, Backbone, Aloha) {
 	$(function() {
-		$('.configbutton').each(function(el) {
-			$(this).position({
-				of: $('#'+$(this).attr('rel')),
-				my: 'left bottom',
-				at: 'left top',
-				offset: '-2px',
-				collision: 'flipfit flipfit'
-			}).hover(function() {
-				$('#' + $(this).attr('rel')).addClass('highlightFrame');
-			}, function() {
-				$('#' + $(this).attr('rel')).removeClass('highlightFrame');
-			});
+		$('body').midgardCreate({
+			url: function() { return '/some/backend/url'; },
+			editor: 'aloha',
+			workflows: {
+				url: function(model) {
+					return '/some/backend/workflows/fetch/url/' + model.id;
+				}
+			}
 		});
 	});
-})
+});*/
+
+$(function() {
+	$('body').midgardCreate({
+			url: function() { return '/some/backend/url'; },
+			editor: 'aloha',
+			workflows: {
+				url: function(model) {
+					return '/some/backend/workflows/fetch/url/' + model.id;
+				}
+			}
+		});
+});

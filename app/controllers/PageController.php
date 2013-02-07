@@ -26,7 +26,17 @@ class PageController extends BaseController {
     	    // Load admin styles if authenticated
             if(Authentication::check()) {
                 Asset::add('adminstyle', 'admin/style.css');
-                Asset::add('requirejs', 'http://requirejs.org/docs/release/2.1.2/minified/require.js', array('data-main' => 'admin/app.js'));
+                Asset::add('alohacss', 'http://cdn.aloha-editor.org/latest/css/aloha.css');
+                Asset::add('jquery', 'http://code.jquery.com/jquery-1.8.3.js');
+                Asset::add('jquery-ui', 'http://code.jquery.com/ui/1.9.2/jquery-ui.js');
+                Asset::add('requirejs', 'http://requirejs.org/docs/release/2.1.2/minified/require.js');
+                Asset::add('aloha', 'http://cdn.aloha-editor.org/latest/lib/aloha.js');
+                Asset::add('modernizr', 'http://modernizr.com/downloads/modernizr-latest.js');
+                Asset::add('underscore', 'admin/underscore-min.js');
+                Asset::add('backbone', 'admin/backbone-min.js');
+                Asset::add('vie', 'admin/vie.js');
+                Asset::add('create', 'admin/create.js');
+                Asset::add('frontendapp', 'admin/app.js');
             }
 
     	    // Load view - with that step, all chunks are initialized
@@ -38,7 +48,7 @@ class PageController extends BaseController {
             ))->render();
 
             ChunkManager::handleInput();
-            
+
             foreach(ChunkManager::getLoadedChunks() as $chunk)
             {
                 //echo $chunk;
