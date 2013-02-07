@@ -1,10 +1,10 @@
 {{ $openForm }}
 @if (isset($status['success']))
-<div class="alert alert-success span6">{{ $status['success'] }}</div>
+<div class="alert alert-success span7">{{ $status['success'] }}</div>
 @endif
 
 @if (isset($status['error']))
-<div class="alert alert-error span6">{{ $status['error'] }}</div>
+<div class="alert alert-error span7">{{ $status['error'] }}</div>
 @endif
 
 <div class="control-group">

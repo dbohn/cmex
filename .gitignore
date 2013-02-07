@@ -1,9 +1,4 @@
 /vendor
 composer.phar
 composer.lock
-<<<<<<< HEAD
 .DS_Store
-projectxtest.php
-=======
-.DS_Store
->>>>>>> 106d3b7287108e168af39da737102cc8f8859370

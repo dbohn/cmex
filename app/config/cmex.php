@@ -28,5 +28,19 @@ return array(
 	 * You can also add a redirect instead of a page name:
 	 * Example: Redirect::to('myhomepage')
 	 */
-	'homepage' => 'home'
+	'homepage' => 'home',
+
+	/**
+	 * --------------------------------------------------------------------------
+	 * Akismet/Typepad
+	 * --------------------------------------------------------------------------
+	 * cmex! provides a basic interface for spam protection using Aksimet
+	 * or Typepad. Put your credentials here!
+	 * Currently supported: Typepad
+	 */
+	'spam_driver' => 'typepad',
+
+	'spam_apikey' => 'eec041dd12d3b0ed4d12064e2825d9d0',
+
+	'spam_enable_check' => false,
 );
