@@ -14,8 +14,8 @@
 
       .form-signin {
         max-width: 300px;
-        padding: 19px 29px 29px;
-        margin: 0 auto 20px;
+        padding: 19px 29px 20px;
+        margin: 0 auto 5px;
         background-color: #fff;
         border: 1px solid #e5e5e5;
         -webkit-border-radius: 5px;
@@ -55,8 +55,8 @@
           <input type="checkbox" name="remember-me" value="remember-me"> Angemeldet bleiben
         </label>
         <button class="btn btn-large btn-primary" type="submit">Login</button>
+        <p style="display: block; margin-top: 10px"><a href="{{path()}}">&larr; Zurück zur Startseite</a></p>
       </form>
-
     </div>
     </body>
 </html>

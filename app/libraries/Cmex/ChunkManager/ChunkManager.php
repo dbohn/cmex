@@ -2,8 +2,6 @@
 
 namespace Cmex\ChunkManager;
 
-use \Page;
-
 class ChunkManager
 {
 
@@ -18,7 +16,7 @@ class ChunkManager
         $this->loadChunkRepositories();
     }
 
-    public function setPage(Page $p)
+    public function setPage(\Page $p)
     {
         $this->page = $p;
     }
@@ -121,6 +119,19 @@ class ChunkManager
         {
             $class = $repositories[0] . ucfirst($name);
             return class_exists($class) ? $class : false;
+        } else
+        {
+            foreach($repositories as $repo)
+            {
+                $class = $repo . ucfirst($name);
+
+                if(class_exists($class))
+                {
+                    return $class;
+                }
+            }
+
+            return false;
         }
 
         return false;

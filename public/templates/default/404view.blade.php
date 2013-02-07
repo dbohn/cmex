@@ -5,28 +5,40 @@
 		<meta charset="utf-8">
 		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="{{ asset("templates/default/style.css") }}" />
-		<script src="http://use.edgefonts.net/maven-pro.js"></script>
+		<script src="http://use.edgefonts.net/lobster-two.js"></script>
+    	<script src="http://use.edgefonts.net/open-sans.js"></script>
 	</head>
 	<body>
-		<div class="container">
-	        <div class="row">
-	            <div class="span12 header">
-	                
-	                <h1>cmex! ~ Project X</h1>
-	                <h2>Error 404</h2>
-	            </div>
-	        </div>
-	        <div class="row">
-	            <div class="span12">
-	                <h1>Error 404</h1>
-	                <p>Die Seite wurde nicht gefunden!</p>
-	            </div>
-	        </div>
-	        <div class="row">
-	            <div class="footer span12">
-	                <p class="muted">&copy; 2012 - {{ date("Y") }} David Bohn</p>
-	            </div>
-	        </div>
+		<div class="top">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    
+                    <h1>cmex!</h1>
+                </div>
+            </div>
+        </div>
     	</div>
+		<div class="center">
+            <div class="hero-unit">
+                <div class="container">
+                        <h1>Error 404 :(</h1>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <p>Die von Ihnen angeforderte Seite wurde leider nicht gefunden. Das tut uns wirklich sehr leid!</p>
+                        <p>Sollten Sie von einer anderen Seite hierhergekommen sein bzw. sind sich sicher, dass die von Ihnen gesuchte Seite existieren muss, so kontaktieren Sie bitte den Administrator der Seite!</p>
+                        <p><a style="font-size: 150%;" href="{{path()}}">&larr; Zurück zur Startseite</a></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="footer span12">
+                        <p class="muted">&copy; 2012 - {{ date("Y") }} cmex! - Team</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</body>
 </html>
