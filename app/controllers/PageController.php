@@ -26,17 +26,22 @@ class PageController extends BaseController {
     	    // Load admin styles if authenticated
             if(Authentication::check()) {
                 Asset::add('adminstyle', 'admin/style.css');
-                Asset::add('alohacss', 'http://cdn.aloha-editor.org/latest/css/aloha.css');
-                Asset::add('jquery', 'http://code.jquery.com/jquery-1.8.3.js');
-                Asset::add('jquery-ui', 'http://code.jquery.com/ui/1.9.2/jquery-ui.js');
-                Asset::add('requirejs', 'http://requirejs.org/docs/release/2.1.2/minified/require.js');
-                Asset::add('aloha', 'http://cdn.aloha-editor.org/latest/lib/aloha.js');
-                Asset::add('modernizr', 'http://modernizr.com/downloads/modernizr-latest.js');
+                Asset::add('jquery', 'admin/jquery-1.7.1.min.js');
+                Asset::add('jquery-ui', 'admin/jquery-ui-1.8.18.custom.min.js');
                 Asset::add('underscore', 'admin/underscore-min.js');
                 Asset::add('backbone', 'admin/backbone-min.js');
-                Asset::add('vie', 'admin/vie.js');
-                Asset::add('create', 'admin/create.js');
+                Asset::add('vie', 'admin/vie-min.js');
+
+                Asset::add('jqtagsinput', 'admin/jquery.tagsinput.min.js');
+                Asset::add('jqrdfquery', 'admin/jquery.rdfquery.min.js');
+                Asset::add('rangy', 'admin/rangy-core-1.2.3.js');
+                Asset::add('hallo', 'admin/hallo-min.js');
+                Asset::add('create', 'admin/create-min.js');
                 Asset::add('frontendapp', 'admin/app.js');
+                Asset::add('create-css', 'admin/create-ui/css/create-ui.css');
+                Asset::add('create-notifications', 'admin/midgard-notifications/midgardnotif.css');
+                Asset::add('font-awesome', 'admin/font-awesome/css/font-awesome.css');
+                Asset::add('insertimage', 'admin/insertimage.css');
             }
 
     	    // Load view - with that step, all chunks are initialized

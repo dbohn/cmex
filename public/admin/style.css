@@ -1,45 +1,16 @@
-/*
- * This file contains some styling for the central elements of the
- * frontend in edit mode!
- */
-
- .configbutton {
-    position: absolute;
-    /*left: 10px;
-    top: 0;*/
-
-    width: 20px;
-    height: 20px;
-    margin: 3px;
-
-    padding: 3px;
-    display: block;
-    text-align: center;
-
-    font-family: 'IconicFill', sans-serif;
-
-    background: #e5e5e5; /* Old browsers */
-    background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-    
-    border-radius: 3px;
-    border: 1px solid #ccc;
-    font-size: 18px;
-    text-shadow: 1px 1px 0px #fff;
-    cursor: pointer;
-    opacity: 0.8;
-    /* Versatz links - Versatz oben - Unschärfe (Blur) - Farbe */
+/*.ui-dialog {
+    background-clip: padding-box;
+    background-color: #333;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
 }
 
-.configbutton:hover {
-    opacity: 1;
+.ui-dialog-titlebar {
+    color: #fff;
+    font-weight: normal;    
 }
 
-.highlightFrame {
-    box-shadow: 3px 3px 3px 3px #ccc;
-}
+.ui-dialog-title {
+    font-weight: normal;
+}*/

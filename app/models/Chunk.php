@@ -6,7 +6,8 @@ abstract class Chunk {
     protected $properties = array();
     protected $name = "";
     protected $scope = "";
-    protected $type = "";
+    public $type = "";
+    public $multichunk = false;
     private $chunkstorage = null;
 
     public function __construct() {
@@ -64,10 +65,8 @@ abstract class Chunk {
 
     public function handleConfig() {
         // Show edit button etc. pp.
-        $return = "";
-        //$return = '<div class="configbutton" title="Edit chunk of type: '.$this->type.'" rel="'.$this->scope.'_'.$this->name.'">&#x2699;</div>';
         // Finally handle chunk config-code:
-        return $return . $this->config();
+        return $this->config();
     }
 
     public function setProperty($property, $value) {

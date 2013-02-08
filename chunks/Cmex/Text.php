@@ -17,6 +17,10 @@ class Text extends \Chunk implements SearchableInterface {
             return $_->content;
         });
         //return $this->content;
+        if(\Authentication::check())
+        {
+            return '<div property="text">' . $value . '</div>';
+        }
         return $value;
     }
 

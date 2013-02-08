@@ -23,11 +23,11 @@ class AssetHandler {
         // Determine type
         if(substr($path, strlen($path) - 2) == "js") {
             if(!isset($this->scripts[$name])) {
-                $this->scripts[$name] = '<script src="'.$url.'"'.$args.'></script>';
+                $this->scripts[$name] = "<script src=\"".$url."\"".$args."></script>\n";
             }
         } else {
             if(!isset($this->stylesheets[$name])) {
-                $this->stylesheets[$name] = '<link rel="stylesheet" href="'.$url.'"'.$args.' />';
+                $this->stylesheets[$name] = "<link rel=\"stylesheet\" href=\"".$url."\"".$args." />\n";
             }
         }
     }

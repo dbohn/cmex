@@ -6,6 +6,8 @@ use \Chunks\Cmex\Search\SearchableInterface;
 class Container extends \Chunk implements SearchableInterface {
     private $loadedChunks = array();
 
+    public $multichunk = true;
+
     public function config() {
         return "";
     }
@@ -40,18 +42,27 @@ class Container extends \Chunk implements SearchableInterface {
                 $ret[] = array('name' => $chunk, 'index' => $inst->getIndex());
             }
         }
-        
+
         return $ret;
     }
 
     public function show() {
         
         $ret = "";
+        /*if(\Authentication::check())
+        {
+            $ret = "<div about=\"chunks/container\" rel=\"dcterms:hasPart\"> ";
+        }*/
 
         foreach($this->loadedChunks as $chunk)
         {
             $ret .= \ChunkManager::getChunkForKey($chunk)->show();
         }
+
+        // if(\Authentication::check())
+        // {
+        //     $ret .= "</div>";
+        // }
 
         return $ret;
     }

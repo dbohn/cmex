@@ -26,6 +26,7 @@ body {
     color: #E08E79;
     font-family: lobster-two, serif;
     line-height: 90%;
+    text-shadow: #fff 1px 1px 3px;
 }
 
 .center .hero-unit {
@@ -36,6 +37,7 @@ body {
 
 .center .hero-unit h1 {
     font-family: lobster-two, serif;
+    text-shadow: #fff 1px 1px 3px;
 }
 
 .search {

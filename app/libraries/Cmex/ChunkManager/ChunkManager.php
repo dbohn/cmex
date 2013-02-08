@@ -78,7 +78,13 @@ class ChunkManager
 
         if (\Authentication::check())
         {
-            return '<div id="' . $key . '">'. $chunk->handleConfig() . $chunk->show() . '</div>';
+            $type = strtolower($chunk->type);
+            $multichunk = "";
+            if($chunk->multichunk)
+            {
+                $multichunk = ' rel="dcterms:hasPart"';
+            }
+            return '<div id="' . $key . '"'.$multichunk.' about="chunks/' . $type . '">'. $chunk->handleConfig() . $chunk->show() . '</div>';
         }
         return '<div id="' . $key . '">' . $chunk->show() . '</div>';
     }
