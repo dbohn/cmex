@@ -84,7 +84,7 @@ class ChunkManager
             {
                 $multichunk = ' rel="dcterms:hasPart"';
             }
-            return '<div id="' . $key . '"'.$multichunk.' about="chunks/' . $type . '">'. $chunk->handleConfig() . $chunk->show() . '</div>';
+            return '<div id="' . $key . '"'.$multichunk.' typeof="'.$type.'" about="chunks/' . $key . '">'. $chunk->handleConfig() . $chunk->show() . '</div>';
         }
         return '<div id="' . $key . '">' . $chunk->show() . '</div>';
     }

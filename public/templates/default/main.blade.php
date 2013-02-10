@@ -3,7 +3,7 @@
  it requires somes basic containers to build a page -->
  <html lang="de">
  <head>
-    <title>Project X - {{ $title }}</title>
+    <title>cmex! - {{ $title }}</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{{ asset("templates/default/css/bootstrap.min.css") }}" />
     <link rel="stylesheet" href="{{ asset("templates/default/css/bootstrap-responsive.min.css") }}" />

@@ -42,6 +42,7 @@ class PageController extends BaseController {
                 Asset::add('create-notifications', 'admin/midgard-notifications/midgardnotif.css');
                 Asset::add('font-awesome', 'admin/font-awesome/css/font-awesome.css');
                 Asset::add('insertimage', 'admin/insertimage.css');
+                Asset::add('valed', 'admin/create.ValueEditor.js');
             }
 
     	    // Load view - with that step, all chunks are initialized
