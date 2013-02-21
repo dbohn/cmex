@@ -9,7 +9,13 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		// $this->call('UserTableSeeder');
+        $this->call('ChunkSeeder');
+
+        $this->call('MenuSeeder');
+
+        $this->call('PageSeeder');
+
+        $this->call('UserSeeder');
 	}
 
 }
