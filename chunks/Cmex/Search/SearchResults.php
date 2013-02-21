@@ -20,4 +20,9 @@ class SearchResults extends \Chunk {
         $this->searchquery = $data['searchquery'];
         return true;
     }
+
+    public function annotate()
+    {
+        return array();
+    }
 }
