@@ -4,8 +4,8 @@ $(function() {
 		"xmlns:dcterms": "http://purl.org/dc/terms/"
 	});
 
-	jQuery('body').midgardCreate('configureEditor', 'contact', 'ValueEditor');
-	jQuery('body').midgardCreate('setEditorForType', 'Text', 'title');
+	//jQuery('body').midgardCreate('configureEditor', 'Contact', 'ValueEditor');
+	//jQuery('body').midgardCreate('setEditorForType', 'Text', 'title');
 	jQuery('body').midgardCreate({
 		url: function() {
 			return 'javascript:false;';

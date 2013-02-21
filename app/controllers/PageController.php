@@ -33,7 +33,7 @@ class PageController extends BaseController {
                 Asset::add('vie', 'admin/vie-min.js');
 
                 Asset::add('jqtagsinput', 'admin/jquery.tagsinput.min.js');
-                Asset::add('jqrdfquery', 'admin/jquery.rdfquery.min.js');
+                
                 Asset::add('rangy', 'admin/rangy-core-1.2.3.js');
                 Asset::add('hallo', 'admin/hallo-min.js');
                 Asset::add('create', 'admin/create-min.js');

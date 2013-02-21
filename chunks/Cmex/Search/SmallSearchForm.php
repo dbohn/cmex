@@ -17,4 +17,9 @@ class SmallSearchForm extends \Chunk {
     public function handleInput($data) {
         
     }
+
+    public function annotate() 
+    {
+        return array();
+    }
 }

@@ -14,7 +14,7 @@ class Container extends \Chunk implements SearchableInterface {
 
     public function initialize()
     {
-        $chunks = json_decode($this->content);
+        /*$chunks = json_decode($this->content);
         foreach($chunks as $chunk)
         {
             if (property_exists($chunk, 'scope'))
@@ -26,7 +26,30 @@ class Container extends \Chunk implements SearchableInterface {
             }
 
             $this->loadedChunks[] = \ChunkManager::add($chunk->name, $chunk->type, $scope);
+        }*/
+
+        $this->loadedChunks = $this->loadChunks();
+    }
+
+    protected function loadChunks()
+    {
+        $chunks = json_decode($this->content);
+        $returnedChunks = array();
+
+        foreach($chunks as $chunk)
+        {
+            if (property_exists($chunk, 'scope'))
+            {
+                $scope = $chunk->scope;
+            } else
+            {
+                $scope = $this->scope;
+            }
+
+            $returnedChunks[] = \ChunkManager::add($chunk->name, $chunk->type, $scope);
         }
+
+        return $returnedChunks;
     }
 
     public function getIndex() {
@@ -65,6 +88,11 @@ class Container extends \Chunk implements SearchableInterface {
         // }
 
         return $ret;
+    }
+
+    public function annotate()
+    {
+        return array('multipart');
     }
 
     public function handleInput($data) {

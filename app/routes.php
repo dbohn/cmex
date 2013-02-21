@@ -20,7 +20,14 @@ Route::group(array('prefix' => 'admin'), function()
 
     Route::get('{module}', array('before' => 'auth', function()
     {
-        return "Administration - Sie sind eingeloggt als: ". Authentication::getUser()->first_name . " " . Authentication::getUser()->last_name . "<a href='".URL::to('/')."'>Startseite</a>";
+        $user = Authentication::getUser();
+        if ($user->isSuperUser())
+        {
+            return "Super-Administration - Sie sind eingeloggt als: ". $user->first_name . " " . $user->last_name . "<a href='".URL::to('/')."'>Startseite</a>";
+        } else
+        {
+            return "Administration - Sie sind eingeloggt als: ". $user->first_name . " " . $user->last_name . "<a href='".URL::to('/')."'>Startseite</a>";
+        }
     }));
 
 });

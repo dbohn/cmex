@@ -78,6 +78,7 @@ class ChunkManager
 
         if (\Authentication::check())
         {
+            // Annotate the elements block for the admin panel
             $type = strtolower($chunk->type);
             $multichunk = "";
             if($chunk->multichunk)

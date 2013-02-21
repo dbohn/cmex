@@ -58,6 +58,11 @@ class Contact extends \Chunk {
         }
     }
 
+    public function annotate()
+    {
+        return array();
+    }
+
     private function validateUser()
     {
         // TODO: store this key outside of this method!

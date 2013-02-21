@@ -104,8 +104,17 @@ abstract class Chunk {
      * You're free to use any way of config, you want.
      * a text widget could e.g. load a wysiwyg editor,
      * a contact widget could instead just show a form to set recipient
+     * Return the editable properties here!
      */
     public abstract function config();
+
+    /**
+     * For the editing environment you often have to specify
+     * some information for initializing the editor.
+     * For example a container chunk should specify here, that it
+     * contains other chunks, i.e. it is a multipart object.
+     */
+    public abstract function annotate();
 
     public abstract function handleInput($data);
 }

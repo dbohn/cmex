@@ -2,6 +2,13 @@
 namespace Chunks\Cmex;
 use Chunks\Cmex\Search\SearchableInterface;
 
+/**
+* cmex! Standard Text
+* 
+* @version 1.0
+* @author David Bohn
+* @copyright 2013 cmex! Team
+*/
 class Text extends \Chunk implements SearchableInterface {
     public function config() {
         return "";
@@ -26,5 +33,10 @@ class Text extends \Chunk implements SearchableInterface {
 
     public function handleInput($data) {
         return true;
+    }
+
+    public function annotate()
+    {
+        return array();
     }
 }

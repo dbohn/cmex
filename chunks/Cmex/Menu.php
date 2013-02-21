@@ -11,6 +11,15 @@ class Menu extends \Chunk {
         return $this->makeMenu($this->name);
     }
 
+    public function handleInput($data) {
+        
+    }
+
+    public function annotate()
+    {
+        return null;
+    }
+
     /**
      * This function creates recursively the menu from the JSON-Data
      * Please note, that it can get quite slow, the deeper
@@ -65,9 +74,5 @@ class Menu extends \Chunk {
         $ret .= '</ul>';
 
         return $ret;
-    }
-
-    public function handleInput($data) {
-        
     }
 }

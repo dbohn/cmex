@@ -7,7 +7,7 @@ return array(
 		'activation_hash'	  => null,
 		'reset_password_hash' => null,
 		'activated'			  => true,
-		'permissions'		  => '{"test":1,"other":-1,"admin":1}',
+		'permissions'		  => '{"test":1,"other":-1,"admin":1, "superuser":1}',
 		'first_name'		  => 'Admin',
 		'last_name'			  => 'istrator',
 		'created_at'		  => new DateTime,
