@@ -24,8 +24,9 @@ class PageController extends BaseController {
             ChunkManager::setPage($dbpage);
 
     	    // Load admin styles if authenticated
+            // That's indeed really dirty, it has to be replaced later on...
             if(Authentication::check()) {
-                Asset::add('adminstyle', 'admin/style.css');
+                Asset::add('adminstyle', 'admin/frontendstyle.css');
                 Asset::add('jquery', 'admin/jquery-1.7.1.min.js');
                 Asset::add('jquery-ui', 'admin/jquery-ui-1.8.18.custom.min.js');
                 Asset::add('underscore', 'admin/underscore-min.js');

@@ -34,7 +34,7 @@ class LoginController extends BaseController {
                 $rememberMe = (Input::has("remember-me") && Input::get("remember-me") == "remember-me") ? true : false;
         
                 if($user = Authentication::authenticate($credentials, $rememberMe)) {
-                    return Redirect::to('admin/overview');
+                    return Redirect::to('admin');
                 } else {
                     return Redirect::to('login')->with('error', 'Falsche Logindaten!');
                 }
@@ -43,7 +43,7 @@ class LoginController extends BaseController {
                 return Redirect::to('login')->with('error', 'Der Benutzer wurde nicht gefunden!');
             } catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
                 Log::info($e->getMessage());
-                return Redirect::to('login')->with('error', 'Es muss ein Login-Feld angegeben werden!');
+                return Redirect::to('login')->with('error', 'Es muss ein Login-Feld angegeben werden!' . $e->getMessage());
             } catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {
                 Log::info($e->getMessage());
                 return Redirect::to('login')->with('error', 'Der Nutzer ist nicht aktiviert!');

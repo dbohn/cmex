@@ -11,24 +11,21 @@
 |
 */
 
-Route::group(array('prefix' => 'admin'), function()
+Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
 {
     Route::get('/', function()
     {
-        return Redirect::to('admin/overview');
+        return Redirect::to('admin/dashboard');
     });
 
-    Route::get('{module}', array('before' => 'auth', function()
+    Route::resource('user', 'AdminUserController');
+
+    Route::get('dashboard', 'AdminDashboardController@handle');
+
+    Route::get('{module}', function($module)
     {
-        $user = Authentication::getUser();
-        if ($user->isSuperUser())
-        {
-            return "Super-Administration - Sie sind eingeloggt als: ". $user->first_name . " " . $user->last_name . "<a href='".URL::to('/')."'>Startseite</a>";
-        } else
-        {
-            return "Administration - Sie sind eingeloggt als: ". $user->first_name . " " . $user->last_name . "<a href='".URL::to('/')."'>Startseite</a>";
-        }
-    }));
+        return $module;
+    });
 
 });
 

@@ -52,7 +52,7 @@ abstract class Chunk {
 
         $attstring = "";
         foreach($attributes as $attr=>$value) {
-            $attstring .= ' ' . $attr . '="'.$value.'"';
+            $attstring .= ' ' . $attr . '="'.addslashes($value).'"';
         }
 
         $hiddenfield = '<input type="hidden" name="chunk" value="'.$chunk.'" />';

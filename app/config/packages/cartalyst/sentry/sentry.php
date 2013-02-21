@@ -1,6 +1,6 @@
 <?php
 /**
- * Part of the Sentry Package.
+ * Part of the Sentry package.
  *
  * NOTICE OF LICENSE
  *
@@ -11,7 +11,7 @@
  * the following URL: http://www.opensource.org/licenses/BSD-3-Clause
  *
  * @package    Sentry
- * @version    2.0
+ * @version    2.0.0
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
  * @copyright  (c) 2011 - 2013, Cartalyst LLC
@@ -35,6 +35,17 @@ return array(
 
 	'driver' => 'eloquent',
 
+	/*
+	|--------------------------------------------------------------------------
+	| Default Hasher
+	|--------------------------------------------------------------------------
+	|
+	| This option allows you to specify the default hasher used by Sentry
+	|
+	| Supported: "native", "bcrypt", "sha256"
+	|
+	*/
+
 	'hasher' => 'native',
 
 	/*
@@ -52,7 +63,7 @@ return array(
 		| Model
 		|--------------------------------------------------------------------------
 		|
-		| When using the "Eloquent" driver, we need to know which
+		| When using the "eloquent" driver, we need to know which
 		| Eloquent models should be used throughout Sentry.
 		|
 		*/
@@ -76,12 +87,25 @@ return array(
 		| Model
 		|--------------------------------------------------------------------------
 		|
-		| When using the "Eloquent" driver, we need to know which
+		| When using the "eloquent" driver, we need to know which
 		| Eloquent models should be used throughout Sentry.
 		|
 		*/
 
 		'model' => 'Cartalyst\Sentry\Users\Eloquent\User',
+
+		/*
+		|--------------------------------------------------------------------------
+		| Login Attribute
+		|--------------------------------------------------------------------------
+		|
+		| If you're the "eloquent" driver and extending the base Eloquent model,
+		| we allow you to globally override the login attribute without even
+		| subclassing the model, simply by specifying the attribute below.
+		|
+		*/
+
+		'login_attribute' => 'email',
 
 	),
 
@@ -114,7 +138,7 @@ return array(
 		| Model
 		|--------------------------------------------------------------------------
 		|
-		| When using the "Eloquent" driver, we need to know which
+		| When using the "eloquent" driver, we need to know which
 		| Eloquent models should be used throughout Sentry.
 		|
 		*/

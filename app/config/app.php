@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'key' => 'YourSecretKey!!!',
+	'key' => 'ZaOhpFabnhr1sBB1KuEZH84VyJEkh2lT',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -167,11 +167,12 @@ return array(
 		'Response'        => 'Illuminate\Support\Facades\Response',
 		'Route'           => 'Illuminate\Support\Facades\Route',
 		'Schema'          => 'Illuminate\Support\Facades\Schema',
+		'Seeder'          => 'Illuminate\Database\Seeder',
 		'Session'         => 'Illuminate\Support\Facades\Session',
+		'Str'             => 'Illuminate\Support\Str',
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-		'Form'		 	  => 'Form\Form',
 		'Html'		 	  => 'Html\Html',
 		'Asset'		 	  => 'Cmex\Asset',
 		'ChunkManager'	  => 'Cmex\ChunkManager\ChunkManagerProvider',
