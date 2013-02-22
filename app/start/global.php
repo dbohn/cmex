@@ -46,14 +46,6 @@ Log::useDailyFiles(__DIR__.'/../storage/logs/'.$logFile);
 |
 */
 
-// App::missing(function($exception) {
-// 	if(View::exists(Config::get('cmex.template').".".Config::get('cmex.error404_default'))) {
-// 		return View::make(Config::get('cmex.template').".".Config::get('cmex.404view'));
-// 	} else {
-// 		return View::make('error404');
-// 	}
-// });
-
 App::missing(function($exception) {
 	try {
 		// Try loading templates default view
