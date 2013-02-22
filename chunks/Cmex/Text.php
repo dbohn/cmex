@@ -21,7 +21,10 @@ class Text extends \Chunk implements SearchableInterface {
     public function show($properties=array()) {
         $_ = $this;
         $value = \Cache::remember($this->identifier, 10, function() use($_) {
-            return $_->content;
+            $v = \View::make("Cmex.textview", array(
+                'content' => $_->content
+            ));
+            return $v->render();
         });
         //return $this->content;
         if(\Authentication::check())

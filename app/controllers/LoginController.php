@@ -34,6 +34,7 @@ class LoginController extends BaseController {
                 $rememberMe = (Input::has("remember-me") && Input::get("remember-me") == "remember-me") ? true : false;
         
                 if($user = Authentication::authenticate($credentials, $rememberMe)) {
+                    // FIX THAT SECURITY ISSUE! :D
                     if(Input::has('chunk'))
                     {
                         return Redirect::to(Input::get('chunk'));
