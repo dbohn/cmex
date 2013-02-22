@@ -88,5 +88,13 @@ return array(
         'page' => 0,
         'created_at' => new DateTime,
         'updated_at' => new DateTime
+    ),
+    array(
+        'name' => 'global_frontendlogin',
+        'type' => 'Login_Form',
+        'content' => '{"view":"Cmex.Login.views.loginformview"}',
+        'page' => 0,
+        'created_at' => new DateTime,
+        'updated_at' => new DateTime
     )
 );

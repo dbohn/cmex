@@ -12,7 +12,6 @@ class Contact extends \Chunk {
     
     public function show($properties = array()) {
         return \View::make('Cmex.Contact.contactForm', array(
-            'openForm' => $this->openForm("post", "contactForm", null, "", false, array('class' => 'form-horizontal'), true),
             'status' => $this->status));
     }
 
@@ -65,7 +64,7 @@ class Contact extends \Chunk {
 
     private function validateUser()
     {
-        // TODO: store this key outside of this method!
+        // TODO: make a library out of that!
         $apikey = \Config::get('cmex.spam_apikey');
 
         if (!\Config::get('cmex.spam_enable_check'))

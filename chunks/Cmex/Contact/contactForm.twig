@@ -1,4 +1,4 @@
-{{ openForm }}
+{{ open_form("post", "contactForm", null, "", false, {'class' : 'form-horizontal'}) }}
 {% if status.success %}
 <div class="alert alert-success span7">{{ status.success }}</div>
 {% endif %}

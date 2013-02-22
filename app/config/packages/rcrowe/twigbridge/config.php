@@ -105,6 +105,7 @@ return array(
         'logged_in' => 'auth_check',
         'url'       => 'url_to',
         'session'   => 'session_get',
+        'open_form' => 'chunkmanager_openform'
     ),
 
     /*

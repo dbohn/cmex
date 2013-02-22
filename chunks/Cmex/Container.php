@@ -14,19 +14,6 @@ class Container extends \Chunk implements SearchableInterface {
 
     public function initialize()
     {
-        /*$chunks = json_decode($this->content);
-        foreach($chunks as $chunk)
-        {
-            if (property_exists($chunk, 'scope'))
-            {
-                $scope = $chunk->scope;
-            } else
-            {
-                $scope = $this->scope;
-            }
-
-            $this->loadedChunks[] = \ChunkManager::add($chunk->name, $chunk->type, $scope);
-        }*/
 
         $this->loadedChunks = $this->loadChunks();
     }
