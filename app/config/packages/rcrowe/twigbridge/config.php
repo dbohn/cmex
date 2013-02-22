@@ -102,10 +102,11 @@ return array(
     */
     'alias_shortcuts' => array(
         'config'    => 'config_get',
-        'logged_in' => 'auth_check',
+        'logged_in' => 'authentication_check',
         'url'       => 'url_to',
         'session'   => 'session_get',
-        'open_form' => 'chunkmanager_openform'
+        'open_form' => 'chunkmanager_openform',
+        'current_page' => 'chunkmanager_getpageidentifier'
     ),
 
     /*

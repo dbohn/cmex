@@ -25,36 +25,31 @@ class ChunkManager
 
     public function add($name, $type, $scope=null)
     {
-        if (is_null($scope))
-        {
+        if (is_null($scope)) {
             $scope = $this->getPageIdentifier();
         }
 
         $sysname = $this->createSystemName($name, $scope);
 
-        if (isset($this->chunks[$sysname]))
-        {
+        if (isset($this->chunks[$sysname])) {
             throw new ChunkAlreadyExistsException("There's already a chunk with the exact same name loaded!");
         }
 
-        if (($class = $this->chunkExists($type, true)) === false) 
-        {
+        if (($class = $this->chunkExists($type, true)) === false) {
             throw new InvalidChunkTypeException("Chunk of type " . $type . " does not exist!");
         }
 
         $this->chunks[$sysname] = new $class();
         $this->chunks[$sysname]->setChunkName($scope, $name);
 
-        if (method_exists($this->chunks[$sysname], "initialize"))
-        {
+        if (method_exists($this->chunks[$sysname], "initialize")) {
             $this->chunks[$sysname]->initialize();
         }
 
         // Fire event
         \Event::fire('chunk.added', array('name' => $sysname, 'type' => $type));
 
-        if (method_exists($this->chunks[$sysname], "show"))
-        {
+        if (method_exists($this->chunks[$sysname], "show")) {
             return $sysname;
         } else
         {
@@ -64,11 +59,9 @@ class ChunkManager
 
     public function handleInput()
     {
-        if (\Input::has("chunk"))
-        {
+        if (\Input::has("chunk")) {
             $chunk = \Input::get("chunk");
-            if (isset($this->chunks[$chunk]) && method_exists($this->chunks[$chunk], "handleInput"))
-            {
+            if (isset($this->chunks[$chunk]) && method_exists($this->chunks[$chunk], "handleInput")) {
                 $this->chunks[$chunk]->handleInput(\Input::get());
             }
         }
@@ -80,16 +73,19 @@ class ChunkManager
 
         $this->currentChunk = $key;
 
-        if (\Authentication::check())
-        {
+        if (\Authentication::check()) {
             // Annotate the elements block for the admin panel
             $type = strtolower($chunk->type);
             $multichunk = "";
-            if($chunk->multichunk)
-            {
+            if($chunk->multichunk) {
                 $multichunk = ' rel="dcterms:hasPart"';
             }
-            return '<div id="' . $key . '"'.$multichunk.' typeof="'.$type.'" about="chunks/' . $key . '">'. $chunk->handleConfig() . $chunk->show() . '</div>';
+
+            $chunkContent = '' . $chunk->handleConfig() . $chunk->show();
+
+            $this->currentChunk = "";
+
+            return '<div id="' . $key . '"'.$multichunk.' typeof="'.$type.'" about="chunks/' . $key . '">'. $chunkContent . '</div>';
         }
 
         $chunkContent = '' . $chunk->show();
@@ -111,35 +107,35 @@ class ChunkManager
      */
     public function openForm($method="post", $formname="", $action="", $handler="", $fileupload=false, $attributes=array(), $csrf=true)
     {
-        if($this->currentChunk != "") {
+        if ($this->currentChunk != "") {
             $chunk = $this->currentChunk;
 
-            if($action == "" || is_null($action)) {
+            if ($action == "" || is_null($action)) {
                 //$action = \URL::to($scope);
                 $action = \Request::fullUrl();
             }
 
-            if($formname != "") {
+            if ($formname != "") {
                 $formname = ' name="'.$formname.'"';
             }
 
-            if($fileupload) {
+            if ($fileupload) {
                 $formname .= ' enctype="multipart/form-data"';
                 $method = "post";
             }
 
-            if($handler != "") {
+            if ($handler != "") {
                 $chunk = $handler;
             }
 
             $attstring = "";
-            foreach($attributes as $attr=>$value) {
+            foreach ($attributes as $attr=>$value) {
                 $attstring .= ' ' . $attr . '="'.addslashes($value).'"';
             }
 
             $hiddenfield = '<input type="hidden" name="chunk" value="'.$chunk.'" />';
 
-            if($csrf) {
+            if ($csrf) {
                 $hiddenfield .= '<input type="hidden" name="csrf_token" value="'.\Session::getToken().'" />';
             }
 
@@ -152,11 +148,9 @@ class ChunkManager
 
     public function getChunkForKey($key)
     {
-        if (isset($this->chunks[$key]))
-        {
+        if (isset($this->chunks[$key])) {
             return $this->chunks[$key];
-        } else
-        {
+        } else {
             throw new ChunkNotFoundException();
         }
     }
@@ -182,18 +176,15 @@ class ChunkManager
 
         $repositories = $this->getChunkRepositories();
 
-        if ($core) 
-        {
+        if ($core) {
             $class = $repositories[0] . ucfirst($name);
             return class_exists($class) ? $class : false;
-        } else
-        {
-            foreach($repositories as $repo)
+        } else {
+            foreach ($repositories as $repo)
             {
                 $class = $repo . ucfirst($name);
 
-                if(class_exists($class))
-                {
+                if (class_exists($class)) {
                     return $class;
                 }
             }

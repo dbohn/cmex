@@ -26,3 +26,24 @@ if(!function_exists('chunk')) {
         }
     }
 }
+
+if (!function_exists('full_username')) {
+    function full_username()
+    {
+        if (!Authentication::check()) {
+            return "";
+        }
+
+        try
+        {
+            // Get the current active/logged in user
+            $user = Authentication::getUser();
+
+            return $user->first_name . " " . $user->last_name;
+        }
+        catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+        {
+            return "";
+        }
+    }
+}

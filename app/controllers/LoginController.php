@@ -34,6 +34,10 @@ class LoginController extends BaseController {
                 $rememberMe = (Input::has("remember-me") && Input::get("remember-me") == "remember-me") ? true : false;
         
                 if($user = Authentication::authenticate($credentials, $rememberMe)) {
+                    if(Input::has('chunk'))
+                    {
+                        return Redirect::to(Input::get('chunk'));
+                    }
                     return Redirect::to('admin');
                 } else {
                     return Redirect::to('login')->with('error', 'Falsche Logindaten!');
