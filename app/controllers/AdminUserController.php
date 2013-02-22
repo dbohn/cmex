@@ -9,7 +9,7 @@ class AdminUserController extends AdminController {
 	 */
 	public function index()
 	{
-		return View::make('admin.userindex');
+		return View::make('admin.userindex', array('users' => User::all()));
 	}
 
 	/**
