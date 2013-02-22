@@ -3,12 +3,12 @@
  it requires somes basic containers to build a page -->
  <html lang="de">
  <head>
-    <title>cmex! - {{ $title }}</title>
+    <title>cmex! - {{ title }}</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{{ asset("templates/default/css/bootstrap.min.css") }}" />
     <link rel="stylesheet" href="{{ asset("templates/default/css/bootstrap-responsive.min.css") }}" />
-    {{ $scripts }}
-    {{ $head }}
+    {{ scripts }}
+    {{ head }}
     <!-- <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script> -->
     <script src="http://use.edgefonts.net/lobster-two.js"></script>
     <script src="http://use.edgefonts.net/open-sans.js"></script>
@@ -35,13 +35,13 @@
         
                 </div>
                 <div class="span9">
-                    <h2>{{ $title }}</h2>
+                    <h2>{{ title }}</h2>
                     {{ chunk("content", "container") }}
                 </div>
             </div>
             <div class="row">
                 <div class="footer span12">
-                    <p class="muted">&copy; 2012 - {{ date("Y") }} cmex! - Team</p>
+                    <p class="muted">&copy; 2012 - {{ "now"|date("Y") }} cmex! - Team</p>
                 </div>
             </div>
         </div>

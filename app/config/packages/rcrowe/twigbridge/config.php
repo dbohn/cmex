@@ -104,6 +104,7 @@ return array(
         'config'    => 'config_get',
         'logged_in' => 'auth_check',
         'url'       => 'url_to',
+        'session'   => 'session_get',
     ),
 
     /*

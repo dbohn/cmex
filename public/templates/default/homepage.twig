@@ -5,8 +5,8 @@
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="{{ asset("templates/default/css/bootstrap.min.css") }}" />
     <link rel="stylesheet" href="{{ asset("templates/default/css/bootstrap-responsive.min.css") }}" />
-	{{ $scripts }}
-	{{ $head }}
+	{{ scripts }}
+	{{ head }}
 	<script src="http://use.edgefonts.net/lobster-two.js"></script>
 	<script src="http://use.edgefonts.net/open-sans.js"></script>
 	<link rel="stylesheet" href="{{ asset("templates/default/css/style.css") }}" />
@@ -38,9 +38,9 @@
 			</div>
 
 			<div class="row">
-				<div class="span3 sidebar">{{ chunk("vertmenu", "menu", "global", $page) }}</div>
+				<div class="span3 sidebar">{{ chunk("vertmenu", "menu", "global") }}</div>
 				<div class="span3">
-					{{ chunk("content", "container", $page) }}
+					{{ chunk("content", "container") }}
 				</div>
 				<div class="span3"><h4>Social Networks</h4><p>Besuchen Sie uns:</p></div>
 				<div class="span3">
@@ -50,7 +50,7 @@
 			</div>
 			<div class="row">
 	            <div class="footer span12">
-	                <p class="muted">&copy; 2012 - {{ date("Y") }} cmex! - Team</p>
+	                <p class="muted">&copy; 2012 - {{ "now"|date("Y") }} cmex! - Team</p>
 	            </div>
 	        </div>
 		</div>
