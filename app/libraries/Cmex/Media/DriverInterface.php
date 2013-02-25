@@ -63,15 +63,6 @@ interface DriverInterface {
     public function fileExists($path);
 
     /**
-     * Returns the file which is stored by the given id.
-     * Might also be removed...
-     * @param $id the file id
-     * @return \Cmex\Media\File
-     * @throws FileNotFoundException if the file wasn't found
-     */
-    public function getFileForId($id);
-
-    /**
      * Returns the file which is stored at the given path.
      * @param $path the path
      * @return \Cmex\Media\File

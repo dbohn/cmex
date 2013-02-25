@@ -11,11 +11,11 @@ class FileSystem implements DriverInterface {
     private $baseUrl;
     private $basePath;
 
-    public function __construct()
+    public function __construct($config)
     {
         // Read config values
-        $this->baseUrl = \Config::get('mediadrivers.filesystem.baseUrl');
-        $this->basePath = \Config::get('mediadrivers.filesystem.basePath');
+        $this->baseUrl = $config['baseUrl'];
+        $this->basePath = $config['basePath'];
     }
 
     public function addFile($path, $file)
@@ -46,11 +46,6 @@ class FileSystem implements DriverInterface {
     public function fileExists($path)
     {
         return file_exists($this->buildRealPath($path, $this->basePath));
-    }
-
-    public function getFileForId($id)
-    {
-
     }
 
     public function getFileForPath($path)

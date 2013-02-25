@@ -13,11 +13,12 @@ class MediaServiceProvider extends ServiceProvider {
             $accessor = new MediaAccessor();
 
             // Register any configured drivers
-            
+
             $drivers = $app['config']['mediadrivers.drivers'];
 
             foreach ($drivers as $driver) {
-                $driverinstance = new $driver();
+                $classname = class_basename($driver);
+                $driverinstance = new $driver(\Config::get('mediadrivers.'.strtolower($classname)));
                 $accessor->addStorage($driverinstance);
             }
 
