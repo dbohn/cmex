@@ -32,8 +32,4 @@ class MediaAccessor {
             throw new InvalidArgumentException("Driver " . $key . " was not found!");
         }
     }
-
-    public function test() {
-        return $this->storages['local']->respondsToKey();
-    }
 }
