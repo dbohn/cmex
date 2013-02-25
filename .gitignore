@@ -2,3 +2,5 @@
 composer.phar
 composer.lock
 .DS_Store
+/public/files/screenshots/*
+public/files/screenshots/screenshot1.png

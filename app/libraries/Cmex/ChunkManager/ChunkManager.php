@@ -195,7 +195,7 @@ class ChunkManager
         return false;
     }
 
-    public function loadChunkRepositories()
+    private function loadChunkRepositories()
     {
         return ($this->chunkRepositories = array("Chunks\\Cmex\\"));
     }

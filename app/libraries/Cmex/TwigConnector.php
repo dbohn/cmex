@@ -12,7 +12,7 @@ class TwigConnector extends Extension
     public function __construct(Application $app, Twig_Environment $twig)
     {
         parent::__construct($app, $twig);
-
+        // TODO: this callback should use a subset of functions for security reasons!
         $twig->registerUndefinedFunctionCallback(function ($name) {
             if (function_exists($name)) {
                 return new Twig_Function_Function($name);

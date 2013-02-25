@@ -20,6 +20,8 @@ class Text extends \Chunk implements SearchableInterface {
 
     public function show($properties=array()) {
         $_ = $this;
+        // TODO: The cache should be refreshed when the updated_at flag
+        // is behind the cache-date!
         $value = \Cache::remember($this->identifier, 10, function() use($_) {
             $v = \View::make("Cmex.textview", array(
                 'content' => $_->content

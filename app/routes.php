@@ -11,6 +11,7 @@
 |
 */
 
+// All routes related to the admin system
 Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
 {
     Route::get('/', function()
@@ -29,6 +30,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
 
 });
 
+// Authentication routes
 Route::get('login', array('as' => 'login', 'uses' => 'LoginController@login'));
 
 Route::get('logoff', 'LoginController@logoff');
@@ -36,6 +38,14 @@ Route::get('logout', 'LoginController@logoff');
 
 Route::post('doLogin', 'LoginController@auth');
 
+// Enable access to the (virtual) filesystem
+Route::get('file/{option}/{path}', 'MediaController@resolveFile')->where('path', '[A-Za-z0-9/.]+');
+
+Route::get('test', function() {
+    return Media::test();
+});
+
+// Default route for any pages
 Route::any('{page}', 'PageController@handlePageRequest');
 
 Route::get('/', 'PageController@showHomePage');

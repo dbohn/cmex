@@ -110,7 +110,8 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider',
-		'TwigBridge\TwigServiceProvider'
+		'TwigBridge\TwigServiceProvider',
+		'Cmex\Media\MediaServiceProvider'
 
 	),
 
@@ -177,7 +178,8 @@ return array(
 		'Html'		 	  => 'Html\Html',
 		'Asset'		 	  => 'Cmex\Asset',
 		'ChunkManager'	  => 'Cmex\ChunkManager\ChunkManagerProvider',
-		'Authentication'  => 'Cartalyst\Sentry\Facades\Laravel\Sentry'
+		'Authentication'  => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+		'Media'			  => 'Cmex\Media\Facade'
 
 	),
 
