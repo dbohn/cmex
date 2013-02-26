@@ -9,7 +9,11 @@ class AdminUserController extends AdminController {
 	 */
 	public function index()
 	{
-		return View::make('admin.userindex', array('users' => Authentication::getUserProvider()->findAll()));
+		return View::make('admin.userindex', array(
+			'users' => Authentication::getUserProvider()->findAll(),
+			'permissions' => Authentication::getUser(),
+			'cancreate' => (int)self::canCreate()
+		));
 	}
 
 	/**
@@ -19,7 +23,11 @@ class AdminUserController extends AdminController {
 	 */
 	public function create()
 	{
-		return View::make('admin.usercreate');
+		if(self::canCreate()) {
+			return View::make('admin.usercreate');
+		} else {
+			return Redirect::to('admin/user')->with('error', 'Sie haben nicht die nötigen Rechte Benutzer zu erstellen!');
+		}
 	}
 
 	/**
@@ -29,6 +37,7 @@ class AdminUserController extends AdminController {
 	 */
 	public function store()
 	{
+		
 		//
 	}
 
@@ -39,7 +48,14 @@ class AdminUserController extends AdminController {
 	 */
 	public function show($id)
 	{
-		return Authentication::getUserProvider()->findById($id);
+		try
+		{
+			return Authentication::getUserProvider()->findById($id);
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			return null;
+		}
 	}
 
 	/**
@@ -49,9 +65,17 @@ class AdminUserController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		if($user = User::find($id)) {
-			return View::make('admin.useredit', array('user' => $user));
-		} else {
+		try
+		{
+			if(self::canEdit($id)) {
+				return View::make('admin.useredit');
+			} else {
+				return Redirect::to('admin/user')->with('error', 'Sie haben nicht die nötigen Rechte Benutzer zu erstellen!');
+			}
+			return View::make('admin.', array('user' => Authentication::getUserProvider()->findById($id)));
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
 			return Redirect::to('admin/user')->with('error', 'Der Benutzer wurde nicht gefunden!');
 		}
 	}
@@ -63,8 +87,15 @@ class AdminUserController extends AdminController {
 	 */
 	public function update($id)
 	{
-		// Update
-		return Redirect::to('admin/user/' . $id . '/edit')->with('error', 'Das Updaten wird derzeit noch nicht unterstützt!');
+		try
+		{
+			$user = Authentication::getUserProvider()->findById($id);
+			// update algorythm here
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			return null;
+		}
 	}
 
 	/**
@@ -74,16 +105,48 @@ class AdminUserController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		if($user = User::find($id)) {
-			return View::make('admin.userdelete', array('user' => $user));
-		} else {
-			return Redirect::to('admin/user')->with('error', 'Der Benutzer wurde nicht gefunden!');
+		try
+		{
+			$user = Authentication::getUserProvider()->findById($id);
+			return $user->delete();
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			return null;
 		}
 	}
 	
+	private function canCreate() {
+		return false;
+		return (Authentication::getUser()->hasAccess('admin') || Authentication::getUser()->hasAccess('superuser'));
+	}
 	
-	public function missingMethod($parameters)
-	{
-		print_r($parameters);
+	private function canEdit($id) {
+		try
+		{
+			$user = Authentication::getUserProvider()->findById($id);
+			
+			if(Authentication::getUser()->hasAccess('superuser'))
+				return true;
+			if(Authentication::getUser()->hasAccess('admin') && !$user->hasAccess('superuser'))
+				return true;
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			return false;
+		}
+		return false;
+	}
+	
+	private function canDelete($id) {
+		try
+		{
+			return Authentication::getUserProvider()->findById($id);
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			return null;
+		}
+		return (Authentication::getUser()->hasAccess('admin') || Authentication::getUser()->hasAccess('superuser'));
 	}
 }
