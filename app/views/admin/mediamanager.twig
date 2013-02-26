@@ -4,6 +4,11 @@
 Media
 {% endblock %}
 
+{% block head %}
+{{ parent() }}
+<script data-main="{{ asset("admin/mediaman/app-bootstrap.js") }}" src="{{ asset("admin/mediaman/dependencies/require.js") }}"></script>
+{% endblock %}
+
 {% block sidebar %}
 <h3>Actions</h3>
 <button class="btn"><i class="icon-plus"></i> Upload</button>
@@ -17,60 +22,5 @@ Media
     <li><a href="#">subdir1</a> <span class="divider">/</span></li>
 </ul>
 <ul class="thumbnails">
-    <li class="span2">
-        <div class="thumbnail">
-            <img src="http://placehold.it/160x120" alt="Image" />
-            <p style="text-align: center; margin-bottom: 0;">Filename</p>
-        </div>
-    </li>
-    <li class="span2">
-        <div class="thumbnail">
-            <img src="http://placehold.it/160x120" alt="Image" />
-            <p style="text-align: center; margin-bottom: 0;">Filename</p>
-        </div>
-    </li>
-    <li class="span2">
-        <div class="thumbnail">
-            <img src="http://placehold.it/160x120" alt="Image" />
-            <p style="text-align: center; margin-bottom: 0;">Filename</p>
-        </div>
-    </li>
-    <li class="span2">
-        <div class="thumbnail">
-            <img src="http://placehold.it/160x120" alt="Image" />
-            <p style="text-align: center; margin-bottom: 0;">Filename</p>
-        </div>
-    </li>
-    <li class="span2">
-        <div class="thumbnail">
-            <img src="http://placehold.it/160x120" alt="Image" />
-            <p style="text-align: center; margin-bottom: 0;">Filename</p>
-        </div>
-    </li>
-    <li class="span2">
-        <div class="thumbnail">
-            <img src="http://placehold.it/160x120" alt="Image" />
-            <p style="text-align: center; margin-bottom: 0;">Filename</p>
-        </div>
-    </li>
-    <li class="span2">
-        <div class="thumbnail">
-            <img src="http://placehold.it/160x120" alt="Image" />
-            <p style="text-align: center; margin-bottom: 0;">Filename</p>
-        </div>
-    </li>
-    <li class="span2">
-        <div class="thumbnail">
-            <img src="http://placehold.it/160x120" alt="Image" />
-            <p style="text-align: center; margin-bottom: 0;">Filename</p>
-        </div>
-    </li>
-    <li class="span2">
-        <div class="thumbnail">
-            <img src="http://placehold.it/160x120" alt="Image" />
-            <p style="text-align: center; margin-bottom: 0;">Filename</p>
-        </div>
-    </li>
-
 </ul>
 {% endblock %}
