@@ -1,0 +1,61 @@
+{% extends "admin/layout.twig" %}
+
+{% block head %}
+{{ parent() }}
+<script>
+    	<!--
+    	
+    	var userTabsFirstLoad = false;
+    	function loadUser(id) {
+    		$('#user-info-link').attr('href', '{{ url('admin/info/user') }}/' + id);
+    		$('#user-groups-link').attr('href', '{{ url('admin/group/user') }}/' + id);
+    		$('#user-permissions-link').attr('href', '{{ url('admin/permission/user') }}/' + id);
+    		
+    		if(!userTabsFirstLoad) {
+    			$('#user-tabs').tabs({
+    				beforeLoad: function( event, ui ) {
+    					ui.jqXHR.error(function() {
+    						ui.panel.html("Couldn't load this tab. We'll try to fix this as soon as possible.");
+    					});
+    				}
+    			});
+    			$('#user-tabs').show();
+    			userTabsFirstLoad = true;
+    		}
+    	}
+    	
+    	$(function() {
+    		
+    	});
+    	
+    	//-->
+    	</script>
+{% endblock %}
+
+{% block title %}
+Benutzerverwaltung
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+	
+    <p>Wie wär's mit ein paar Filteroptionen?</p>
+{% endblock %}
+
+{% block content %}
+    <p>Hier kann man bald Nutzer anlegen, bearbeiten, sperren und was man sonst noch so machen will...</p>
+	<ul>
+	{% for user in users %}
+		<li><a href="javascript:loadUser({{ user.id }})">{{ user.lastName }} {{ user.firstName }} {{ user.email }}</a></li>
+	{% endfor %}
+		<li><a href="javascript:loadUser(2)">Bla test</a></li>
+	</ul>
+	
+	<div class="tabs" id="user-tabs" style="display: none;">
+		<ul>
+			<li><a href="#" id="user-info-link">Informationen</a></li>
+			<li><a href="#" id="user-groups-link">Gruppen</a></li>
+			<li><a href="#" id="user-permissions-link">Rechte</a></li>
+		</ul>
+	</div>
+{% endblock %}

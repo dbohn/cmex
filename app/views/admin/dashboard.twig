@@ -1,0 +1,13 @@
+{% extends "admin/layout.twig" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block sidebar %}
+    <p>Willkommen, bitte wählen Sie oben eine Option aus.</p>
+{% endblock %}
+
+{% block content %}
+    Administration - Sie sind eingeloggt als: {{ user.first_name }} {{ user.last_name }} <a href="{{ url('/') }}">Frontend</a>
+{% endblock %}

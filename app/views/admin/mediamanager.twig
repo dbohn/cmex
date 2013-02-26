@@ -1,0 +1,75 @@
+{% extends "admin/layout.twig" %}
+
+{% block title %}
+Media
+{% endblock %}
+
+{% block sidebar %}
+{{ parent() }}
+<button class="btn"><i class="icon-plus"></i> Upload</button>
+{% endblock %}
+
+{% block content %}
+<ul class="breadcrumb">
+    <li><select style="height: auto; margin-bottom: 0;" name="driver" class="input-small"><option value="local">local</option></select><span class="divider">/</span></li>
+    <li><a href="#">screenshots</a> <span class="divider">/</span></li>
+    <li><a href="#">subdir1</a> <span class="divider">/</span></li>
+</ul>
+<ul class="thumbnails">
+    <li class="span2">
+        <div class="thumbnail">
+            <img src="http://placehold.it/160x120" alt="Image" />
+            <p style="text-align: center; margin-bottom: 0;">Filename</p>
+        </div>
+    </li>
+    <li class="span2">
+        <div class="thumbnail">
+            <img src="http://placehold.it/160x120" alt="Image" />
+            <p style="text-align: center; margin-bottom: 0;">Filename</p>
+        </div>
+    </li>
+    <li class="span2">
+        <div class="thumbnail">
+            <img src="http://placehold.it/160x120" alt="Image" />
+            <p style="text-align: center; margin-bottom: 0;">Filename</p>
+        </div>
+    </li>
+    <li class="span2">
+        <div class="thumbnail">
+            <img src="http://placehold.it/160x120" alt="Image" />
+            <p style="text-align: center; margin-bottom: 0;">Filename</p>
+        </div>
+    </li>
+    <li class="span2">
+        <div class="thumbnail">
+            <img src="http://placehold.it/160x120" alt="Image" />
+            <p style="text-align: center; margin-bottom: 0;">Filename</p>
+        </div>
+    </li>
+    <li class="span2">
+        <div class="thumbnail">
+            <img src="http://placehold.it/160x120" alt="Image" />
+            <p style="text-align: center; margin-bottom: 0;">Filename</p>
+        </div>
+    </li>
+    <li class="span2">
+        <div class="thumbnail">
+            <img src="http://placehold.it/160x120" alt="Image" />
+            <p style="text-align: center; margin-bottom: 0;">Filename</p>
+        </div>
+    </li>
+    <li class="span2">
+        <div class="thumbnail">
+            <img src="http://placehold.it/160x120" alt="Image" />
+            <p style="text-align: center; margin-bottom: 0;">Filename</p>
+        </div>
+    </li>
+    <li class="span2">
+        <div class="thumbnail">
+            <img src="http://placehold.it/160x120" alt="Image" />
+            <p style="text-align: center; margin-bottom: 0;">Filename</p>
+        </div>
+    </li>
+
+</ul>
+{% endblock %}

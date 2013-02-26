@@ -23,6 +23,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
 
     Route::get('dashboard', 'AdminDashboardController@handle');
 
+    Route::get('media', 'AdminMediaController@handle');
+
     Route::get('{module}', function($module)
     {
         return $module;
