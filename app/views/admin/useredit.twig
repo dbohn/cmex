@@ -1,0 +1,104 @@
+{% extends "admin/layout.twig" %}
+
+{% block title %}
+Benutzerverwaltung
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block content %}
+	<style type="text/css">
+	.ui-widget {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+	.ui-widget-content {
+		border: 1px solid #D4D4D4;
+	}
+	.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+		background-color: #FAFAFA;
+		background-image: linear-gradient(to bottom, #FAFAFA, #EDEDED);
+	}
+	
+	.ui-widget-header {
+		background-color: #FAFAFA;
+		background-image: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+		background-repeat: repeat-x;
+		border: 1px solid #D4D4D4;
+		border-radius: 4px 4px 4px 4px;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+	}
+	
+	.user-edit-content {
+		height: 150px;
+	}
+	.tabs {
+		margin: 15px 0;
+	}
+	
+	.toolbar {
+		float: left;
+	}
+	a.back-link {
+		float: left;
+	}
+	form.delete-form {
+		float: left;
+		margin: 0;
+	}
+	</style>
+	
+    {% if (session_has('error')) %}
+        <div class="alert alert-error">{{ session_get('error') }}</div>
+    {% elseif (session_has('success')) %}
+        <div class="alert alert-success">{{ session_get('success') }}</div>
+    {% endif %}
+	
+	<div class="toolbar">
+		<a class="back-link" href="{{ url('admin/user') }}">Zurück</a>
+		<form action="{{ url('admin/user') }}/{{ user.id }}" method="delete" class="delete-form">
+			<input type="submit" value="Löschen" />
+		</form>
+	</div>
+	<div style="clear: both; height: 0;"></div>
+	
+	<form action="{{ url('admin/user') }}/{{ user.id }}" method="PUT">
+		<div class="tabs" id="user-tabs">
+			<ul>
+				<li><a href="#user-info">Informationen</a></li>
+				<li><a href="#user-groups">Gruppen</a></li>
+				<li><a href="#user-permissions">Rechte</a></li>
+			</ul>
+			<div id="user-info" class="user-edit-content">
+				Name: <input type="text" value="{{ user.lastName }}" /><br />
+				Vorname: {{ user.firstName }}<br />
+				E-Mail: {{ user.email }}<br />
+			</div>
+			<div id="user-groups" class="user-edit-content">
+				Gruppen...
+			</div>
+			<div id="user-permissions" class="user-edit-content">
+				Rechte...
+			</div>
+		</div>
+		<input type="submit" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-all" />
+	</form>
+	
+	<script>
+	<!--
+	
+	$(function() {
+		$('.toolbar').buttonset();
+		
+		$('.tabs').tabs({
+			beforeLoad: function( event, ui ) {
+				ui.jqXHR.error(function() {
+					ui.panel.html("Couldn't load this tab. We'll try to fix this as soon as possible.");
+				});
+			}
+		});
+	});
+	
+	//-->
+	</script>
+{% endblock %}

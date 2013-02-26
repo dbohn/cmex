@@ -19,7 +19,7 @@ class AdminUserController extends AdminController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('admin.usercreate');
 	}
 
 	/**
@@ -40,6 +40,7 @@ class AdminUserController extends AdminController {
 	public function show($id)
 	{
 		//
+		return Redirect::to('admin/user/' . $id . '/edit');
 	}
 
 	/**
@@ -49,7 +50,11 @@ class AdminUserController extends AdminController {
 	 */
 	public function edit($id)
 	{
-		//
+		if($user = User::find($id)) {
+			return View::make('admin.useredit', array('user' => $user));
+		} else {
+			return Redirect::to('admin/user')->with('error', 'Der Benutzer wurde nicht gefunden!');
+		}
 	}
 
 	/**
@@ -59,7 +64,8 @@ class AdminUserController extends AdminController {
 	 */
 	public function update($id)
 	{
-		//
+		// Update
+		return Redirect::to('admin/user/' . $id . '/edit')->with('error', 'Das Updaten wird derzeit noch nicht unterstützt!');
 	}
 
 	/**
@@ -71,5 +77,10 @@ class AdminUserController extends AdminController {
 	{
 		//
 	}
-
+	
+	
+	public function missingMethod($parameters)
+	{
+		print_r($parameters);
+	}
 }
