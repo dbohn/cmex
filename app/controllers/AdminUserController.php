@@ -9,7 +9,7 @@ class AdminUserController extends AdminController {
 	 */
 	public function index()
 	{
-		return View::make('admin.userindex', array('users' => User::all()));
+		return View::make('admin.userindex', array('users' => Authentication::getUserProvider()->findAll()));
 	}
 
 	/**
@@ -39,8 +39,7 @@ class AdminUserController extends AdminController {
 	 */
 	public function show($id)
 	{
-		//
-		return Redirect::to('admin/user/' . $id . '/edit');
+		return Authentication::getUserProvider()->findById($id);
 	}
 
 	/**
@@ -75,7 +74,11 @@ class AdminUserController extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		//
+		if($user = User::find($id)) {
+			return View::make('admin.userdelete', array('user' => $user));
+		} else {
+			return Redirect::to('admin/user')->with('error', 'Der Benutzer wurde nicht gefunden!');
+		}
 	}
 	
 	

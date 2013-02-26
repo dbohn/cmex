@@ -19,7 +19,6 @@ Benutzerverwaltung
 		background-color: #FAFAFA;
 		background-image: linear-gradient(to bottom, #FAFAFA, #EDEDED);
 	}
-	
 	.ui-widget-header {
 		background-color: #FAFAFA;
 		background-image: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
@@ -27,6 +26,9 @@ Benutzerverwaltung
 		border: 1px solid #D4D4D4;
 		border-radius: 4px 4px 4px 4px;
 		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+	}
+	.ui-tabs .ui-tabs-nav li a {
+		padding: 4px 12px;
 	}
 	
 	.user-edit-content {
@@ -36,16 +38,6 @@ Benutzerverwaltung
 		margin: 15px 0;
 	}
 	
-	.toolbar {
-		float: left;
-	}
-	a.back-link {
-		float: left;
-	}
-	form.delete-form {
-		float: left;
-		margin: 0;
-	}
 	</style>
 	
     {% if (session_has('error')) %}
@@ -54,13 +46,8 @@ Benutzerverwaltung
         <div class="alert alert-success">{{ session_get('success') }}</div>
     {% endif %}
 	
-	<div class="toolbar">
-		<a class="back-link" href="{{ url('admin/user') }}">Zurück</a>
-		<form action="{{ url('admin/user') }}/{{ user.id }}" method="delete" class="delete-form">
-			<input type="submit" value="Löschen" />
-		</form>
-	</div>
-	<div style="clear: both; height: 0;"></div>
+	<a class="btn" href="{{ url('admin/user') }}">Zurück</a>
+	<a class="btn user-delete" href="{{ url('admin/user') }}/{{ user.id }}">Löschen</a>
 	
 	<form action="{{ url('admin/user') }}/{{ user.id }}" method="PUT">
 		<div class="tabs" id="user-tabs">
@@ -88,7 +75,13 @@ Benutzerverwaltung
 	<!--
 	
 	$(function() {
-		$('.toolbar').buttonset();
+		$('.btn.user-delete').click(function() {
+			$.ajax($(this).attr('href'), {
+				type: 'delete'
+			}).done(function(msg) { alert("success: " + msg); })
+			  .fail(function() { alert("error"); });
+			return false;
+		});
 		
 		$('.tabs').tabs({
 			beforeLoad: function( event, ui ) {
