@@ -67,12 +67,13 @@ class AdminUserController extends AdminController {
 	{
 		try
 		{
+			$user = Authentication::getUserProvider()->findById($id);
 			if(self::canEdit($id)) {
 				return View::make('admin.useredit');
 			} else {
 				return Redirect::to('admin/user')->with('error', 'Sie haben nicht die nötigen Rechte Benutzer zu erstellen!');
 			}
-			return View::make('admin.', array('user' => Authentication::getUserProvider()->findById($id)));
+			return View::make('admin.', array('user' => $user));
 		}
 		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
