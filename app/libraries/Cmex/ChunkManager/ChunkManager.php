@@ -11,11 +11,12 @@ class ChunkManager
 
     private $page = null;
 
-    private $currentChunk = "";
+    private $executionStack = null;
 
     public function __construct()
     {
         $this->loadChunkRepositories();
+        $this->initializeExecutionStack();
     }
 
     public function setPage(\Page $p)
@@ -71,7 +72,8 @@ class ChunkManager
     {
         $chunk = $this->getChunkForKey($key);
 
-        $this->currentChunk = $key;
+        // Put the chunk on the execution stack
+        $this->executionStack[] = $key;
 
         if (\Authentication::check()) {
             // Annotate the elements block for the admin panel
@@ -83,14 +85,16 @@ class ChunkManager
 
             $chunkContent = '' . $chunk->handleConfig() . $chunk->show();
 
-            $this->currentChunk = "";
+            // Remove chunk from execution stack
+
+            $this->executionStack->pop();
 
             return '<div id="' . $key . '"'.$multichunk.' typeof="'.$type.'" about="chunks/' . $key . '">'. $chunkContent . '</div>';
         }
 
         $chunkContent = '' . $chunk->show();
 
-        $this->currentChunk = "";
+        $this->executionStack->pop();
 
         return '<div id="' . $key . '">' . $chunkContent . '</div>';
     }
@@ -107,8 +111,8 @@ class ChunkManager
      */
     public function openForm($method="post", $formname="", $action="", $handler="", $fileupload=false, $attributes=array(), $csrf=true)
     {
-        if ($this->currentChunk != "") {
-            $chunk = $this->currentChunk;
+        if (!$this->executionStack->isEmpty()) {
+            $chunk = $this->executionStack->top();
 
             if ($action == "" || is_null($action)) {
                 //$action = \URL::to($scope);
@@ -195,13 +199,18 @@ class ChunkManager
         return false;
     }
 
+    public function getChunkRepositories()
+    {
+        return $this->chunkRepositories;
+    }
+
     private function loadChunkRepositories()
     {
         return ($this->chunkRepositories = array("Chunks\\Cmex\\"));
     }
 
-    public function getChunkRepositories()
+    private function initializeExecutionStack()
     {
-        return $this->chunkRepositories;
+        $this->executionStack = new \SplStack();
     }
 }

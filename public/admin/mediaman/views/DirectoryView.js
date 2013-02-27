@@ -7,7 +7,7 @@ define([
     ], 
     function($, _, Backbone, FileView){ 
         var DirectoryView = Backbone.View.extend({ 
-            el: $(".thumbnails"), 
+            el: $(".thumbnails"),
 
             fileviews: [],
 

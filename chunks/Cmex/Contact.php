@@ -17,7 +17,6 @@ class Contact extends \Chunk {
 
     public function handleInput($data) {
         // Send mail
-        
         $content = json_decode($this->content);
         $rules = array(
             'sendername'    => 'required',
@@ -29,9 +28,7 @@ class Contact extends \Chunk {
         $validation = \Validator::make($data, $rules);
 
         if($validation->fails()) {
-            //var_dump($validation->getMessages()->first('sender'));
             $messages = $validation->messages();
-            //$this->status = array('error' => $validation->errors);
             $error = "<p>Folgende Fehler sind aufgetreten: </p><ul>";
             foreach($messages->all() as $msg)
             {

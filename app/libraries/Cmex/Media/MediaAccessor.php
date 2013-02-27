@@ -9,12 +9,14 @@ use InvalidArgumentException;
 class MediaAccessor {
     private $storages = array();
 
-    public function addStorage(DriverInterface $driver) {
+    public function addStorage(DriverInterface $driver) 
+    {
         $key = $driver->respondsToKey();
         $this->storages[$key] = $driver;
     }
 
-    public function lookupFile($path) {
+    public function lookupFile($path) 
+    {
         // Extract driver
         $pathcomponents = explode("/", $path);
 
@@ -24,12 +26,29 @@ class MediaAccessor {
 
         $driverpath = '/'.implode("/", $pathcomponents);
 
-        if(isset($this->storages[$key]))
-        {
+        if (isset($this->storages[$key])) {
             return $this->storages[$key]->getFileForPath($driverpath);
-        } else
-        {
+        } else {
             throw new InvalidArgumentException("Driver " . $key . " was not found!");
         }
+    }
+
+    public function cleanFilePath($dirtyPath) 
+    {
+        // Check for driver
+        $pathcomponents = explode("/", $dirtyPath);
+        $driver = $pathcomponents[0];
+
+        if (isset($this->storages[$driver])) {
+            // Drop any malicious characters
+            $path = strip_tags($dirtyPath);
+
+            $path = preg_replace('/[^(\x20-\x7F)]*/','', $path);
+
+            return $path;
+        } else {
+            return false;
+        }
+
     }
 }

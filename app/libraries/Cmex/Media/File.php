@@ -75,7 +75,7 @@ class File {
     }
 
     /**
-     * If this method was called, the object is not changeable anymore!
+     * If this method was called, the object cannot be changed anymore!
      * So any call to a set-Method will fail!
      */
     public function freezeObject() 

@@ -1,9 +1,9 @@
 {{ open_form("post", "contactForm", null, "", false, {'class' : 'form-horizontal'}) }}
-{% if status.success %}
+{% if status.success is defined %}
 <div class="alert alert-success span7">{{ status.success }}</div>
 {% endif %}
 
-{% if status.error %}
+{% if status.error is defined %}
 <div class="alert alert-error span7">{{ status.error }}</div>
 {% endif %}
 

@@ -66,7 +66,8 @@ class Container extends \Chunk implements SearchableInterface {
 
         foreach($this->loadedChunks as $chunk)
         {
-            $ret .= \ChunkManager::getChunkForKey($chunk)->show();
+            $ret .= \ChunkManager::showForKey($chunk);
+            //$ret .= \ChunkManager::getChunkForKey($chunk)->show();
         }
 
         // if(\Authentication::check())
