@@ -83,7 +83,7 @@ class ChunkManager
                 $multichunk = ' rel="dcterms:hasPart"';
             }
 
-            $chunkContent = '' . $chunk->handleConfig() . $chunk->show();
+            $chunkContent = '' . $chunk->show();
 
             // Remove chunk from execution stack
 

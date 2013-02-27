@@ -111,7 +111,9 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'TwigBridge\TwigServiceProvider',
-		'Cmex\Media\MediaServiceProvider'
+		'Cmex\Media\MediaServiceProvider',
+		'Cmex\ChunkManager\ChunkManagerServiceProvider',
+		'Cmex\Asset\AssetServiceProvider'
 
 	),
 
@@ -175,9 +177,8 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-		'Html'		 	  => 'Html\Html',
-		'Asset'		 	  => 'Cmex\Asset',
-		'ChunkManager'	  => 'Cmex\ChunkManager\ChunkManagerProvider',
+		'Asset'		 	  => 'Cmex\Asset\Facade',
+		'ChunkManager'	  => 'Cmex\ChunkManager\Facade',
 		'Authentication'  => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Media'			  => 'Cmex\Media\Facade'
 

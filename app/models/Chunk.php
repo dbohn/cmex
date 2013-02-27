@@ -3,7 +3,6 @@
 use Cmex\ChunkManager\ChunkNotFoundException;
 
 abstract class Chunk {
-    protected $properties = array();
     protected $name = "";
     protected $scope = "";
     public $type = "";
@@ -17,20 +16,6 @@ abstract class Chunk {
         $type = explode("\\", $type);
         $this->type = end($type);
         
-    }
-
-    public function handleConfig() {
-        // Show edit button etc. pp.
-        // Finally handle chunk config-code:
-        return $this->config();
-    }
-
-    public function setProperty($property, $value) {
-        $this->properties[$property] = $value;
-    }
-
-    public function setProperties(array $properties) {
-        $this->properties = array_merge($this->properties, $properties);
     }
 
     public function setChunkName($scope, $name) {
@@ -54,15 +39,6 @@ abstract class Chunk {
 
         throw new IllegalArgumentException('Unknown property!');
     }
-
-    /**
-     * In this method you can define your configuration
-     * You're free to use any way of config, you want.
-     * a text widget could e.g. load a wysiwyg editor,
-     * a contact widget could instead just show a form to set recipient
-     * Return the editable properties here!
-     */
-    public abstract function config();
 
     /**
      * For the editing environment you often have to specify

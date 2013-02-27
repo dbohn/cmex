@@ -29,15 +29,19 @@
 <div class="container">
     <div class="row">
         
+        {% block primarycolumn %}
         <div class="span9">
             {% block content %}
             {% endblock %}
         </div>
+        {% endblock %}
+        {% block secondarycolumn %}
         <div class="span3">
             {% block sidebar %}
                 <h2>Options</h2>
             {% endblock %}
         </div>
+        {% endblock %}
     </div>
 </div>
 </body>

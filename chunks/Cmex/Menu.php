@@ -3,11 +3,8 @@
 namespace Chunks\Cmex;
 
 class Menu extends \Chunk {
-    public function config() {
-        return "";
-    }
 
-    public function show($properties=array()) {
+    public function show() {
         return $this->makeMenu($this->name);
     }
 
@@ -21,10 +18,9 @@ class Menu extends \Chunk {
     }
 
     /**
-     * This function creates recursively the menu from the JSON-Data
-     * Please note, that it can get quite slow, the deeper
-     * your menu structure is!
-     * @param $menu array deserialized JSON-data
+     * Creates the menu. It is using Nested sets for storage
+     * So building the menu is done in linear time
+     * @param $menu string name of the menu which should be rendered
      * @return HTML tree
      */
     private function makeMenu($menu, $startLeft=1) {

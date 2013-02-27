@@ -5,12 +5,8 @@ use Guzzle\Http\Client;
 
 class Contact extends \Chunk {
     private $status = null;
-
-    public function config() {
-        return "";
-    }
     
-    public function show($properties = array()) {
+    public function show() {
         return \View::make('Cmex.Contact.contactForm', array(
             'status' => $this->status));
     }

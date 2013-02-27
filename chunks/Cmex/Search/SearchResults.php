@@ -5,11 +5,7 @@ namespace Chunks\Cmex\Search;
 class SearchResults extends \Chunk {
 	private $searchquery = false;
 
-	public function config() {
-        return "";
-    }
-
-    public function show($properties=array()) {
+    public function show() {
         if(!$this->searchquery) {
         	return "Es wurde keine Suchanfrage ausgeführt!";
         }
