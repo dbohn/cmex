@@ -36,7 +36,6 @@ class AdminUserController extends AdminController {
 	public function store()
 	{
 		return Redirect::to('admin/user')->with('error', 'Benutzererstellen noch deaktiviert!');
-		//
 	}
 
 	/**
@@ -67,7 +66,10 @@ class AdminUserController extends AdminController {
 		{
 			$user = Authentication::getUserProvider()->findById($id);
 			if(self::canEdit($id)) {
-				return View::make('admin.useredit', array('user' => $user, 'groups' => Authentication::getGroupProvider()->findAll()));
+				return View::make('admin.useredit', array(
+					'user' => $user,
+					'groups' => Authentication::getGroupProvider()->findAll())
+				);
 			} else {
 				return Redirect::to('admin/user')->with('error', 'Sie haben nicht die nötigen Rechte den Benutzer zu bearbeiten!');
 			}
@@ -89,6 +91,7 @@ class AdminUserController extends AdminController {
 		{
 			$user = Authentication::getUserProvider()->findById($id);
 			// update algorythm here
+			return Input::json();
 		}
 		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{

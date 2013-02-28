@@ -4,6 +4,11 @@
 Benutzerverwaltung
 {% endblock %}
 
+{% block head %}
+{{ parent() }}
+{% include "admin/userhead.twig" %}
+{% endblock %}
+
 {% block sidebar %}
 {% endblock %}
 
@@ -53,7 +58,7 @@ Benutzerverwaltung
 	<a class="btn" href="{{ url('admin/user') }}">Zurück</a>
 	<a class="btn user-delete" href="{{ url('admin/user') }}/{{ user.id }}">Löschen</a>
 	
-	<form action="{{ url('admin/user') }}/{{ user.id }}" method="PUT">
+	<form id="user-edit-form" action="{{ url('admin/user') }}/{{ user.id }}" method="post">
 		<div class="tabs" id="user-tabs">
 			<ul>
 				<li><a href="#user-info">Informationen</a></li>
@@ -103,6 +108,16 @@ Benutzerverwaltung
 				type: 'delete'
 			}).done(function(msg) { alert("success: " + msg); })
 			  .fail(function() { alert("error"); });
+			return false;
+		});
+		
+		$('form#user-edit-form').submit(function() {
+			$.ajax({
+				url: $(this).attr('action'),
+				type: 'PUT',
+				data: $(this).serialize()
+			}).done(function(msg) { alert("success: " + msg); })
+			  .fail(function(jqXHR, textStatus, errorThrown) { alert("error: " + textStatus + ' - ' + errorThrown); });
 			return false;
 		});
 		
