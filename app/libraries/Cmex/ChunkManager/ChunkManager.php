@@ -75,6 +75,8 @@ class ChunkManager
         // Put the chunk on the execution stack
         $this->executionStack[] = $key;
 
+        $attributes = "";
+
         if (\Authentication::check()) {
             // Annotate the elements block for the admin panel
             $type = strtolower($chunk->type);
@@ -83,20 +85,17 @@ class ChunkManager
                 $multichunk = ' rel="dcterms:hasPart"';
             }
 
-            $chunkContent = '' . $chunk->show();
+            $attributes .= $multichunk . ' typeof="' . $type . '" about="chunks/' . $key . '"';
 
-            // Remove chunk from execution stack
-
-            $this->executionStack->pop();
-
-            return '<div id="' . $key . '"'.$multichunk.' typeof="'.$type.'" about="chunks/' . $key . '">'. $chunkContent . '</div>';
         }
 
         $chunkContent = '' . $chunk->show();
 
+        // Remove chunk from execution stack
+
         $this->executionStack->pop();
 
-        return '<div id="' . $key . '">' . $chunkContent . '</div>';
+        return '<div id="' . $key . '" ' . $attributes . '>' . $chunkContent . '</div>';
     }
 
     /**
@@ -177,6 +176,7 @@ class ChunkManager
     public function chunkExists($name, $core = true)
     {
         $name = str_replace("_", "\\", $name);
+        $name = str_replace(".", "\\", $name);
 
         $repositories = $this->getChunkRepositories();
 

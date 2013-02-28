@@ -99,11 +99,11 @@ class FileSystem implements DriverInterface {
     {
         $syspath = $this->buildRealPath($path, $this->basePath);
 
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $finfo = \finfo_open(FILEINFO_MIME_TYPE);
 
-        $mime = finfo_file($finfo, $syspath);
+        $mime = \finfo_file($finfo, $syspath);
 
-        finfo_close($finfo);
+        \finfo_close($finfo);
 
         return $mime;
     }
