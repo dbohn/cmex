@@ -15,8 +15,9 @@ class TwigConnector extends Extension
     {
         parent::__construct($app, $twig);
         // TODO: this callback should use a subset of functions for security reasons!
-        $twig->registerUndefinedFunctionCallback(function ($name) {
-            if(in_array($name, $this->registeredFunctions)) {
+	$regFunctions = $this->registeredFunctions;
+        $twig->registerUndefinedFunctionCallback(function ($name) use ($regFunctions) {
+            if(in_array($name, $regFunctions)) {
                 return new Twig_Function_Function($name);
             }
             /*if (function_exists($name)) {
