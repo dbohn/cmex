@@ -8,6 +8,94 @@ Benutzerverwaltung
 {% endblock %}
 
 {% block content %}
+	<style type="text/css">
+	.ui-widget {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+	.ui-widget-content {
+		border: 1px solid #D4D4D4;
+	}
+	.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+		background-color: #FAFAFA;
+		background-image: linear-gradient(to bottom, #FAFAFA, #EDEDED);
+	}
+	.ui-widget-header {
+		background-color: #FAFAFA;
+		background-image: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+		background-repeat: repeat-x;
+		border: 1px solid #D4D4D4;
+		border-radius: 4px 4px 4px 4px;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+	}
+	.ui-tabs .ui-tabs-nav li a {
+		padding: 4px 12px;
+	}
+	
+	.user-table tbody th {
+		font-weight: normal;
+		text-align: right;
+	}
+	.user-edit-content {
+		/*height: 150px;*/
+	}
+	.tabs {
+		margin: 15px 0;
+	}
+	
+	</style>
+	
 	<a href="{{ url('admin/user') }}" class="btn">Zurück</a>
-    <p>Benutzer hinzufügen...</p>
+	<form action="{{ url('admin/user') }}" method="post">
+		<div class="tabs" id="user-tabs">
+			<ul>
+				<li><a href="#user-info">Informationen</a></li>
+				<li><a href="#user-groups">Gruppen</a></li>
+				<li><a href="#user-permissions">Rechte</a></li>
+			</ul>
+			<div id="user-info" class="user-edit-content">
+				<table class="user-table">
+					<tbody>
+						<tr>
+							<th>Name:</th><td><input type="text" name="lastName" value="" /></td>
+						</tr>
+						<tr>
+							<th>Vorname:</th><td><input type="text" name="firstName" value="" /></td>
+						</tr>
+						<tr>
+							<th>E-Mail:</th><td><input type="text" name="email" value="" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="user-groups" class="user-edit-content">
+				<table>
+	{% for group in groups %}
+					<tr>
+						<td>{{ group.name }}</td><td><a href="#">hinzufügen</a></td>
+					</tr>
+	{% endfor %}
+				</table>
+			</div>
+			<div id="user-permissions" class="user-edit-content">
+				<p>Rechtesystem sucks</p>
+			</div>
+		</div>
+		<input type="submit" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-all" />
+	</form>
+	
+	<script>
+	<!--
+	
+	$(function() {
+		$('.tabs').tabs({
+			beforeLoad: function( event, ui ) {
+				ui.jqXHR.error(function() {
+					ui.panel.html("Couldn't load this tab. We'll try to fix this as soon as possible.");
+				});
+			}
+		});
+	});
+	
+	//-->
+	</script>
 {% endblock %}
