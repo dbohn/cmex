@@ -11,8 +11,7 @@ class AdminUserController extends AdminController {
 	{
 		return View::make('admin.userindex', array(
 			'users' => Authentication::getUserProvider()->findAll(),
-			'permissions' => Authentication::getUser(),
-			'cancreate' => (int)self::canCreate()
+			'permissions' => Authentication::getUser()->getPermissions()
 		));
 	}
 

@@ -17,9 +17,7 @@ Benutzerverwaltung
     <div class="alert alert-success">{{ session('success') }}</div>
     {% endif %}
 	
-    {% if (cancreate) %}
 	<a class="btn" href="{{ url('admin/user/create') }}">Benutzer hinzufügen</a>
-	{% endif %}
 	<ul>
 	{% for user in users %}
 		<li><a href="{{ url('admin/user/') }}/{{ user.id }}/edit">{{ user.lastName }} {{ user.firstName }} {{ user.email }}</a></li>

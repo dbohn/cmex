@@ -65,7 +65,9 @@ Benutzerverwaltung
 				Gruppen...
 			</div>
 			<div id="user-permissions" class="user-edit-content">
-				Rechte...
+	{% for permission in permissions %}
+			{{ permission }}
+	{% endfor %}
 			</div>
 		</div>
 		<input type="submit" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-all" />
