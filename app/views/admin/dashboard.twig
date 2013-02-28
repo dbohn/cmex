@@ -16,6 +16,10 @@ Dashboard
   .portlet-content { padding: 0.4em; }
   .ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
   .ui-sortable-placeholder * { visibility: hidden; }
+  .ui-icon {
+    margin-top: 3px;
+    line-height: 25px;
+  }
   .portlet-header {
     font-size: 95%;
     font-weight: bold;
@@ -46,7 +50,6 @@ Dashboard
 
 {% block primarycolumn %}
         <div class="span12">
-            <p>Administration - Sie sind eingeloggt als: {{ user.first_name }} {{ user.last_name }} <a href="{{ url('/') }}">Frontend</a></p>
 
 <div class="span6 column">
  
