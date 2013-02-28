@@ -8,13 +8,8 @@ class Container extends \Chunk implements SearchableInterface {
 
     public $multichunk = true;
 
-    public function config() {
-        return "";
-    }
-
     public function initialize()
     {
-
         $this->loadedChunks = $this->loadChunks();
     }
 
@@ -25,11 +20,9 @@ class Container extends \Chunk implements SearchableInterface {
 
         foreach($chunks as $chunk)
         {
-            if (property_exists($chunk, 'scope'))
-            {
+            if (property_exists($chunk, 'scope')) {
                 $scope = $chunk->scope;
-            } else
-            {
+            } else {
                 $scope = $this->scope;
             }
 
@@ -39,7 +32,8 @@ class Container extends \Chunk implements SearchableInterface {
         return $returnedChunks;
     }
 
-    public function getIndex() {
+    public function getIndex() 
+    {
         $ret = array();
         //$chunks = json_decode($this->content);
 
@@ -56,7 +50,8 @@ class Container extends \Chunk implements SearchableInterface {
         return $ret;
     }
 
-    public function show() {
+    public function show() 
+    {
         
         $ret = "";
         /*if(\Authentication::check())
@@ -66,7 +61,8 @@ class Container extends \Chunk implements SearchableInterface {
 
         foreach($this->loadedChunks as $chunk)
         {
-            $ret .= \ChunkManager::getChunkForKey($chunk)->show();
+            $ret .= \ChunkManager::showForKey($chunk);
+            //$ret .= \ChunkManager::getChunkForKey($chunk)->show();
         }
 
         // if(\Authentication::check())
@@ -82,7 +78,8 @@ class Container extends \Chunk implements SearchableInterface {
         return array('multipart');
     }
 
-    public function handleInput($data) {
+    public function handleInput($data) 
+    {
         // Add chunk to container etc...
     }
 }

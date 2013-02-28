@@ -5,9 +5,9 @@
         <title>cmex!-Administration - {% block title %}{% endblock %}</title>
         <meta charset="utf-8" />
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
-        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
     	
     	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
     	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
     	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/jquery-ui.css" type="text/css" />
     {% endblock %}
@@ -18,6 +18,7 @@
         <a class="brand" href="{{ url('admin/dashboard') }}">cmex!</a>
         <ul class="nav">
             <li><a href="{{ url('admin/dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url('/') }}">Frontend</a></li>
             <li><a href="{{ url('admin/user') }}">Users</a></li>
             <li><a href="#">Chunks</a></li>
             <li><a href="{{ url('admin/media') }}">Media</a></li>
@@ -29,15 +30,19 @@
 <div class="container">
     <div class="row">
         
+        {% block primarycolumn %}
         <div class="span9">
             {% block content %}
             {% endblock %}
         </div>
+        {% endblock %}
+        {% block secondarycolumn %}
         <div class="span3">
             {% block sidebar %}
                 <h2>Options</h2>
             {% endblock %}
         </div>
+        {% endblock %}
     </div>
 </div>
 </body>

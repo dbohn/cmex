@@ -10,15 +10,12 @@ use Chunks\Cmex\Search\SearchableInterface;
 * @copyright 2013 cmex! Team
 */
 class Text extends \Chunk implements SearchableInterface {
-    public function config() {
-        return "";
-    }
 
     public function getIndex() {
-        return $this->content;
+        return strip_tags($this->content);
     }
 
-    public function show($properties=array()) {
+    public function show() {
         $_ = $this;
         // TODO: The cache should be refreshed when the updated_at flag
         // is behind the cache-date!

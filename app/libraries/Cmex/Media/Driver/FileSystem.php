@@ -14,7 +14,8 @@ class FileSystem implements DriverInterface {
     public function __construct($config)
     {
         // Read config values
-        $this->baseUrl = $config['baseUrl'];
+        $this->baseUrl = rtrim($config['baseUrl'], '/');
+        var_dump($this->baseUrl);
         $this->basePath = $config['basePath'];
     }
 
@@ -84,7 +85,7 @@ class FileSystem implements DriverInterface {
             $path = substr($path, 1);
         }
 
-        return $base . $path;
+        return $base . "/" . ltrim($path, '/');
     }
 
     private function getFileName($path)
@@ -98,11 +99,11 @@ class FileSystem implements DriverInterface {
     {
         $syspath = $this->buildRealPath($path, $this->basePath);
 
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $finfo = \finfo_open(FILEINFO_MIME_TYPE);
 
-        $mime = finfo_file($finfo, $syspath);
+        $mime = \finfo_file($finfo, $syspath);
 
-        finfo_close($finfo);
+        \finfo_close($finfo);
 
         return $mime;
     }

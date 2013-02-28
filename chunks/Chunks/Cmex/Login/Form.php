@@ -3,10 +3,6 @@
 namespace Chunks\Cmex\Login;
 
 class Form extends \Chunk {
-    public function config()
-    {
-        return "";
-    }
 
     public function show()
     {

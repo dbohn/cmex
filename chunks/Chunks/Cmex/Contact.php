@@ -5,19 +5,14 @@ use Guzzle\Http\Client;
 
 class Contact extends \Chunk {
     private $status = null;
-
-    public function config() {
-        return "";
-    }
     
-    public function show($properties = array()) {
+    public function show() {
         return \View::make('Cmex.Contact.contactForm', array(
             'status' => $this->status));
     }
 
     public function handleInput($data) {
         // Send mail
-        
         $content = json_decode($this->content);
         $rules = array(
             'sendername'    => 'required',
@@ -29,9 +24,7 @@ class Contact extends \Chunk {
         $validation = \Validator::make($data, $rules);
 
         if($validation->fails()) {
-            //var_dump($validation->getMessages()->first('sender'));
             $messages = $validation->messages();
-            //$this->status = array('error' => $validation->errors);
             $error = "<p>Folgende Fehler sind aufgetreten: </p><ul>";
             foreach($messages->all() as $msg)
             {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Cmex;
+namespace Cmex\Asset;
 
-class AssetHandler {
+class Asset {
     private $scripts = array();
     private $stylesheets = array();
 

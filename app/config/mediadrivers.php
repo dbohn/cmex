@@ -6,7 +6,7 @@ return array(
     ),
 
     'filesystem' => array(
-        'baseUrl' => asset("/") . "files/",
+        'baseUrl' => asset("files"),
         'basePath' => base_path() . "/public/files/"
     )
 );
