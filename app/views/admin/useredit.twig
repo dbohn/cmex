@@ -31,8 +31,12 @@ Benutzerverwaltung
 		padding: 4px 12px;
 	}
 	
+	.user-table tbody th {
+		font-weight: normal;
+		text-align: right;
+	}
 	.user-edit-content {
-		height: 150px;
+		/*height: 150px;*/
 	}
 	.tabs {
 		margin: 15px 0;
@@ -57,16 +61,33 @@ Benutzerverwaltung
 				<li><a href="#user-permissions">Rechte</a></li>
 			</ul>
 			<div id="user-info" class="user-edit-content">
-				Name: <input type="text" value="{{ user.lastName }}" /><br />
-				Vorname: {{ user.firstName }}<br />
-				E-Mail: {{ user.email }}<br />
+				<table class="user-table">
+					<tbody>
+						<tr>
+							<th>Name:</th><td><input type="text" name="lastName" value="{{ user.lastName }}" /></td>
+						</tr>
+						<tr>
+							<th>Vorname:</th><td><input type="text" name="firstName" value="{{ user.firstName }}" /></td>
+						</tr>
+						<tr>
+							<th>E-Mail:</th><td><input type="text" name="email" value="{{ user.email }}" /></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 			<div id="user-groups" class="user-edit-content">
-				Gruppen...
+				Gruppen...<br />
+				<table>
+	{% for group in groups %}
+					<tr>
+						<td>{{ group.name }}</td><td>{{ user.inGroup(group) ? 'entfernen' : '<a href="#">hinzufügen</a>' }}</td>
+					</tr>
+	{% endfor %}
+				</table>
 			</div>
 			<div id="user-permissions" class="user-edit-content">
-	{% for permission in permissions %}
-			{{ permission }}
+	{% for title, permission in user.getPermissions() %}
+			{{ title }}: {{ permission }}<br />
 	{% endfor %}
 			</div>
 		</div>

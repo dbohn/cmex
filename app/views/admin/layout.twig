@@ -24,7 +24,7 @@
             <li><a href="{{ url('admin/media') }}">Media</a></li>
             <li><a href="#">Settings</a></li>
         </ul>
-        <p class="navbar-text pull-right">Hallo {{ user.email }}! <a href="{{ url('logout') }}">Abmelden</a></p>
+        <p class="navbar-text pull-right">Hallo {{ authentication_getuser().email }}! <a href="{{ url('logout') }}">Abmelden</a></p>
     </div>
 </div>
 <div class="container">

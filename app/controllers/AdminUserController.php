@@ -10,8 +10,7 @@ class AdminUserController extends AdminController {
 	public function index()
 	{
 		return View::make('admin.userindex', array(
-			'users' => Authentication::getUserProvider()->findAll(),
-			'permissions' => Authentication::getUser()->getPermissions()
+			'users' => Authentication::getUserProvider()->findAll()
 		));
 	}
 
@@ -23,7 +22,7 @@ class AdminUserController extends AdminController {
 	public function create()
 	{
 		if(self::canCreate()) {
-			return View::make('admin.usercreate');
+			return View::make('admin.usercreate', array('groups' => Authentication::getGroupProvider()->findAll()));
 		} else {
 			return Redirect::to('admin/user')->with('error', 'Sie haben nicht die nötigen Rechte Benutzer zu erstellen!');
 		}
@@ -36,7 +35,7 @@ class AdminUserController extends AdminController {
 	 */
 	public function store()
 	{
-		
+		return Redirect::to('admin/user')->with('error', 'Benutzererstellen noch deaktiviert!');
 		//
 	}
 
@@ -68,11 +67,10 @@ class AdminUserController extends AdminController {
 		{
 			$user = Authentication::getUserProvider()->findById($id);
 			if(self::canEdit($id)) {
-				return View::make('admin.useredit');
+				return View::make('admin.useredit', array('user' => $user, 'groups' => Authentication::getGroupProvider()->findAll()));
 			} else {
-				return Redirect::to('admin/user')->with('error', 'Sie haben nicht die nötigen Rechte Benutzer zu erstellen!');
+				return Redirect::to('admin/user')->with('error', 'Sie haben nicht die nötigen Rechte den Benutzer zu bearbeiten!');
 			}
-			return View::make('admin.', array('user' => $user));
 		}
 		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
@@ -117,7 +115,6 @@ class AdminUserController extends AdminController {
 	}
 	
 	private function canCreate() {
-		return false;
 		return (Authentication::getUser()->hasAccess('admin') || Authentication::getUser()->hasAccess('superuser'));
 	}
 	
