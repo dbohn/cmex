@@ -15,7 +15,6 @@ class FileSystem implements DriverInterface {
     {
         // Read config values
         $this->baseUrl = rtrim($config['baseUrl'], '/');
-        var_dump($this->baseUrl);
         $this->basePath = $config['basePath'];
     }
 
@@ -99,12 +98,20 @@ class FileSystem implements DriverInterface {
     {
         $syspath = $this->buildRealPath($path, $this->basePath);
 
-        $finfo = \finfo_open(FILEINFO_MIME_TYPE);
+        if(function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
 
-        $mime = \finfo_file($finfo, $syspath);
+            $mime = finfo_file($finfo, $syspath);
 
-        \finfo_close($finfo);
+            finfo_close($finfo);
 
-        return $mime;
+            return $mime;
+        }
+
+        if(function_exists('mime_content_type')) {
+            return @mime_content_type($syspath);
+        }
+
+        return "application/octet-stream";
     }
 }
