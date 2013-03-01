@@ -1,5 +1,9 @@
 <?php
 
+namespace Cmex\Modules\Admin;
+
+use Authentication, View, Redirect, Input;
+
 class AdminUserController extends AdminController {
 
 	/**
@@ -9,7 +13,7 @@ class AdminUserController extends AdminController {
 	 */
 	public function index()
 	{
-		return View::make('admin.userindex', array(
+		return View::make('Admin::userindex', array(
 			'users' => Authentication::getUserProvider()->findAll()
 		));
 	}
@@ -22,7 +26,7 @@ class AdminUserController extends AdminController {
 	public function create()
 	{
 		if($this->canCreate()) {
-			return View::make('admin.usercreate', array('groups' => Authentication::getGroupProvider()->findAll()));
+			return View::make('Admin::usercreate', array('groups' => Authentication::getGroupProvider()->findAll()));
 		} else {
 			return Redirect::to('admin/user')->with('error', 'Sie haben nicht die nötigen Rechte Benutzer zu erstellen!');
 		}
@@ -111,7 +115,7 @@ class AdminUserController extends AdminController {
 		{
 			$user = Authentication::getUserProvider()->findById($id);
 			if($this->canEdit($id)) {
-				return View::make('admin.useredit', array(
+				return View::make('Admin::useredit', array(
 					'user' => $user,
 					'groups' => Authentication::getGroupProvider()->findAll())
 				);

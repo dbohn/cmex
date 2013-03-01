@@ -1,0 +1,16 @@
+# Property list for Contact Chunk
+---
+Form:
+    required:
+        to: # e-mail address, where the mails are send to
+            type: email
+            lang_key: contact.recepient
+    optional:
+        view: # View for the contact form
+            type: view
+            lang_key: contact.formview
+            default: Cmex.Contact.views.contactForm
+        message_template: # View for the mail message
+            type: view
+            lang_key: contact.message_template
+            default: contactform

@@ -1,0 +1,8 @@
+# Property list for Login chunk package
+---
+Form:
+    optional:
+        view: # The view used for displaying the login form
+            type: view
+            lang_key: login.formview
+            default: Cmex.Login.views.loginformview

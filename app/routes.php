@@ -11,43 +11,6 @@
 |
 */
 
-// All routes related to the admin system
-Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
-{
-    Route::get('/', function()
-    {
-        return Redirect::to('admin/dashboard');
-    });
-
-    Route::resource('user', 'AdminUserController');
-
-    Route::get('dashboard', 'AdminDashboardController@handle');
-
-    Route::get('media', 'AdminMediaController@index');
-    Route::get('media/{path}', 'AdminMediaController@show')->where('path', '[A-Za-z0-9/.]+');
-
-    Route::get('{module}', function($module)
-    {
-        return $module;
-    });
-
-});
-
-// Authentication routes
-Route::get('login', array('as' => 'login', 'uses' => 'LoginController@login'));
-
-Route::get('logoff', 'LoginController@logoff');
-Route::get('logout', 'LoginController@logoff');
-
-Route::post('doLogin', 'LoginController@auth');
-
-// Password routes
-Route::get('forgotpassword', 'LoginController@forgotpassword');
-Route::get('newpassword/{id}', 'LoginController@newpassword');
-
-Route::post('doReset', 'LoginController@doReset');
-Route::post('doNewpw/{id}', 'LoginController@doNewpw');
-
 // Enable access to the (virtual) filesystem
 Route::get('file/{option}/{path}', 'MediaController@resolveFile')->where('path', '[A-Za-z0-9/.]+');
 

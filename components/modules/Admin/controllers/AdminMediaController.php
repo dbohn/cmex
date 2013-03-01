@@ -1,5 +1,9 @@
 <?php
 
+namespace Cmex\Modules\Admin;
+
+use BaseController, Authentication, View, Media;
+
 class AdminMediaController extends BaseController {
 
 	/**
@@ -11,7 +15,7 @@ class AdminMediaController extends BaseController {
 	{
 		$user = Authentication::getUser();
 
-		return View::make('admin.mediamanager', array('user' => $user));
+		return View::make('Admin::mediamanager', array('user' => $user));
 	}
 
 	/**

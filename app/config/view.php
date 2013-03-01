@@ -13,7 +13,11 @@ return array(
 	|
 	*/
 
-	'paths' => array(__DIR__.'/../views', __DIR__.'/../../public/templates', __DIR__.'/../../modules/Chunks'),
+	'paths' => array(
+		__DIR__.'/../views', 
+		__DIR__.'/../../public/templates', 
+		__DIR__.'/../../components/Chunks'
+	),
 
 	/*
 	|--------------------------------------------------------------------------

@@ -113,7 +113,8 @@ return array(
 		'TwigBridge\TwigServiceProvider',
 		'Cmex\Media\MediaServiceProvider',
 		'Cmex\ChunkManager\ChunkManagerServiceProvider',
-		'Cmex\Asset\AssetServiceProvider'
+		'Cmex\Asset\AssetServiceProvider',
+		'Cmex\Libraries\ModuleServiceProvider'
 
 	),
 

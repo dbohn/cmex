@@ -1,0 +1,22 @@
+# Property list for Search Chunk Package
+---
+SmallSearchForm:
+    required:
+        page: # Page with the search results
+            type: page
+            lang_key: search.smallsearchpage
+        chunk: # Chunk for the search results
+            type: chunk_on_page
+            attr: 
+                on_page: SmallSearchForm.page
+                of_type: Cmex.Search.SearchResults
+            lang_key: search.chunk_on_page
+    optional:
+        extended: # Use an extended or a simple search form
+            type: boolean
+            lang_key: search.useextendedsearch
+            default: false
+        view: # Which view to use for the search form
+            type: view
+            lang_key: search.smallsearchview
+            default: Cmex.Search.views.smallSearchView

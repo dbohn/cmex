@@ -1,4 +1,4 @@
-{% extends "admin/layout.twig" %}
+{% extends "layout.twig" %}
 
 {% block title %}
 Dashboard
@@ -55,7 +55,7 @@ Dashboard
  
   <div class="portlet">
     <div class="portlet-header">Statistik</div>
-    <div class="portlet-content">Hier können später Zugriffstatistiken stehen</div>
+    <div class="portlet-content"><p>Hier können später Zugriffstatistiken stehen</p></div>
   </div>
  
   <div class="portlet">
@@ -69,7 +69,12 @@ Dashboard
  
   <div class="portlet">
     <div class="portlet-header">Hilfe</div>
-    <div class="portlet-content">Lästig zu erstellen, praktisch für den Nutzer...</div>
+    <div class="portlet-content"><p>Lästig zu erstellen, praktisch für den Nutzer...</p></div>
+  </div>
+
+  <div class="portlet">
+    <div class="portlet-header">ModuleServiceProvider-Test</div>
+    <div class="portlet-content"><p>{{ test }}</p></div>
   </div>
  
 </div>

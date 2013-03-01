@@ -1,5 +1,9 @@
 <?php
 
+namespace Cmex\Modules\Login;
+
+use BaseController, Authentication, View, Redirect, Input;
+
 class LoginController extends BaseController {
     /**
      * login 
@@ -10,7 +14,7 @@ class LoginController extends BaseController {
      */
     public function login() {
         if(!Authentication::check()) {
-            return View::make('loginform');
+            return View::make('Login::loginform');
         } else {
             return Redirect::to('');
         }
@@ -85,7 +89,7 @@ class LoginController extends BaseController {
 	 */
 	public function forgotpassword() {
 		if(!Authentication::check()) {
-            return View::make('resetpwform');
+            return View::make('Login::resetpwform');
         } else {
             return Redirect::to('');
         }
@@ -99,7 +103,7 @@ class LoginController extends BaseController {
 	 */
 	public function newpassword($id) {
 		if(!Authentication::check()) {
-            return View::make('newpwform', array('id' => $id, 'code' => Input::get('code', '')));
+            return View::make('Login::newpwform', array('id' => $id, 'code' => Input::get('code', '')));
         } else {
             return Redirect::to('');
         }
