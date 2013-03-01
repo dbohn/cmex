@@ -99,7 +99,7 @@ class LoginController extends BaseController {
 	 */
 	public function newpassword($id) {
 		if(!Authentication::check()) {
-            return View::make('newpwform', array('id' => $id));
+            return View::make('newpwform', array('id' => $id, 'code' => Input::get('code', '')));
         } else {
             return Redirect::to('');
         }
@@ -115,7 +115,7 @@ class LoginController extends BaseController {
 		try
 		{
 			$user = Authentication::getUserProvider()->findByLogin(Input::get('email'));
-			return Redirect::to('newpassword/' . $user->id)->with('success', 'Ihr Rücksetztcode lautet: ' . $user->getResetPasswordCode());
+			return Redirect::to('newpassword/' . $user->id . '?code=' . $user->getResetPasswordCode())->with('success', 'Code beantragt!');
 		}
 		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
@@ -133,7 +133,7 @@ class LoginController extends BaseController {
 		try
 		{
 			$user = Authentication::getUserProvider()->findById($id);
-			if($user->attemptResetPassword(Input::get('resetcode', ''), Input::get('newpassword', '')))
+			if($user->attemptResetPassword(Input::get('code', ''), Input::get('newpassword', '')))
 				return Redirect::to('login')->with('success', 'Ihr Passwort wurde zurückgesetzt!');
 			else
 				return Redirect::to('login')->with('error', 'Das Zurücksetzten ist fehlgeschlagen!');
