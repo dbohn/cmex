@@ -111,8 +111,11 @@ Benutzerverwaltung
 		$('.btn.user-delete').click(function() {
 			$.ajax($(this).attr('href'), {
 				type: 'delete'
-			}).done(function(msg) { alert("success: " + msg); })
-			  .fail(function() { alert("error"); });
+			}).done(function(msg) {
+				location.href = "{{ url('admin/user') }}";
+			}).fail(function(o, s, msg) {
+				$('<div class="alert alert-error">' + msg + '</div>').appendTo('#message-board').delay(1500).fadeOut(1000, function() { $(this).remove(); });
+			});
 			return false;
 		});
 		
