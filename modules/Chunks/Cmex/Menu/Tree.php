@@ -1,8 +1,8 @@
 <?php
 
-namespace Chunks\Cmex;
+namespace Chunks\Cmex\Menu;
 
-class Menu extends \Chunk {
+class Tree extends \Chunk {
 
     public function show() {
         return $this->makeMenu($this->name);

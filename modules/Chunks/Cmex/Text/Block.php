@@ -1,5 +1,5 @@
 <?php
-namespace Chunks\Cmex;
+namespace Chunks\Cmex\Text;
 use Chunks\Cmex\Search\SearchableInterface;
 
 /**
@@ -9,7 +9,7 @@ use Chunks\Cmex\Search\SearchableInterface;
 * @author David Bohn
 * @copyright 2013 cmex! Team
 */
-class Text extends \Chunk implements SearchableInterface {
+class Block extends \Chunk implements SearchableInterface {
 
     public function getIndex() {
         return strip_tags($this->content);
@@ -20,7 +20,7 @@ class Text extends \Chunk implements SearchableInterface {
         // TODO: The cache should be refreshed when the updated_at flag
         // is behind the cache-date!
         $value = \Cache::remember($this->identifier, 10, function() use($_) {
-            $v = \View::make("Cmex.textview", array(
+            $v = \View::make("Cmex.Text.views.textview", array(
                 'content' => $_->content
             ));
             return $v->render();

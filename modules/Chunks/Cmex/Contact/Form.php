@@ -1,13 +1,13 @@
 <?php
 
-namespace Chunks\Cmex;
+namespace Chunks\Cmex\Contact;
 use Guzzle\Http\Client;
 
-class Contact extends \Chunk {
+class Form extends \Chunk {
     private $status = null;
     
     public function show() {
-        return \View::make('Cmex.Contact.contactForm', array(
+        return \View::make('Cmex.Contact.views.contactForm', array(
             'status' => $this->status));
     }
 

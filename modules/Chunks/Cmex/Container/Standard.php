@@ -1,10 +1,15 @@
 <?php
 
-namespace Chunks\Cmex;
+namespace Chunks\Cmex\Container;
 use \Chunks\Cmex\Search\SearchableInterface;
 
-class Container extends \Chunk implements SearchableInterface {
+use \Cmex\ChunkManager\ChunkNotFoundException;
+use \Cmex\ChunkManager\InvalidChunkTypeException;
+
+class Standard extends \Chunk implements SearchableInterface {
     private $loadedChunks = array();
+
+    private $errorChunks = array();
 
     public $multichunk = true;
 
@@ -25,8 +30,14 @@ class Container extends \Chunk implements SearchableInterface {
             } else {
                 $scope = $this->scope;
             }
-
-            $returnedChunks[] = \ChunkManager::add($chunk->name, $chunk->type, $scope);
+            try {
+                $returnedChunks[] = \ChunkManager::add($chunk->name, $chunk->type, $scope);
+            } catch (InvalidChunkTypeException $e) {
+                $this->errorChunks[] = array(
+                    "name" => $chunk->name,
+                    "type" => $chunk->type,
+                    "message" => $e->getMessage());
+            }
         }
 
         return $returnedChunks;
@@ -35,7 +46,6 @@ class Container extends \Chunk implements SearchableInterface {
     public function getIndex() 
     {
         $ret = array();
-        //$chunks = json_decode($this->content);
 
         foreach($this->loadedChunks as $chunk)
         {
@@ -54,21 +64,21 @@ class Container extends \Chunk implements SearchableInterface {
     {
         
         $ret = "";
-        /*if(\Authentication::check())
-        {
-            $ret = "<div about=\"chunks/container\" rel=\"dcterms:hasPart\"> ";
-        }*/
 
         foreach($this->loadedChunks as $chunk)
         {
-            $ret .= \ChunkManager::showForKey($chunk);
-            //$ret .= \ChunkManager::getChunkForKey($chunk)->show();
+            try {
+                $ret .= \ChunkManager::showForKey($chunk);
+            } catch (ChunkNotFoundException $e) {
+                $ret .= "{{ " . $e->getMessage . " }}";
+            } catch (InvalidChunkTypeException $e) {
+                $ret .= "{{ " . $e->getMessage() . " }}";
+            }
         }
 
-        // if(\Authentication::check())
-        // {
-        //     $ret .= "</div>";
-        // }
+        foreach ($this->errorChunks as $echunk) {
+            $ret .= "{{ Error for " . $echunk["name"] . ": " . $echunk["message"] ." }}";
+        }
 
         return $ret;
     }
