@@ -4,10 +4,15 @@
 Benutzerverwaltung
 {% endblock %}
 
+{% block head %}
+{{ parent() }}
+{% include "admin/userhead.twig" %}
+{% endblock %}
+
 {% block sidebar %}
     {{ parent() }}
-	
-    <p>Wie wär's mit ein paar Filteroptionen?</p>
+	...<br />
+    <a href="#" class="btn">Filter anwenden</a>
 {% endblock %}
 
 {% block content %}
