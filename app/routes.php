@@ -41,6 +41,13 @@ Route::get('logout', 'LoginController@logoff');
 
 Route::post('doLogin', 'LoginController@auth');
 
+// Password routes
+Route::get('forgotpassword', 'LoginController@forgotpassword');
+Route::get('newpassword/{id}', 'LoginController@newpassword');
+
+Route::post('doReset', 'LoginController@doReset');
+Route::post('doNewpw/{id}', 'LoginController@doNewpw');
+
 // Enable access to the (virtual) filesystem
 Route::get('file/{option}/{path}', 'MediaController@resolveFile')->where('path', '[A-Za-z0-9/.]+');
 

@@ -41,21 +41,17 @@
     <body>
             <div class="container">
 
-      <form action="{{ url('doLogin') }}" class="form-signin" method="post">
-        <h2 class="form-signin-heading">Bitte anmelden!</h2>
+      <form action="{{ url('doNewpw') }}/{{ id }}?code={{ code }}" class="form-signin" method="post">
+        <h2 class="form-signin-heading">Bitte neues Passwort angeben!</h2>
         {% if (session_has('error')) %}
         <div class="alert alert-error">{{ session('error') }}</div>
         {% elseif (session_has('success')) %}
         <div class="alert alert-success">{{ session('success') }}</div>
         {% endif %}
-        <input type="text" name="name" class="input-block-level" placeholder="Benutzername">
-        <input type="password" name="password" class="input-block-level" placeholder="Passwort">
-        <label class="checkbox">
-          <input type="checkbox" name="remember-me" value="remember-me"> Angemeldet bleiben
-        </label>
-        <button class="btn btn-large btn-primary" type="submit">Login</button>
-        <p style="display: block; margin-top: 10px"><a href="{{url('forgotpassword')}}">&rarr; Passwort zurücksetzen</a></p>
-        <p style="display: block; margin-top: 10px"><a href="{{path()}}">&larr; Zurück zur Startseite</a></p>
+		
+        <input type="text" name="newpassword" class="input-block-level" placeholder="Neues Passwort">
+        <input type="text" name="newpassword_confirm" class="input-block-level" placeholder="Neues Passwort bestätigen">
+        <button class="btn btn-large btn-primary" type="submit">Passwort zurücksetzen</button>
       </form>
     </div>
     </body>

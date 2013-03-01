@@ -4,6 +4,11 @@
 Benutzerverwaltung
 {% endblock %}
 
+{% block head %}
+{{ parent() }}
+{% include "admin/userhead.twig" %}
+{% endblock %}
+
 {% block sidebar %}
 {% endblock %}
 
@@ -44,16 +49,18 @@ Benutzerverwaltung
 	
 	</style>
 	
+	<div id="message-board">
     {% if (session_has('error')) %}
         <div class="alert alert-error">{{ session_get('error') }}</div>
     {% elseif (session_has('success')) %}
         <div class="alert alert-success">{{ session_get('success') }}</div>
     {% endif %}
+	</div>
 	
 	<a class="btn" href="{{ url('admin/user') }}">Zurück</a>
 	<a class="btn user-delete" href="{{ url('admin/user') }}/{{ user.id }}">Löschen</a>
 	
-	<form action="{{ url('admin/user') }}/{{ user.id }}" method="PUT">
+	<form id="user-edit-form" action="{{ url('admin/user') }}/{{ user.id }}" method="post">
 		<div class="tabs" id="user-tabs">
 			<ul>
 				<li><a href="#user-info">Informationen</a></li>
@@ -71,6 +78,9 @@ Benutzerverwaltung
 						</tr>
 						<tr>
 							<th>E-Mail:</th><td><input type="text" name="email" value="{{ user.email }}" /></td>
+						</tr>
+						<tr>
+							<th>Aktiv:</th><td><input type="checkbox" name="activated" value="1" {% if user.activated %}checked="checked"{% endif %} /></td>
 						</tr>
 					</tbody>
 				</table>
@@ -101,8 +111,25 @@ Benutzerverwaltung
 		$('.btn.user-delete').click(function() {
 			$.ajax($(this).attr('href'), {
 				type: 'delete'
-			}).done(function(msg) { alert("success: " + msg); })
-			  .fail(function() { alert("error"); });
+			}).done(function(msg) {
+				location.href = "{{ url('admin/user') }}";
+			}).fail(function(o, s, msg) {
+				$('<div class="alert alert-error">' + msg + '</div>').appendTo('#message-board').delay(1500).fadeOut(1000, function() { $(this).remove(); });
+			});
+			return false;
+		});
+		
+		$('form#user-edit-form').submit(function() {
+			$.ajax({
+				url: $(this).attr('action'),
+				type: 'PUT',
+				data: $(this).serialize(),
+				dataType: 'json'
+			}).done(function(msg) {
+				$('<div class="alert alert-' + (msg.success ? 'success' : 'error') + '">' + (msg.message) + '</div>').appendTo('#message-board').delay(1500).fadeOut(1000, function() { $(this).remove(); });
+			}).fail(function(o, s, msg) {
+				$('<div class="alert alert-error">' + msg + '</div>').appendTo('#message-board').delay(1500).fadeOut(1000, function() { $(this).remove(); });
+			});
 			return false;
 		});
 		
