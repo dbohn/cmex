@@ -76,4 +76,71 @@ class LoginController extends BaseController {
 
         return Redirect::to('login')->with('success', 'Erfolgreich abgemeldet!');
     }
+	
+	/**
+	 * forgotpassword
+	 * Handles forgotten passwords
+	 * 
+	 * @return void
+	 */
+	public function forgotpassword() {
+		if(!Authentication::check()) {
+            return View::make('resetpwform');
+        } else {
+            return Redirect::to('');
+        }
+	}
+	
+	/**
+	 * forgotpassword
+	 * Handles forgotten passwords
+	 * 
+	 * @return void
+	 */
+	public function newpassword($id) {
+		if(!Authentication::check()) {
+            return View::make('newpwform', array('id' => $id));
+        } else {
+            return Redirect::to('');
+        }
+	}
+	
+	/**
+	 * doReset
+	 * Sends resetcode
+	 * 
+	 * @return void
+	 */
+	public function doReset() {
+		try
+		{
+			$user = Authentication::getUserProvider()->findByLogin(Input::get('email'));
+			return Redirect::to('newpassword/' . $user->id)->with('success', 'Ihr Rücksetztcode lautet: ' . $user->getResetPasswordCode());
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			return Redirect::to('forgotpassword')->with('error', 'Diese E-Mail ist nicht bekannt!');
+		}
+	}
+	
+	/**
+	 * doNewpw
+	 * resets password
+	 * 
+	 * @return void
+	 */
+	public function doNewpw($id) {
+		try
+		{
+			$user = Authentication::getUserProvider()->findById($id);
+			if($user->attemptResetPassword(Input::get('resetcode', ''), Input::get('newpassword', '')))
+				return Redirect::to('login')->with('success', 'Ihr Passwort wurde zurückgesetzt!');
+			else
+				return Redirect::to('login')->with('error', 'Das Zurücksetzten ist fehlgeschlagen!');
+		}
+		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		{
+			return Redirect::to('forgotpassword')->with('error', 'Alles falsch!');
+		}
+	}
 }

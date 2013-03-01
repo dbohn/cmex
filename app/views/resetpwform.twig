@@ -41,21 +41,15 @@
     <body>
             <div class="container">
 
-      <form action="{{ url('doLogin') }}" class="form-signin" method="post">
-        <h2 class="form-signin-heading">Bitte anmelden!</h2>
+      <form action="{{ url('doReset') }}" class="form-signin" method="post">
+        <h2 class="form-signin-heading">Bitte E-Mail angeben!</h2>
         {% if (session_has('error')) %}
         <div class="alert alert-error">{{ session('error') }}</div>
         {% elseif (session_has('success')) %}
         <div class="alert alert-success">{{ session('success') }}</div>
         {% endif %}
-        <input type="text" name="name" class="input-block-level" placeholder="Benutzername">
-        <input type="password" name="password" class="input-block-level" placeholder="Passwort">
-        <label class="checkbox">
-          <input type="checkbox" name="remember-me" value="remember-me"> Angemeldet bleiben
-        </label>
-        <button class="btn btn-large btn-primary" type="submit">Login</button>
-        <p style="display: block; margin-top: 10px"><a href="{{url('forgotpassword')}}">&rarr; Passwort zurücksetzen</a></p>
-        <p style="display: block; margin-top: 10px"><a href="{{path()}}">&larr; Zurück zur Startseite</a></p>
+        <input type="text" name="email" class="input-block-level" placeholder="E-Mail Adresse">
+        <button class="btn btn-large btn-primary" type="submit">Resetcode anfordern</button>
       </form>
     </div>
     </body>
