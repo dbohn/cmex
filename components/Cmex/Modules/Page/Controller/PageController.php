@@ -65,7 +65,12 @@ class PageController extends BaseController {
 
     public function showHomePage() {
         $homepage = Config::get('cmex.homepage');
-        if($homepage instanceof Illuminate\Http\RedirectResponse) {
+
+        if($homepage instanceof \Closure) {
+            $homepage = $homepage();
+        }
+
+        if($homepage instanceof \Illuminate\Http\RedirectResponse) {
             return $homepage;
         }
 
