@@ -48,7 +48,7 @@ class User extends AdminController {
 			));
 			return Redirect::to('admin/user')->with('error', 'Diese E-Mail ist bereits vergeben!');
 		}
-		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
 			$error = 0;
 			$message = '';
@@ -98,7 +98,7 @@ class User extends AdminController {
 		{
 			return Authentication::getUserProvider()->findById($id);
 		}
-		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
 			return null;
 		}
@@ -123,7 +123,7 @@ class User extends AdminController {
 				return Redirect::to('admin/user')->with('error', 'Sie haben nicht die nötigen Rechte den Benutzer zu bearbeiten!');
 			}
 		}
-		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
 			return Redirect::to('admin/user')->with('error', 'Der Benutzer wurde nicht gefunden!');
 		}
@@ -177,7 +177,7 @@ class User extends AdminController {
 				return json_encode(array('success' => 0, 'message' => 'Sie haben nicht die nötigen Rechte den Benutzer zu bearbeiten!'));
 			}
 		}
-		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
 			return json_encode(array('success' => 0, 'message' => 'Der Benutzer wurde nicht gefunden!'));
 		}
@@ -195,7 +195,7 @@ class User extends AdminController {
 			$user = Authentication::getUserProvider()->findById($id);
 			return $user->delete();
 		}
-		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
 			return null;
 		}
@@ -215,7 +215,7 @@ class User extends AdminController {
 			if(Authentication::getUser()->hasAccess('admin') && !$user->hasAccess('superuser'))
 				return true;
 		}
-		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
 			return false;
 		}
@@ -227,7 +227,7 @@ class User extends AdminController {
 		{
 			return Authentication::getUserProvider()->findById($id);
 		}
-		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
 			return null;
 		}
