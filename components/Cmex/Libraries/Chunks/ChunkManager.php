@@ -17,6 +17,8 @@ class ChunkManager
 
     private $executionStack = null;
 
+    private $inputHandled = false;
+
     public function __construct()
     {
         $this->loadChunkRepositories();
@@ -65,6 +67,7 @@ class ChunkManager
 
     public function handleInput()
     {
+        $this->inputHandled = true;
         if (\Input::has("chunk")) {
             $chunk = \Input::get("chunk");
             if (isset($this->chunks[$chunk]) && method_exists($this->chunks[$chunk], "handleInput")) {
@@ -101,6 +104,29 @@ class ChunkManager
         $this->executionStack->pop();
 
         return '<div id="' . $key . '" ' . $attributes . '>' . $chunkContent . '</div>';
+    }
+
+    /**
+     * Executes the render loop for all registered chunks and 
+     * injects the result into the given view
+     * @param $view string|\Illuminate\View\View
+     * @return string rendered view
+     */
+    public function renderChunks($view)
+    {
+        if($view instanceof \Illuminate\View\View) {
+            $view = $view->render();
+        }
+
+        if (!$this->inputHandled) {
+            $this->handleInput();
+        }
+
+        foreach ($this->getLoadedChunks() as $chunk) {
+            $view = str_replace('__'.$chunk.'__', $this->showForKey($chunk), $view);
+        }
+
+        return $view;
     }
 
     /**

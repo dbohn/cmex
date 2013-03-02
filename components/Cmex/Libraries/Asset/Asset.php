@@ -43,4 +43,12 @@ class Asset {
     public function get() {
         return $this->getScripts() . $this->getStylesheets();
     }
+
+    public function scripts() {
+        return "__scripts__";
+    }
+
+    public function head() {
+        return "__head__";
+    }
 }

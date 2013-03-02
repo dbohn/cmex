@@ -18,10 +18,8 @@ class PageController extends BaseController {
      * @return void
      */
     public function handlePageRequest($page) {
-        
-        $conf = Config::get('cmex');
 
-        $template = $conf['template'];
+        $template = Config::get('cmex.template');
 
         // Look up page in database
         $dbpage = Page::where('identifier', $page)->first();
@@ -53,40 +51,24 @@ class PageController extends BaseController {
                 Asset::add('valed', 'admin/create.ValueEditor.js');
             }
 
-    	    // Load view - with that step, all chunks are initialized
+    	    // Load view
             $view = View::make($template.'.'.$dbpage->template, array(
-                'head' => '__head__',
-                'scripts' => '__scripts__', 
                 'page' => $page, 
                 'title' => $dbpage->title
-            ))->render();
+            ));
 
-            ChunkManager::handleInput();
-
-            foreach(ChunkManager::getLoadedChunks() as $chunk)
-            {
-                //echo $chunk;
-                $view = str_replace('__'.$chunk.'__', ChunkManager::showForKey($chunk), $view);
-            }
-
-            // Insert Assets and other head elements
-            $view = str_replace('__scripts__', Asset::getScripts(), $view);
-            $view = str_replace('__head__', Asset::getStylesheets(), $view);
-
-            return $view;
+            return ChunkManager::renderChunks($view);
         }
-        // TODO: Better Page not found handling!
-        //return Response::error('404');
+
         App::abort(404);
-        //return "Seite nicht gefunden: ". $page;
     }
 
     public function showHomePage() {
-        $conf = Config::get('cmex');
-        if($conf['homepage'] instanceof Illuminate\Http\RedirectResponse) {
-            return $conf['homepage'];
+        $homepage = Config::get('cmex.homepage');
+        if($homepage instanceof Illuminate\Http\RedirectResponse) {
+            return $homepage;
         }
 
-        return $this->handlePageRequest($conf['homepage']);
+        return $this->handlePageRequest($homepage);
     }
 }

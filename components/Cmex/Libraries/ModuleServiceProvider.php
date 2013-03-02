@@ -5,6 +5,7 @@ namespace Cmex\Libraries;
 use Illuminate\Support\ServiceProvider;
 
 class ModuleServiceProvider extends ServiceProvider {
+
     public function register()
     {
         $modulebase = __DIR__ . '/../Modules/';
