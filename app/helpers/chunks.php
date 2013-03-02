@@ -17,10 +17,10 @@ if(!function_exists('chunk')) {
 
                 return '__' . $chunkKey . '__';
             }
-        } catch (\Cmex\ChunkManager\ChunkAlreadyExistsException $e)
+        } catch (\Cmex\Libraries\Chunks\ChunkAlreadyExistsException $e)
         {
             return "{{ There are two chunks with the same name! }}";
-        } catch (\Cmex\ChunkManager\InvalidChunkTypeException $e)
+        } catch (\Cmex\Libraries\Chunks\InvalidChunkTypeException $e)
         {
             return "{{ " . $e->getMessage() . " }}";
         }

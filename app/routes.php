@@ -13,8 +13,3 @@
 
 // Enable access to the (virtual) filesystem
 Route::get('file/{option}/{path}', 'MediaController@resolveFile')->where('path', '[A-Za-z0-9/.]+');
-
-// Default route for any pages
-Route::any('{page}', 'PageController@handlePageRequest');
-
-Route::get('/', 'PageController@showHomePage');
