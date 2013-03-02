@@ -11,6 +11,9 @@
 |
 */
 
+// Module commands
 Artisan::add(new ModuleCommand);
 Artisan::add(new ModuleAddCommand);
 Artisan::add(new ModuleRefreshCommand);
+// Chunk commands
+Artisan::add(new ChunkMakeCommand);

@@ -16,4 +16,5 @@ $(function() {
 		},
 		stanbolUrl: 'http://dev.iks-project.eu:8081'
 	});
+	$('.create-ui-statustools').append($('<li><a href="admin" class="create-ui-btn">Backend</a></li>'));
 });

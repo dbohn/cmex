@@ -42,3 +42,16 @@ if (is_dir($workbench = __DIR__.'/../workbench'))
 {
 	Illuminate\Workbench\Starter::start($workbench);
 }
+
+/*
+|--------------------------------------------------------------------------
+| Register Chunk Autoloader
+|--------------------------------------------------------------------------
+|
+| For easily loading chunks, there is this convenient autoloader
+|
+*/
+
+Cmex\Libraries\Chunks\ChunkLoader::setBase(__DIR__ . '/../components/Chunks/');
+
+Cmex\Libraries\Chunks\ChunkLoader::register();

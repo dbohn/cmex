@@ -13,6 +13,8 @@ class ChunkManager
 
     private $page = null;
 
+    private $pageIdentifier = "";
+
     private $executionStack = null;
 
     public function __construct()
@@ -24,6 +26,7 @@ class ChunkManager
     public function setPage(Page $p)
     {
         $this->page = $p;
+        $this->pageIdentifier = $this->page->identifier;
     }
 
     public function add($name, $type, $scope=null)
@@ -162,7 +165,7 @@ class ChunkManager
 
     public function getPageIdentifier()
     {
-        return $this->page->identifier;
+        return $this->pageIdentifier;
     }
 
     public function getLoadedChunks()

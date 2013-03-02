@@ -12,4 +12,9 @@ class ChunkManagerServiceProvider extends ServiceProvider {
             return new ChunkManager();
         });
     }
+
+    public function provides()
+    {
+        return array('cmex.chunkmanager');
+    }
 }

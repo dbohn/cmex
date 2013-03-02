@@ -11,5 +11,16 @@
 |
 */
 
+Route::get('test/test', function() { 
+    
+    $testclass = "Cmex\\Chunks\\Container\\Standard";
+
+    $prefix = "Cmex\\Chunks\\";
+
+    var_dump(substr_compare($testclass, $prefix, 0, strlen($prefix)));
+
+    return substr($testclass, strlen($prefix));
+});
+
 // Enable access to the (virtual) filesystem
 Route::get('file/{option}/{path}', 'MediaController@resolveFile')->where('path', '[A-Za-z0-9/.]+');
