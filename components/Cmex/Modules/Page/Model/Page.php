@@ -1,6 +1,6 @@
 <?php
 
-namespace Cmex\Modules\Page;
+namespace Cmex\Modules\Page\Model;
 
 use Eloquent;
 

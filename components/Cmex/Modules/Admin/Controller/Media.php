@@ -1,10 +1,10 @@
 <?php
 
-namespace Cmex\Modules\Admin;
+namespace Cmex\Modules\Admin\Controller;
 
-use BaseController, Authentication, View, Media;
+use BaseController, Authentication, View;
 
-class AdminMediaController extends BaseController {
+class Media extends BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -46,7 +46,7 @@ class AdminMediaController extends BaseController {
 	public function show($id)
 	{
 		// Reconvert the path, check validity, get listing
-		return Media::cleanFilePath(urldecode($id));
+		return \Media::cleanFilePath(urldecode($id));
 	}
 
 	/**

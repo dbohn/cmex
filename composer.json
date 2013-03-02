@@ -11,10 +11,11 @@
 			"app/commands",
 			"app/database/migrations",
 			"app/database/seeds",
-			"app/tests/TestCase.php",
-			"components/Libraries",
-			"components/modules"
+			"app/tests/TestCase.php"
 		],
+		"psr-0": {
+			"Cmex" : "components/"
+			},
 		"files": ["app/helpers/chunks.php"]
 	},
 	"minimum-stability": "dev"

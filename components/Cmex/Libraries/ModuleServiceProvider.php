@@ -7,8 +7,8 @@ use Illuminate\Support\ServiceProvider;
 class ModuleServiceProvider extends ServiceProvider {
     public function register()
     {
-        $modulebase = __DIR__ . '/../modules/';
-        $modulesfile = __DIR__ . '/../../app/storage/meta/modules.json';
+        $modulebase = __DIR__ . '/../Modules/';
+        $modulesfile = __DIR__ . '/../../../app/storage/meta/modules.json';
 
         // Load registered modules
         // if file does not exist, try to create it!

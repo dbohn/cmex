@@ -1,9 +1,11 @@
 <?php
 
-namespace Cmex\Modules\Page;
+namespace Cmex\Modules\Page\Controller;
 
 use BaseController, ChunkManager, Authentication, Asset, Config, View;
 use App;
+
+use Cmex\Modules\Page\Model\Page;
 
 class PageController extends BaseController {
     /**

@@ -16,7 +16,7 @@ return array(
 	'paths' => array(
 		__DIR__.'/../views', 
 		__DIR__.'/../../public/templates', 
-		__DIR__.'/../../components/Chunks'
+		__DIR__.'/../../components/Cmex/Chunks'
 	),
 
 	/*

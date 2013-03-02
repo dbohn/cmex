@@ -39,7 +39,7 @@ class ModuleCommand extends Command {
 	{
 		$name = $this->argument('name');
 
-		$modulebase = __DIR__ . '/../../components/modules/';
+		$modulebase = __DIR__ . '/../../components/Cmex/Modules/';
 
 		$this->info("Creating module " . $this->argument('name') . "...");
 
@@ -60,10 +60,10 @@ class ModuleCommand extends Command {
 		mkdir($base . $name);
 
 		// Create mvc directories
-		mkdir($base . $name . "/controllers");
-		touch($base . $name . "/controllers/.gitkeep");
-		mkdir($base . $name . "/models");
-		touch($base . $name . "/models/.gitkeep");
+		mkdir($base . $name . "/Controller");
+		touch($base . $name . "/Controller/.gitkeep");
+		mkdir($base . $name . "/Model");
+		touch($base . $name . "/Model/.gitkeep");
 		mkdir($base . $name . "/views");
 		touch($base . $name . "/views/.gitkeep");
 

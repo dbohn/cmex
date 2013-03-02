@@ -37,7 +37,7 @@ class ModuleRefreshCommand extends Command {
 	 */
 	public function fire()
 	{
-		$modulebase = __DIR__ . '/../../components/modules/';
+		$modulebase = __DIR__ . '/../../components/Cmex/Modules/';
 
 		$dirscan = scandir($modulebase);
 

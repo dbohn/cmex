@@ -1,10 +1,10 @@
 <?php
 
-namespace Cmex\Modules\Admin;
+namespace Cmex\Modules\Admin\Controller;
 
 use Authentication, View, Redirect, Input;
 
-class AdminUserController extends AdminController {
+class User extends AdminController {
 
 	/**
 	 * Display a listing of the resource.

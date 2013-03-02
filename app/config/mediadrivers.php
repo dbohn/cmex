@@ -2,7 +2,7 @@
 
 return array(
     'drivers' => array(
-        'Cmex\Media\Driver\FileSystem'
+        'Cmex\Libraries\Media\Driver\FileSystem'
     ),
 
     'filesystem' => array(

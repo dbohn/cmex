@@ -39,12 +39,12 @@ class ModuleAddCommand extends Command {
 	{
 		$name = $this->argument('name');
 
-		$modulebase = __DIR__ . '/../../components/modules/';
+		$modulebase = __DIR__ . '/../../components/Cmex/Modules/';
 
 		if(is_dir($modulebase . $name)) {
-			if(!is_dir($modulebase . $name . '/controllers')) {
-				mkdir($base . $name . "/controllers");
-				touch($base . $name . "/controllers/.gitkeep");
+			if(!is_dir($modulebase . $name . '/Controller')) {
+				mkdir($base . $name . "/Controller");
+				touch($base . $name . "/Controller/.gitkeep");
 			}
 
 			if(!is_dir($modulebase . $name . '/views')) {
@@ -52,9 +52,9 @@ class ModuleAddCommand extends Command {
 				touch($base . $name . "/views/.gitkeep");
 			}
 
-			if(!is_dir($modulebase . $name . '/models')) {
-				mkdir($base . $name . "/models");
-				touch($base . $name . "/models/.gitkeep");
+			if(!is_dir($modulebase . $name . '/Model')) {
+				mkdir($base . $name . "/Model");
+				touch($base . $name . "/Model/.gitkeep");
 			}
 
 			if(!is_dir($modulebase . $name . '/config')) {

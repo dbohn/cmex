@@ -1,10 +1,10 @@
 <?php
 
-namespace Cmex\Modules\Login;
+namespace Cmex\Modules\Login\Controller;
 
 use BaseController, Authentication, View, Redirect, Input;
 
-class LoginController extends BaseController {
+class LoginLogoff extends BaseController {
     /**
      * login 
      * shows Loginform

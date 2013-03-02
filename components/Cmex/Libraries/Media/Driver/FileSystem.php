@@ -1,6 +1,6 @@
 <?php
 
-namespace Cmex\Media\Driver;
+namespace Cmex\Libraries\Media\Driver;
 
 use Cmex\Libraries\Media\DriverInterface;
 use Cmex\Libraries\Media\File;

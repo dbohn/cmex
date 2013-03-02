@@ -2,7 +2,7 @@
 
 namespace Cmex\Libraries\Chunks;
 
-use Cmex\Modules\Page\Page;
+use Cmex\Modules\Page\Model\Page;
 
 class ChunkManager
 {

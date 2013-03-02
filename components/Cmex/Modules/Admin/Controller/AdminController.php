@@ -1,6 +1,6 @@
 <?php
 
-namespace Cmex\Modules\Admin;
+namespace Cmex\Modules\Admin\Controller;
 
 use BaseController;
 
