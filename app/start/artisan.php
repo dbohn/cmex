@@ -11,3 +11,6 @@
 |
 */
 
+Artisan::add(new ModuleCommand);
+Artisan::add(new ModuleAddCommand);
+Artisan::add(new ModuleRefreshCommand);
