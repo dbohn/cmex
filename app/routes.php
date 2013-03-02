@@ -13,3 +13,7 @@
 
 // Enable access to the (virtual) filesystem
 Route::get('file/{option}/{path}', 'MediaController@resolveFile')->where('path', '[A-Za-z0-9/.]+');
+
+Route::any('{page}', 'Cmex\Modules\Page\Controller\PageController@handlePageRequest');
+
+Route::get('/', 'Cmex\Modules\Page\Controller\PageController@showHomePage');
