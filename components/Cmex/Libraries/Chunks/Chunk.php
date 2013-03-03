@@ -16,7 +16,8 @@ abstract class Chunk {
         // PHP 5.3 goodness :D
         $type = get_called_class();
         $type = explode("\\", $type);
-        $this->type = end($type);
+        $parts = count($type);
+        $this->type = implode(".", array($type[$parts - 2], $type[$parts - 1]));
         
     }
 

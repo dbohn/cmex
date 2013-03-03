@@ -14,6 +14,19 @@ define([
                 tools.render();
 
                 $('body').append(tools.el);
+
+                // Scan for chunks
+
+                var chunks = $('[about]');
+
+                var textblocks = chunks.filter('[typeof="text.block"]');
+
+                textblocks.attr('contenteditable', 'true');
+
+                _.each(textblocks, function(block) {
+                    CKEDITOR.inline(block);
+                });
+
             });
         }
         return {

@@ -10,15 +10,15 @@ define([
             id: 'cmex-admin-toolbar-container',
 
             'events': {
-                'click a.cmex-admin-toolbar-toggle': 'test'
+                'click a.cmex-admin-toolbar-toggle': 'toggle'
             },
 
             render: function() {
                 this.$el.append(_.template(toolbartemplate, {name : "Benutzer"}));
             },
 
-            test: function(event) {
-                
+            toggle: function(event) {
+                this.$el.toggleClass('cmex-admin-toolbar-hidden');
                 event.preventDefault();
             }
         });
