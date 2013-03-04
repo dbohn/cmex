@@ -46,7 +46,10 @@ class Swordfish extends BaseController {
         try
         {
             $user = Authentication::getUserProvider()->findByLogin(Input::get('email'));
-            return Redirect::to('newpassword/' . $user->id . '?code=' . $user->getResetPasswordCode())->with('success', 'Code beantragt!');
+			Mail::send('emails.resetpw', $user->getResetPasswordCode(), function($m) {
+				$m->to($user->email, $user->lastName . ', ' . $user->firstName)->subject('Passwort zurücksetzen...');
+			});
+            return Redirect::to('login')->with('success', 'Code beantragt! Eine E-Mail wurde verschickt...');
         }
         catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
         {
