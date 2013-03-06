@@ -2,7 +2,7 @@
 
 namespace Cmex\Modules\Login\Controller;
 
-use BaseController, Authentication, View, Redirect, Input;
+use BaseController, Authentication, View, Redirect, Input, Mail;
 
 /**
  * This controller is responsible for doing everything related to password
@@ -46,7 +46,7 @@ class Swordfish extends BaseController {
         try
         {
             $user = Authentication::getUserProvider()->findByLogin(Input::get('email'));
-			Mail::send('emails.resetpw', $user->getResetPasswordCode(), function($m) {
+			Mail::send('emails.resetpw', array("resetcode" => $user->getResetPasswordCode()), function($m) {
 				$m->to($user->email, $user->lastName . ', ' . $user->firstName)->subject('Passwort zurücksetzen...');
 			});
             return Redirect::to('login')->with('success', 'Code beantragt! Eine E-Mail wurde verschickt...');
