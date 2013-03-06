@@ -13,42 +13,6 @@ Benutzerverwaltung
 {% endblock %}
 
 {% block content %}
-	<style type="text/css">
-	.ui-widget {
-		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	}
-	.ui-widget-content {
-		border: 1px solid #D4D4D4;
-	}
-	.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-		background-color: #FAFAFA;
-		background-image: linear-gradient(to bottom, #FAFAFA, #EDEDED);
-	}
-	.ui-widget-header {
-		background-color: #FAFAFA;
-		background-image: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
-		background-repeat: repeat-x;
-		border: 1px solid #D4D4D4;
-		border-radius: 4px 4px 4px 4px;
-		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
-	}
-	.ui-tabs .ui-tabs-nav li a {
-		padding: 4px 12px;
-	}
-	
-	.user-table tbody th {
-		font-weight: normal;
-		text-align: right;
-	}
-	.user-edit-content {
-		/*height: 150px;*/
-	}
-	.tabs {
-		margin: 15px 0;
-	}
-	
-	</style>
-	
 	<div id="message-board">
     {% if (session_has('error')) %}
         <div class="alert alert-error">{{ session_get('error') }}</div>
@@ -80,6 +44,12 @@ Benutzerverwaltung
 							<th>E-Mail:</th><td><input type="text" name="email" value="{{ user.email }}" /></td>
 						</tr>
 						<tr>
+							<th>Passwort:</th><td><input type="password" name="password" value="" /></td>
+						</tr>
+						<tr>
+							<th>Erneut:</th><td><input type="password" name="password_confirm" value="" /></td>
+						</tr>
+						<tr>
 							<th>Aktiv:</th><td><input type="checkbox" name="activated" value="1" {% if user.activated %}checked="checked"{% endif %} /></td>
 						</tr>
 					</tbody>
@@ -107,6 +77,11 @@ Benutzerverwaltung
 	<script>
 	<!--
 	
+	$.fn.message = function(msg) {
+		$('<div class="alert alert-' + (msg.success ? 'success' : 'error') + '">' + (msg.message) + '</div>').appendTo(this).delay(1500).fadeOut(1000, function() { $(this).remove(); });
+		return this;
+	}
+	
 	$(function() {
 		$('.btn.user-delete').click(function() {
 			$.ajax($(this).attr('href'), {
@@ -114,7 +89,7 @@ Benutzerverwaltung
 			}).done(function(msg) {
 				location.href = "{{ url('admin/user') }}";
 			}).fail(function(o, s, msg) {
-				$('<div class="alert alert-error">' + msg + '</div>').appendTo('#message-board').delay(1500).fadeOut(1000, function() { $(this).remove(); });
+				$('#message-board').message(msg);
 			});
 			return false;
 		});
@@ -126,9 +101,9 @@ Benutzerverwaltung
 				data: $(this).serialize(),
 				dataType: 'json'
 			}).done(function(msg) {
-				$('<div class="alert alert-' + (msg.success ? 'success' : 'error') + '">' + (msg.message) + '</div>').appendTo('#message-board').delay(1500).fadeOut(1000, function() { $(this).remove(); });
+				$('#message-board').message(msg);
 			}).fail(function(o, s, msg) {
-				$('<div class="alert alert-error">' + msg + '</div>').appendTo('#message-board').delay(1500).fadeOut(1000, function() { $(this).remove(); });
+				$('#message-board').message(msg);
 			});
 			return false;
 		});

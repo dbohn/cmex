@@ -2,7 +2,7 @@
 
 namespace Cmex\Modules\Admin\Controller;
 
-use Authentication, View, Redirect, Input;
+use Authentication, View, Redirect, Input, Validator;
 
 class User extends AdminController {
 
@@ -46,7 +46,7 @@ class User extends AdminController {
 			$user = Authentication::getUserProvider()->findByCredentials(array(
 				'email' => Input::get('email')
 			));
-			return Redirect::to('admin/user')->with('error', 'Diese E-Mail ist bereits vergeben!');
+			return json_encode(array('success' => 0, 'message' => 'Die E-Mail ist bereits vergeben!'));
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
@@ -80,9 +80,9 @@ class User extends AdminController {
 			
 			if(!$error) {
 				Authentication::getUserProvider()->create(Input::only('lastName', 'firstName', 'email', 'password'));
-				return Redirect::to('admin/user')->with('success', 'Der Benutzer wurde hinzugefügt!');
+				return json_encode(array('success' => 1, 'message' => 'Der Benutzer wurde hinzugefügt!'));
 			} else {
-				return Redirect::to('admin/user')->with('error', $message);
+				return json_encode(array('success' => 0, 'message' => $message));
 			}
 		}
 	}
@@ -140,6 +140,21 @@ class User extends AdminController {
 		{
 			$user = Authentication::getUserProvider()->findById($id);
 			if($this->canEdit($id)) {
+				$rules = array(
+					array('lastName' => 'required|min:3'),
+					array('firstName' => 'required|min:3'),
+					array('email' => 'required|email|unique:users,email,' . $user->key()),
+					array('password' => 'min:5|same:password_confirm')
+				);
+				
+				$validator = Validator::make(Input::all(), $rules);
+				
+				if($validator->fails()) {
+					$message = implode("<br />\n", $validator->messages()->all());
+					return json_encode(array('success' => 0, 'message' => $message));
+				}
+				return json_encode(array('success' => 1, 'message' => "Jop"));
+				
 				$error = 0;
 				$message = '';
 				if(Input::has('lastName'))
@@ -193,6 +208,7 @@ class User extends AdminController {
 		try
 		{
 			$user = Authentication::getUserProvider()->findById($id);
+			$user->delete();
 			return $user->delete();
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)

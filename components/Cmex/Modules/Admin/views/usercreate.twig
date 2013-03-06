@@ -13,8 +13,17 @@ Benutzerverwaltung
 {% endblock %}
 
 {% block content %}
+	<div id="message-board">
+    {% if (session_has('error')) %}
+        <div class="alert alert-error">{{ session_get('error') }}</div>
+    {% elseif (session_has('success')) %}
+        <div class="alert alert-success">{{ session_get('success') }}</div>
+    {% endif %}
+	</div>
+	
 	<a href="{{ url('admin/user') }}" class="btn">Zurück</a>
-	<form action="{{ url('admin/user') }}" method="post">
+	
+	<form class="user-create-form" action="{{ url('admin/user') }}" method="post">
 		<div class="tabs" id="user-tabs">
 			<ul>
 				<li><a href="#user-info">Informationen</a></li>
@@ -34,7 +43,10 @@ Benutzerverwaltung
 							<th>E-Mail:</th><td><input type="text" name="email" value="" /></td>
 						</tr>
 						<tr>
-							<th>Passwort:</th><td><input type="text" name="password" value="" /></td>
+							<th>Passwort:</th><td><input type="password" name="password" value="" /></td>
+						</tr>
+						<tr>
+							<th>Erneut:</th><td><input type="password" name="password_confirm" value="" /></td>
 						</tr>
 					</tbody>
 				</table>
@@ -58,6 +70,11 @@ Benutzerverwaltung
 	<script>
 	<!--
 	
+	$.fn.message = function(msg) {
+		$('<div class="alert alert-' + (msg.success ? 'success' : 'error') + '">' + (msg.message) + '</div>').appendTo(this).delay(1500).fadeOut(1000, function() { $(this).remove(); });
+		return this;
+	}
+	
 	$(function() {
 		$('.tabs').tabs({
 			beforeLoad: function( event, ui ) {
@@ -65,6 +82,23 @@ Benutzerverwaltung
 					ui.panel.html("Couldn't load this tab. We'll try to fix this as soon as possible.");
 				});
 			}
+		});
+		
+		$('.user-create-form').submit(function() {
+			$.ajax({
+				url: $(this).attr('action'),
+				type: 'post',
+				data: $(this).serialize(),
+				dataType: 'json'
+			}).done(function(msg) {
+				$('#message-board').message(msg);
+				if(msg.success) {
+					$('.user-create-form')[0].reset();
+				}
+			}).fail(function(o, s, msg) {
+				$('<div class="alert alert-error">' + msg + '</div>').appendTo('#message-board').delay(1500).fadeOut(1000, function() { $(this).remove(); });
+			});
+			return false;
 		});
 	});
 	
