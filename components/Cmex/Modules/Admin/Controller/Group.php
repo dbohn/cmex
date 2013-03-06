@@ -28,7 +28,7 @@ class Group extends AdminController {
 		if($this->canCreate()) {
 			return View::make('Admin::group.create');
 		} else {
-			return Redirect::to('admin/group')->with('error', 'Sie haben nicht die nˆtigen Rechte Benutzer zu erstellen!');
+			return Redirect::to('admin/group')->with('error', 'Sie haben nicht die n√∂tigen Rechte Benutzer zu erstellen!');
 		}
 	}
 
