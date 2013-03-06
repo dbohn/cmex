@@ -21,8 +21,12 @@ Benutzerverwaltung
     {% endif %}
 	</div>
 	
+	<div id="delete-confirm" title="Benutzer löschen?">
+		<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Löööööööööööschen!!!</p>
+	</div>
+	
 	<a class="btn" href="{{ url('admin/user') }}">Zurück</a>
-	<a class="btn user-delete" href="{{ url('admin/user') }}/{{ user.id }}">Löschen</a>
+	<a class="btn user-delete" href="{{ url('admin/user') }}/{{ user.id }}"><i class="icon-trash"></i> Löschen</a>
 	
 	<form id="user-edit-form" action="{{ url('admin/user') }}/{{ user.id }}" method="post">
 		<div class="tabs" id="user-tabs">
@@ -83,14 +87,33 @@ Benutzerverwaltung
 	}
 	
 	$(function() {
+		$('.tabs').tabs();
+		
+		$( "#delete-confirm" ).dialog({
+			autoOpen: false,
+			resizable: false,
+			height: 140,
+			modal: true,
+			buttons: {
+				"Delete user": function() {
+					/*$.ajax($(this).attr('href'), {
+						type: 'delete'
+					}).done(function(msg) {
+						location.href = "{{ url('admin/user') }}";
+					}).fail(function(o, s, msg) {
+						$('#message-board').message(msg);
+					});*/
+					$( this ).dialog( "close" );
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+		
 		$('.btn.user-delete').click(function() {
-			$.ajax($(this).attr('href'), {
-				type: 'delete'
-			}).done(function(msg) {
-				location.href = "{{ url('admin/user') }}";
-			}).fail(function(o, s, msg) {
-				$('#message-board').message(msg);
-			});
+			$( "#delete-confirm" ).dialog( "open" );
+			
 			return false;
 		});
 		
@@ -106,14 +129,6 @@ Benutzerverwaltung
 				$('#message-board').message(msg);
 			});
 			return false;
-		});
-		
-		$('.tabs').tabs({
-			beforeLoad: function( event, ui ) {
-				ui.jqXHR.error(function() {
-					ui.panel.html("Couldn't load this tab. We'll try to fix this as soon as possible.");
-				});
-			}
 		});
 	});
 	

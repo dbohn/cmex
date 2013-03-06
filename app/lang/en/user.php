@@ -10,6 +10,9 @@ return array(
 	
 	'notfound' => 'The user wasn\'t found.',
 	
-	'noright' => 'You have not the right\'s for editing this user!',
-	
+	'noright' => array(
+		'create' => 'Sie haben nicht die nötigen Rechte den Benutzer zu erstellen!',
+		'edit' => 'You have not the right\'s for editing this user!',
+		'delete' => 'Sie haben nicht die nötigen Rechte den Benutzer zu löschen!'
+	)
 );

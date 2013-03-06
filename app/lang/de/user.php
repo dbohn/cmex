@@ -14,6 +14,6 @@ return array(
 		'create' => 'Sie haben nicht die nötigen Rechte den Benutzer zu erstellen!',
 		'edit' => 'Sie haben nicht die nötigen Rechte den Benutzer zu bearbeiten!',
 		'delete' => 'Sie haben nicht die nötigen Rechte den Benutzer zu löschen!'
-	);
+	)
 	
 );

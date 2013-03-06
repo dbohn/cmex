@@ -46,7 +46,8 @@ class User extends AdminController {
 			'lastName' => 'required|min:3',
 			'firstName' => 'required|min:3',
 			'email' => 'required|email|unique:users,email',
-			'password' => 'min:5|same:password_confirm'
+			'password' => 'required|min:5|same:password_confirm',
+			'password_confirm' => 'required'
 		);
 		
 		$validator = Validator::make(Input::all(), $rules);
