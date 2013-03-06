@@ -2,7 +2,7 @@
 
 namespace Cmex\Modules\Login\Controller;
 
-use BaseController, Authentication, View, Redirect, Input;
+use BaseController, Authentication, View, Redirect, Input, Log, Cartalyst\Sentry\Users, Exception;
 
 class LoginLogoff extends BaseController {
     /**
@@ -47,13 +47,13 @@ class LoginLogoff extends BaseController {
                 } else {
                     return Redirect::to('login')->with('error', 'Falsche Logindaten!');
                 }
-            } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
+            } catch (Users\UserNotFoundException $e) {
                 Log::info($e->getMessage());
                 return Redirect::to('login')->with('error', 'Der Benutzer wurde nicht gefunden!');
-            } catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
+            } catch (Users\LoginRequiredException $e) {
                 Log::info($e->getMessage());
                 return Redirect::to('login')->with('error', 'Es muss ein Login-Feld angegeben werden!' . $e->getMessage());
-            } catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {
+            } catch (Users\UserNotActivatedException $e) {
                 Log::info($e->getMessage());
                 return Redirect::to('login')->with('error', 'Der Nutzer ist nicht aktiviert!');
             } catch (Exception $e) {
