@@ -1,0 +1,101 @@
+{% extends "layout.twig" %}
+
+{% block title %}
+Benutzerverwaltung
+{% endblock %}
+
+{% block head %}
+{{ parent() }}
+{% include "user/head.twig" %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block content %}
+	<div id="message-board">
+    {% if (session_has('error')) %}
+        <div class="alert alert-error">{{ session_get('error') }}</div>
+    {% elseif (session_has('success')) %}
+        <div class="alert alert-success">{{ session_get('success') }}</div>
+    {% endif %}
+	</div>
+	
+	<a href="{{ url('admin/user') }}" class="btn">Zurück</a>
+	
+	<form class="user-create-form" action="{{ url('admin/user') }}" method="post">
+		<div class="tabs" id="user-tabs">
+			<ul>
+				<li><a href="#user-info">Informationen</a></li>
+				<li><a href="#user-groups">Gruppen</a></li>
+				<li><a href="#user-permissions">Rechte</a></li>
+			</ul>
+			<div id="user-info" class="user-edit-content">
+				<table class="user-table">
+					<tbody>
+						<tr>
+							<th>Name:</th><td><input type="text" name="lastName" value="" /></td>
+						</tr>
+						<tr>
+							<th>Vorname:</th><td><input type="text" name="firstName" value="" /></td>
+						</tr>
+						<tr>
+							<th>E-Mail:</th><td><input type="text" name="email" value="" /></td>
+						</tr>
+						<tr>
+							<th>Passwort:</th><td><input type="password" name="password" value="" /></td>
+						</tr>
+						<tr>
+							<th>Erneut:</th><td><input type="password" name="password_confirm" value="" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="user-groups" class="user-edit-content">
+				<table>
+	{% for group in groups %}
+					<tr>
+						<td>{{ group.name }}</td><td><a href="#">hinzufügen</a></td>
+					</tr>
+	{% endfor %}
+				</table>
+			</div>
+			<div id="user-permissions" class="user-edit-content">
+				<p>Rechtesystem sucks</p>
+			</div>
+		</div>
+		<input type="submit" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-all" />
+	</form>
+	
+	<script>
+	<!--
+	
+	$.fn.message = function(msg) {
+		$('<div class="alert alert-' + (msg.success ? 'success' : 'error') + '">' + (msg.message) + '</div>').appendTo(this).delay(1500).fadeOut(1000, function() { $(this).remove(); });
+		return this;
+	}
+	
+	$(function() {
+		$('.tabs').tabs();
+		
+		$('.user-create-form').submit(function() {
+			$.ajax({
+				url: $(this).attr('action'),
+				type: 'post',
+				data: $(this).serialize(),
+				dataType: 'json'
+			}).done(function(msg) {
+				$('#message-board').message(msg);
+				if(msg.success) {
+					$('.user-create-form')[0].reset();
+				}
+			}).fail(function(o, s, msg) {
+				$('<div class="alert alert-error">' + msg + '</div>').appendTo('#message-board').delay(1500).fadeOut(1000, function() { $(this).remove(); });
+			});
+			return false;
+		});
+	});
+	
+	//-->
+	</script>
+{% endblock %}

@@ -2,7 +2,7 @@
 
 namespace Cmex\Modules\Admin\Controller;
 
-use Authentication, View, Redirect, Input, Validator, Lang;
+use Authentication, View, Redirect, Input, Validator, Lang, Cartalyst\Sentry\Users;
 
 class User extends AdminController {
 
@@ -13,7 +13,7 @@ class User extends AdminController {
 	 */
 	public function index()
 	{
-		return View::make('Admin::userindex', array(
+		return View::make('Admin::user.index', array(
 			'users' => Authentication::getUserProvider()->findAll()
 		));
 	}
@@ -26,9 +26,9 @@ class User extends AdminController {
 	public function create()
 	{
 		if($this->canCreate()) {
-			return View::make('Admin::usercreate', array('groups' => Authentication::getGroupProvider()->findAll()));
+			return View::make('Admin::user.create', array('groups' => Authentication::getGroupProvider()->findAll()));
 		} else {
-			return Redirect::to('admin/user')->with('error', 'Sie haben nicht die nötigen Rechte Benutzer zu erstellen!');
+			return Redirect::to('admin/user')->with('error', Lang::get('Admin::user.noright.create'));
 		}
 	}
 
@@ -58,7 +58,7 @@ class User extends AdminController {
 			return json_encode(array('success' => 0, 'message' => $message));
 		}
 		Authentication::getUserProvider()->create(Input::only('lastName', 'firstName', 'email', 'password'));
-		return json_encode(array('success' => 1, 'message' => 'Der Benutzer wurde hinzugefügt!'));
+		return json_encode(array('success' => 1, 'message' => Lang::get('Admin::user.created')));
 	}
 
 	/**
@@ -72,7 +72,7 @@ class User extends AdminController {
 		{
 			return Authentication::getUserProvider()->findById($id);
 		}
-		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
+		catch (Users\UserNotFoundException $e)
 		{
 			return null;
 		}
@@ -89,7 +89,7 @@ class User extends AdminController {
 		{
 			$user = Authentication::getUserProvider()->findById($id);
 			if($this->canEdit($id)) {
-				return View::make('Admin::useredit', array(
+				return View::make('Admin::user.edit', array(
 					'user' => $user,
 					'groups' => Authentication::getGroupProvider()->findAll())
 				);
@@ -97,7 +97,7 @@ class User extends AdminController {
 				return Redirect::to('admin/user')->with('error', Lang::get('Admin::user.noright.edit'));
 			}
 		}
-		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
+		catch (Users\UserNotFoundException $e)
 		{
 			return Redirect::to('admin/user')->with('error', Lang::get('Admin::user.notfound'));
 		}
@@ -150,7 +150,7 @@ class User extends AdminController {
 				return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.noright.edit')));
 			}
 		}
-		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
+		catch (Users\UserNotFoundException $e)
 		{
 			return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.notfound')));
 		}
@@ -163,47 +163,25 @@ class User extends AdminController {
 	 */
 	public function destroy($id)
 	{
-		try
-		{
-			$user = Authentication::getUserProvider()->findById($id);
-			return $user->delete();
+		if($this->canDelete($id)) {
+			try
+			{
+				return Authentication::getUserProvider()->findById($id)->delete();
+			}
+			catch (Users\UserNotFoundException $e) { }
 		}
-		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
-		{
-			return null;
-		}
+		return null;
 	}
 	
 	private function canCreate() {
-		return (Authentication::getUser()->hasAccess('admin') || Authentication::getUser()->hasAccess('superuser'));
+		return Authentication::getUser()->hasAccess('user.create');
 	}
 	
 	private function canEdit($id) {
-		try
-		{
-			$user = Authentication::getUserProvider()->findById($id);
-			
-			if(Authentication::getUser()->hasAccess('superuser'))
-				return true;
-			if(Authentication::getUser()->hasAccess('admin') && !$user->hasAccess('superuser'))
-				return true;
-		}
-		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
-		{
-			return false;
-		}
-		return false;
+		return Authentication::getUser()->hasAccess('user.edit');
 	}
 	
 	private function canDelete($id) {
-		try
-		{
-			return Authentication::getUserProvider()->findById($id);
-		}
-		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
-		{
-			return null;
-		}
-		return (Authentication::getUser()->hasAccess('admin') || Authentication::getUser()->hasAccess('superuser'));
+		return Authentication::getUser()->hasAccess('user.delete');
 	}
 }
