@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 class ModuleServiceProvider extends ServiceProvider {
 
-    public function register()
+    public function boot()
     {
         $modulebase = __DIR__ . '/../Modules/';
         $modulesfile = __DIR__ . '/../../../app/storage/meta/modules.json';
@@ -27,5 +27,9 @@ class ModuleServiceProvider extends ServiceProvider {
             include $modulebase . $module . '/routes.php';
             
         }
+    }
+
+    public function register() {
+        
     }
 }

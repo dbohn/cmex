@@ -40,7 +40,7 @@ class User extends AdminController {
 	public function store()
 	{
 		if(!$this->canCreate())
-			return json_encode(array('success' => 0, 'message' => Lang::get('user.noright.create')));
+			return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.noright.create')));
 		
 		$rules = array(
 			'lastName' => 'required|min:3',
@@ -94,12 +94,12 @@ class User extends AdminController {
 					'groups' => Authentication::getGroupProvider()->findAll())
 				);
 			} else {
-				return Redirect::to('admin/user')->with('error', Lang::get('user.noright.edit'));
+				return Redirect::to('admin/user')->with('error', Lang::get('Admin::user.noright.edit'));
 			}
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
-			return Redirect::to('admin/user')->with('error', Lang::get('user.notfound'));
+			return Redirect::to('admin/user')->with('error', Lang::get('Admin::user.notfound'));
 		}
 	}
 
@@ -144,15 +144,15 @@ class User extends AdminController {
 				$user->save();
 				
 				// successfully saved
-				return json_encode(array('success' => 1, 'message' => Lang::get('user.edited')));
+				return json_encode(array('success' => 1, 'message' => Lang::get('Admin::user.edited')));
 				
 			} else {
-				return json_encode(array('success' => 0, 'message' => Lang::get('user.noright.edit')));
+				return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.noright.edit')));
 			}
 		}
 		catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
-			return json_encode(array('success' => 0, 'message' => Lang::get('user.notfound')));
+			return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.notfound')));
 		}
 	}
 
