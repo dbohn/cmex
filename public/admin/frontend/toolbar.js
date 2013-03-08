@@ -16,7 +16,7 @@ define([
             render: function() {
                 var data = {
                     name : "Benutzer",
-                    title : $('title').text()
+                    title : cmexPage.title
                 }
                 this.$el.append(_.template(toolbartemplate, data));
             },

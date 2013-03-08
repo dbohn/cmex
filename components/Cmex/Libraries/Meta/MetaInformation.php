@@ -6,8 +6,6 @@ use Illuminate\Html\HtmlBuilder;
 
 class MetaInformation
 {
-    private $links = array();
-    private $metas = array();
     private $elements = array();
     private $usedCharset = "utf-8";
 
@@ -71,16 +69,6 @@ class MetaInformation
     {
         $tags = "";
 
-        // Generate links
-        foreach ($this->links as $link) {
-            $tags .= $this->createTag('link', $link);
-        }
-
-        // Generate meta
-        foreach ($this->metas as $meta) {
-            $tags .= $this->createTag('meta', $meta);
-        }
-
         // Generate elements
         foreach($this->elements as $element) {
             $tags .= $this->createTag($element['tag'], $element['attributes'], $element["content"]);
@@ -103,7 +91,7 @@ class MetaInformation
         $attStr = $html::attributes($attributes);
 
         if($contents !== "") {
-            return '<'.$tagname.' '.$attStr.'>'.e($contents).'</'.$tagname.'>';
+            return '<'.$tagname.' '.$attStr.'>'.$contents.'</'.$tagname.'>';
         }
 
         return '<'.$tagname. $attStr . " />\n";

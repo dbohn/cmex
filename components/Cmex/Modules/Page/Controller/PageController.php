@@ -3,7 +3,7 @@
 namespace Cmex\Modules\Page\Controller;
 
 use BaseController, ChunkManager, Authentication, Asset, Config, View;
-use App;
+use App, Meta;
 
 use Cmex\Modules\Page\Model\Page;
 
@@ -32,6 +32,8 @@ class PageController extends BaseController {
                 Asset::add('ckeditor', 'admin/frontend/ckeditor.js');
                 Asset::add('frontend', 'admin/frontend/dependencies/require.js', array("data-main" => asset('admin/frontend/frontend.js')));
                 Asset::add('frontendstyle', 'admin/frontend/style.css');
+
+                Meta::element('script', array('type' => 'text/javascript'), 'window.cmexPage = ' . json_encode(array('identifier' => $dbpage->identifier, 'title' => $dbpage->title)));
             }
 
     	    // Load view
