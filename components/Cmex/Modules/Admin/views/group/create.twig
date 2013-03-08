@@ -1,12 +1,12 @@
 {% extends "layout.twig" %}
 
 {% block title %}
-Benutzerverwaltung
+Gruppenverwaltung
 {% endblock %}
 
 {% block head %}
 {{ parent() }}
-{% include "userhead.twig" %}
+{% include "group/head.twig" %}
 {% endblock %}
 
 {% block sidebar %}
@@ -21,46 +21,24 @@ Benutzerverwaltung
     {% endif %}
 	</div>
 	
-	<a href="{{ url('admin/user') }}" class="btn">Zurück</a>
+	<a href="{{ url('admin/group') }}" class="btn">Zurück</a>
 	
-	<form class="user-create-form" action="{{ url('admin/user') }}" method="post">
-		<div class="tabs" id="user-tabs">
+	<form class="group-create-form" action="{{ url('admin/group') }}" method="post">
+		<div class="tabs" id="group-tabs">
 			<ul>
-				<li><a href="#user-info">Informationen</a></li>
-				<li><a href="#user-groups">Gruppen</a></li>
-				<li><a href="#user-permissions">Rechte</a></li>
+				<li><a href="#group-info">Informationen</a></li>
+				<li><a href="#group-permissions">Rechte</a></li>
 			</ul>
-			<div id="user-info" class="user-edit-content">
-				<table class="user-table">
+			<div id="group-info" class="group-edit-content">
+				<table class="group-table">
 					<tbody>
 						<tr>
-							<th>Name:</th><td><input type="text" name="lastName" value="" /></td>
-						</tr>
-						<tr>
-							<th>Vorname:</th><td><input type="text" name="firstName" value="" /></td>
-						</tr>
-						<tr>
-							<th>E-Mail:</th><td><input type="text" name="email" value="" /></td>
-						</tr>
-						<tr>
-							<th>Passwort:</th><td><input type="password" name="password" value="" /></td>
-						</tr>
-						<tr>
-							<th>Erneut:</th><td><input type="password" name="password_confirm" value="" /></td>
+							<th>Gruppenname:</th><td><input type="text" name="lastName" value="" /></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			<div id="user-groups" class="user-edit-content">
-				<table>
-	{% for group in groups %}
-					<tr>
-						<td>{{ group.name }}</td><td><a href="#">hinzufügen</a></td>
-					</tr>
-	{% endfor %}
-				</table>
-			</div>
-			<div id="user-permissions" class="user-edit-content">
+			<div id="group-permissions" class="group-edit-content">
 				<p>Rechtesystem sucks</p>
 			</div>
 		</div>
@@ -78,7 +56,7 @@ Benutzerverwaltung
 	$(function() {
 		$('.tabs').tabs();
 		
-		$('.user-create-form').submit(function() {
+		$('.group-create-form').submit(function() {
 			$.ajax({
 				url: $(this).attr('action'),
 				type: 'post',
@@ -87,7 +65,7 @@ Benutzerverwaltung
 			}).done(function(msg) {
 				$('#message-board').message(msg);
 				if(msg.success) {
-					$('.user-create-form')[0].reset();
+					$('.group-create-form')[0].reset();
 				}
 			}).fail(function(o, s, msg) {
 				$('<div class="alert alert-error">' + msg + '</div>').appendTo('#message-board').delay(1500).fadeOut(1000, function() { $(this).remove(); });
