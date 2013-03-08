@@ -9,6 +9,7 @@ Route::group(array('prefix' => 'admin'), function()
     });
 
     Route::resource('user', 'Cmex\Modules\Admin\Controller\User');
+    Route::resource('group', 'Cmex\Modules\Admin\Controller\Group');
 
     Route::get('dashboard', 'Cmex\Modules\Admin\Controller\Dashboard@handle');
 

@@ -1,0 +1,41 @@
+{% extends "layout.twig" %}
+
+{% block title %}
+Gruppenverwaltung
+{% endblock %}
+
+{% block head %}
+{{ parent() }}
+{% include "group/head.twig" %}
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+	<div id="message-board">
+    {% if (session_has('error')) %}
+    <div class="alert alert-error">{{ session('error') }}</div>
+    {% elseif (session_has('success')) %}
+    <div class="alert alert-success">{{ session('success') }}</div>
+    {% endif %}
+	</div>
+	
+	asdf
+	
+	<script>
+	<!--
+	
+	$.fn.message = function(msg) {
+		$('<div class="alert alert-' + (msg.success ? 'success' : 'error') + '">' + (msg.message) + '</div>').appendTo(this).delay(1500).fadeOut(1000, function() { $(this).remove(); });
+		return this;
+	}
+	
+	$(function() {
+		
+	});
+	
+	//-->
+	</script>
+{% endblock %}

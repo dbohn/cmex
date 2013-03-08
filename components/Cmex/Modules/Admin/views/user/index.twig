@@ -6,21 +6,25 @@ Benutzerverwaltung
 
 {% block head %}
 {{ parent() }}
-{% include "userhead.twig" %}
+{% include "user/head.twig" %}
 {% endblock %}
 
 {% block sidebar %}
     {{ parent() }}
 	...<br />
-    <a href="#" class="btn">Filter anwenden</a>
+    <a href="#admin/filter" class="btn">Filter anwenden</a>
+	
+	<a href="#admin/mail" class="btn">Mail service</a>
 {% endblock %}
 
 {% block content %}
+	<div id="message-board">
     {% if (session_has('error')) %}
     <div class="alert alert-error">{{ session('error') }}</div>
     {% elseif (session_has('success')) %}
     <div class="alert alert-success">{{ session('success') }}</div>
     {% endif %}
+	</div>
 	
 	<a class="btn" href="{{ url('admin/user/create') }}">Benutzer hinzufügen</a>
 	<a class="btn" href="{{ url('admin/group/create') }}">Gruppe hinzufügen</a>
