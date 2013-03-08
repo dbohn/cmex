@@ -4,7 +4,7 @@ namespace Cmex\Modules\Admin\Controller;
 
 use BaseController, Authentication, View;
 
-class Media extends BaseController {
+class Media extends AdminController {
 
 	/**
 	 * Display a listing of the resource.

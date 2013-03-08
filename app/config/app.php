@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'de',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -114,7 +114,7 @@ return array(
 		'TwigBridge\TwigServiceProvider',
 		'Cmex\Libraries\Media\MediaServiceProvider',
 		'Cmex\Libraries\Chunks\ChunkManagerServiceProvider',
-		'Cmex\Libraries\Asset\AssetServiceProvider',
+		'Cmex\Libraries\Meta\AssetServiceProvider',
 		'Cmex\Libraries\ModuleServiceProvider'
 
 	),
@@ -181,7 +181,8 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-		'Asset'		 	  => 'Cmex\Libraries\Asset\Facade',
+		'Asset'		 	  => 'Cmex\Libraries\Meta\AssetFacade',
+		'Meta'			  => 'Cmex\Libraries\Meta\MetaFacade',
 		'ChunkManager'	  => 'Cmex\Libraries\Chunks\Facade',
 		'Authentication'  => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Media'			  => 'Cmex\Libraries\Media\Facade'

@@ -16,12 +16,15 @@
     background: transparent !important;
 }
 
-.cmex-admin-toolbar-hidden .cmex-admin-toolbar {
+.cmex-admin-toolbar-hidden .cmex-admin-toolbar,
+.cmex-admin-toolbar-hidden .cmex-admin-pagebar {
     display: none;
 }
 
 .cmex-admin-toggle {
     float: left;
+    width: 20%;
+    text-align: left;
 }
 
 .cmex-admin-toggle li, .cmex-admin-toolbar li {
@@ -43,4 +46,17 @@
 .cmex-admin-btn:hover {
     text-decoration: none;
     color: #fff;
+}
+
+.cmex-admin-pagebar {
+    float: left;
+    width: 55%;
+    line-height: 50px;
+    text-align: center;
+    clear: none;
+}
+
+.cmex-admin-pagebar p {
+    font-size: 120%;
+    font-weight: bold;
 }

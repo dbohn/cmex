@@ -1,10 +1,10 @@
 <?php
 
-namespace Cmex\Libraries\Asset;
+namespace Cmex\Libraries\Meta;
 
-use Illuminate\Support\Facades\Facade as IlluFacade;
+use Illuminate\Support\Facades\Facade;
 
-class Facade extends IlluFacade {
+class MetaFacade extends Facade {
 
     /**
      * Get the registered name of the component.
@@ -13,6 +13,6 @@ class Facade extends IlluFacade {
      */
     protected static function getFacadeAccessor()
     {
-        return "cmex.asset";
+        return "cmex.meta";
     }
 }

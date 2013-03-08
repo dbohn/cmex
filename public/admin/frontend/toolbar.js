@@ -14,7 +14,11 @@ define([
             },
 
             render: function() {
-                this.$el.append(_.template(toolbartemplate, {name : "Benutzer"}));
+                var data = {
+                    name : "Benutzer",
+                    title : $('title').text()
+                }
+                this.$el.append(_.template(toolbartemplate, data));
             },
 
             toggle: function(event) {

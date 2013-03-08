@@ -53,7 +53,7 @@ class Swordfish extends BaseController {
         }
         catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
         {
-            return Redirect::to('forgotpassword')->with('error', 'Diese E-Mail ist nicht bekannt!');
+            return Redirect::to('login/forgotpassword')->with('error', 'Diese E-Mail ist nicht bekannt!');
         }
     }
     
@@ -74,7 +74,7 @@ class Swordfish extends BaseController {
         }
         catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
         {
-            return Redirect::to('forgotpassword')->with('error', 'Alles falsch!');
+            return Redirect::to('login/forgotpassword')->with('error', 'Alles falsch!');
         }
     }
 }

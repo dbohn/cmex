@@ -41,7 +41,7 @@
     <body>
             <div class="container">
 
-      <form action="{{ url('doLogin') }}" class="form-signin" method="post">
+      <form action="{{ url('login/doLogin') }}" class="form-signin" method="post">
         <h2 class="form-signin-heading">Bitte anmelden!</h2>
         {% if (session_has('error')) %}
         <div class="alert alert-error">{{ session('error') }}</div>

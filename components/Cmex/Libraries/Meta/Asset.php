@@ -1,12 +1,20 @@
 <?php
 
-namespace Cmex\Libraries\Asset;
+namespace Cmex\Libraries\Meta;
 
 class Asset {
     private $scripts = array();
     private $stylesheets = array();
 
-    public function add($name, $path) {
+    private $metainformation = null;
+
+    public function __construct(MetaInformation $meta)
+    {
+        $this->metainformation = $meta;
+    }
+
+    public function add($name, $path) 
+    {
         if(substr_compare($path, "http://", 0, 7) == 0 || substr_compare($path, "https://", 0, 8) == 0) {
             $url = $path;
         } else {
@@ -27,28 +35,28 @@ class Asset {
             }
         } else {
             if(!isset($this->stylesheets[$name])) {
-                $this->stylesheets[$name] = "<link rel=\"stylesheet\" href=\"".$url."\"".$args." />\n";
+                $this->metainformation->link('stylesheet', 'text/css', $url,'', $args);
             }
         }
     }
 
-    public function getScripts() {
+    public function getScripts() 
+    {
         return implode("", $this->scripts);
     }
 
-    public function getStylesheets() {
+    public function getStylesheets() 
+    {
         return implode("", $this->stylesheets);
     }
 
-    public function get() {
+    public function get() 
+    {
         return $this->getScripts() . $this->getStylesheets();
     }
 
-    public function scripts() {
+    public function scripts() 
+    {
         return "__scripts__";
-    }
-
-    public function head() {
-        return "__head__";
     }
 }
