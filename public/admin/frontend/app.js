@@ -2,10 +2,10 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'toolbar'
-    ], function($, _, Backbone, ToolbarView){
+    'toolbar',
+    'pageman'
+    ], function($, _, Backbone, ToolbarView, PageMan){
         var initialize = function(){
-// Pass in our Router module and call it's initialize function
             $(function() {
                 //Toolbar.initialize();
                 //toolbar.render();
@@ -14,6 +14,8 @@ define([
                 tools.render();
 
                 $('body').append(tools.el);
+
+                var pageman = new PageMan({toolbar: tools});
 
                 // Scan for chunks
 

@@ -29,7 +29,7 @@ class PageController extends BaseController {
             ChunkManager::setPage($dbpage);
 
             if(Authentication::check()) {
-                Asset::add('ckeditor', 'admin/frontend/ckeditor.js');
+                Asset::add('ckeditor', 'admin/frontend/ckeditor/ckeditor.js');
                 Asset::add('frontend', 'admin/frontend/dependencies/require.js', array("data-main" => asset('admin/frontend/frontend.js')));
                 Asset::add('frontendstyle', 'admin/frontend/style.css');
 

@@ -2,23 +2,48 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(0,0,0,.5);
+    background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
     width: 100%;
     margin: 0;
     padding: 0;
-    color: #fff;
-    height: 50px;
+    color: #777;
+    height: 40px;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 14px;
     text-align: right;
+    text-shadow: 0 1px 0 #fff;
+    border: 1px solid #d4d4d4;
 }
 
 .cmex-admin-toolbar-hidden {
     background: transparent !important;
+    border: none !important;
 }
 
 .cmex-admin-toolbar-hidden .cmex-admin-toolbar,
-.cmex-admin-toolbar-hidden .cmex-admin-pagebar {
+.cmex-admin-toolbar-hidden .cmex-admin-pagebar,
+.cmex-admin-pageman-hidden {
     display: none;
+}
+
+.cmex-admin-toolbar-hidden .cmex-admin-toggle .cmex-admin-btn {
+    background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
 }
 
 .cmex-admin-toggle {
@@ -30,33 +55,107 @@
 .cmex-admin-toggle li, .cmex-admin-toolbar li {
     display: inline;
     list-style-type: none;
-    line-height: 50px;
+    line-height: 40px;
     margin-right: 10px;
 }
 
 .cmex-admin-btn {
-    color: #fff;
-    font-weight: bold;
+    color: #777;
+    font-weight: 200;
     text-decoration: none;
-    border: 1px solid #fff;
-    padding: 8px;
+    padding: 10px;
     border-radius: 3px;
 }
 
 .cmex-admin-btn:hover {
     text-decoration: none;
-    color: #fff;
+    color: #333;
 }
 
 .cmex-admin-pagebar {
     float: left;
     width: 55%;
-    line-height: 50px;
+    line-height: 40px;
     text-align: center;
-    clear: none;
+    /*clear: none;*/
 }
 
 .cmex-admin-pagebar p {
     font-size: 120%;
-    font-weight: bold;
+    font-weight: 200;
+    cursor: pointer;
+}
+
+.cmex-admin-pagebar p a {
+    color: #777;
+    display: block;
+}
+
+.cmex-admin-pagebar p a:hover {
+    text-decoration: none;
+}
+
+#cmex-admin-pageman {
+    position: fixed;
+    top: 42px;
+    width: 60%;
+    left: 20%;
+    background: #fff;
+    height: 50%;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow: 3px 3px 5px #777;
+}
+
+.cmex-admin-page-select {
+    width: 25%;
+    float: left;
+    height: 100%;
+    background: #f5f5f5;
+    border-bottom-left-radius: 5px;
+}
+
+.cmex-admin-page-list {
+    list-style-type: none;
+    padding-top: 10px;
+    margin: 0;
+    overflow: scroll;
+    height: 88%;
+}
+
+.cmex-admin-page-list li {
+    line-height: 20px;
+}
+
+.cmex-admin-page-list li a {
+    padding: 3px 15px;
+    display: block;
+    color: #0088cc;
+}
+
+.cmex-admin-page-list li a:hover {
+    text-decoration: none;
+    background-color: #eee;
+}
+
+.cmex-admin-page-tools {
+    position: absolute;
+    bottom: 0;
+    list-style-type: none;
+    padding: 4px;
+    margin: 0;
+}
+
+.cmex-admin-page-tools li {
+    display: inline;
+}
+
+.cmex-admin-property-column {
+    width: 75%;
+    float: left;
+    height: 100%;
+}
+
+.cmex-admin-property-column p {
+    padding: 5px;
 }
