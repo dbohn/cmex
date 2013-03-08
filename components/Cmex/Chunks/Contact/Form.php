@@ -10,7 +10,8 @@ class Form extends Chunk {
     
     public function show() {
         return \View::make('Contact.views.contactForm', array(
-            'status' => $this->status));
+            'status' => $this->status,
+            'me'     => $this->identifier));
     }
 
     public function handleInput($data) {

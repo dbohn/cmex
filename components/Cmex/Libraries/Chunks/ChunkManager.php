@@ -129,57 +129,6 @@ class ChunkManager
         return $view;
     }
 
-    /**
-     * Generates the form open tag, quite useful because it adds additional candy like chunk-field etc.
-     * @param $method get|post
-     * @param $formname name parameter of the form
-     * @param $action Full URL where the form is handled. Let empty for current scope
-     * @param $handler if you want a different chunk to handle the form, add its identifier here
-     * @param $fileupload set to true if you want to upload files
-     * @param $attributes further attributes for the form tag
-     * @param $csrf true for automatic token addition
-     */
-    public function openForm($method="post", $formname="", $action="", $handler="", $fileupload=false, $attributes=array(), $csrf=true)
-    {
-        if (!$this->executionStack->isEmpty()) {
-            $chunk = $this->executionStack->top();
-
-            if ($action == "" || is_null($action)) {
-                //$action = \URL::to($scope);
-                $action = \Request::fullUrl();
-            }
-
-            if ($formname != "") {
-                $formname = ' name="'.$formname.'"';
-            }
-
-            if ($fileupload) {
-                $formname .= ' enctype="multipart/form-data"';
-                $method = "post";
-            }
-
-            if ($handler != "") {
-                $chunk = $handler;
-            }
-
-            $attstring = "";
-            foreach ($attributes as $attr=>$value) {
-                $attstring .= ' ' . $attr . '="'.addslashes($value).'"';
-            }
-
-            $hiddenfield = '<input type="hidden" name="chunk" value="'.$chunk.'" />';
-
-            if ($csrf) {
-                $hiddenfield .= '<input type="hidden" name="csrf_token" value="'.\Session::getToken().'" />';
-            }
-
-            return '<form action="'.$action.'" method="'.$method.'"'.$formname . $attstring .'>'.$hiddenfield;
-        } else
-        {
-            return "Error";
-        }
-    }
-
     public function getChunkForKey($key)
     {
         if (isset($this->chunks[$key])) {

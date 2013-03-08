@@ -1,4 +1,6 @@
-{{ open_form("post", "smallSearch", viewPage, responsibleChunk) }}
+{{ form_open({'method': 'post', name: 'smallSearch', 'url': viewPage}) }}
+{{ form_hidden('chunk', responsibleChunk) }}
+{{ form_token() }}
 <div class="input-append">
   <input class="span2" id="appendedInputButton" placeholder="Suche..." name="searchquery" type="text">
   <button class="btn" type="submit">Go!</button>

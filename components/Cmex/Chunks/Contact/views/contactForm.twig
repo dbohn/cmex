@@ -1,4 +1,6 @@
-{{ open_form("post", "contactForm", null, "", false, {'class' : 'form-horizontal'}) }}
+{{ form_open({'method': 'post', 'class': 'form-horizontal', 'name': 'contactForm'}) }}
+{{ form_hidden('chunk', me) }}
+{{ form_token() }}
 {% if status.success is defined %}
 <div class="alert alert-success span7">{{ status.success }}</div>
 {% endif %}

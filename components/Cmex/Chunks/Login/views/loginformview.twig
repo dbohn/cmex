@@ -2,7 +2,8 @@
     <p>Hallo {{ full_username() }}!</p>
     <p><a href="{{ url('logout') }}">Abmelden</a></p>
 {% else %}
-{{ open_form("post", "frontendlogin", url('doLogin'), current_page()) }}
+{{ form_open({'method': 'post', name: 'frontendlogin', 'url': url('login/doLogin')}) }}
+{{ form_hidden('chunk', current_page()) }}
 <input type="text" name="name" class="input-small" placeholder="Benutzername">
     <input type="password" name="password" class="input-small" placeholder="Passwort">
     <button class="btn" type="submit">Login</button>
