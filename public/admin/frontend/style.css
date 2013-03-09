@@ -43,13 +43,18 @@ background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ *
 background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
 background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-
 }
 
 .cmex-admin-toggle {
     float: left;
     width: 20%;
     text-align: left;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.cmex-admin-toolbar {
+    margin: 0;
 }
 
 .cmex-admin-toggle li, .cmex-admin-toolbar li {
@@ -84,11 +89,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     font-size: 120%;
     font-weight: 200;
     cursor: pointer;
+    margin: 0;
 }
 
 .cmex-admin-pagebar p a {
     color: #777;
     display: block;
+    text-decoration: none;
 }
 
 .cmex-admin-pagebar p a:hover {
@@ -105,6 +112,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     box-shadow: 3px 3px 5px #777;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 14px;
 }
 
 .cmex-admin-page-select {
@@ -119,7 +128,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     list-style-type: none;
     padding-top: 10px;
     margin: 0;
+    padding: 0;
     overflow: scroll;
+    overflow-x: hidden;
     height: 88%;
 }
 
@@ -131,6 +142,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     padding: 3px 15px;
     display: block;
     color: #0088cc;
+    text-decoration: none;
 }
 
 .cmex-admin-page-list li a:hover {
@@ -142,12 +154,29 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     position: absolute;
     bottom: 0;
     list-style-type: none;
-    padding: 4px;
+    /*padding: 4px;*/
     margin: 0;
+    padding: 3px 0;
+    background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
+    width: 25%;
+    border-bottom-left-radius: 4px;
+}
+
+.cmex-admin-page-tools li:first-child {
+    margin-left: 10px;
 }
 
 .cmex-admin-page-tools li {
     display: inline;
+    padding: 3px;
 }
 
 .cmex-admin-property-column {
@@ -158,4 +187,35 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .cmex-admin-property-column p {
     padding: 5px;
+}
+
+.cmex-admin-icon {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  margin-top: 1px;
+  *margin-right: .3em;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../bootstrap/img/glyphicons-halflings.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+}
+
+.cmex-admin-icon-plus {
+    background-position: -408px -96px;
+}
+
+.cmex-admin-icon-dupl {
+    background-position: -24px -24px;
+}
+
+.cmex-admin-icon-remove {
+    background-position: -312px 0;
+}
+
+.cmex-admin-icon-th-list {
+    background-position: -264px 0;
 }

@@ -8,6 +8,14 @@ Route::group(array('prefix' => 'admin'), function()
         return Redirect::to('admin/dashboard');
     });
 
+    Route::get('notifications', array('before' => 'auth', function() {
+        $user = Authentication::getUser();
+        $notify = App::make('Cmex\Libraries\Notifications\Environment');
+        $collection = $notify->forUser($user->id);
+        
+        return $collection;
+    }));
+
     Route::resource('user', 'Cmex\Modules\Admin\Controller\User');
     Route::resource('group', 'Cmex\Modules\Admin\Controller\Group');
 

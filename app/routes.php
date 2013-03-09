@@ -11,6 +11,19 @@
 |
 */
 
+Route::get('test', function() {
+    // $mlc = App::make('Cmex\Libraries\Installer\ModuleListCreator');
+
+    // $mlc->setModuleBase(__DIR__ . "/../components/Cmex/Modules");
+
+    // $mlc->updateModuleList();
+
+    $notify = App::make('Cmex\Libraries\Notifications\Environment');
+
+    //$notify->user(100, 'User-Test', 'Diese Meldung gibt es für keinen!');
+    // $notify->markAllAsRead();
+    return "";
+});
 // Enable access to the (virtual) filesystem
 Route::get('file/{option}/{path}', 'MediaController@resolveFile')->where('path', '[A-Za-z0-9/.]+');
 

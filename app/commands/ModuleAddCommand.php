@@ -4,6 +4,8 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+use Cmex\Libraries\Installer\ModuleListCreator;
+
 class ModuleAddCommand extends Command {
 
 	/**
@@ -20,13 +22,16 @@ class ModuleAddCommand extends Command {
 	 */
 	protected $description = 'Adds an existing module to the registered modules';
 
+	private $mlc = null;
+
 	/**
 	 * Create a new command instance.
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(ModuleListCreator $mlc)
 	{
+		$this->mlc = $mlc;
 		parent::__construct();
 	}
 
@@ -40,6 +45,7 @@ class ModuleAddCommand extends Command {
 		$name = $this->argument('name');
 
 		$modulebase = __DIR__ . '/../../components/Cmex/Modules/';
+		$path = __DIR__ . "/../storage";
 
 		if(is_dir($modulebase . $name)) {
 			if(!is_dir($modulebase . $name . '/Controller')) {
@@ -70,7 +76,12 @@ class ModuleAddCommand extends Command {
 			return;
 		}
 
-		$this->addToModuleList($name);
+		$this->mlc->setModuleBase($modulebase);
+		$this->mlc->setStorage($path);
+
+		$this->mlc->updateModuleList();
+
+		//$this->addToModuleList($name);
 
 		$this->info("Module was successfully added!");
 	}

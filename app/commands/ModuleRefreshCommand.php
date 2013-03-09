@@ -4,6 +4,8 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+use Cmex\Libraries\Installer\ModuleListCreator;
+
 class ModuleRefreshCommand extends Command {
 
 	/**
@@ -20,14 +22,18 @@ class ModuleRefreshCommand extends Command {
 	 */
 	protected $description = 'Refreshs module list';
 
+	private $mlc = null;
+
 	/**
 	 * Create a new command instance.
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(ModuleListCreator $mlist)
 	{
 		parent::__construct();
+
+		$this->mlc = $mlist;
 	}
 
 	/**
@@ -38,19 +44,25 @@ class ModuleRefreshCommand extends Command {
 	public function fire()
 	{
 		$modulebase = __DIR__ . '/../../components/Cmex/Modules/';
+		$path = __DIR__ . "/../storage";
 
-		$dirscan = scandir($modulebase);
+		$this->mlc->setModuleBase($modulebase);
+		$this->mlc->setStorage($path);
 
-		$modules = array();
+		$this->mlc->updateModuleList();
 
-		foreach($dirscan as $dir) {
-			if (is_dir($modulebase . $dir) && $dir[0] != "." && file_exists($modulebase . $dir . "/routes.php")) {
-				$modules[] = $dir;
-			}
-		}
+		// $dirscan = scandir($modulebase);
+
+		// $modules = array();
+
+		// foreach($dirscan as $dir) {
+		// 	if (is_dir($modulebase . $dir) && $dir[0] != "." && file_exists($modulebase . $dir . "/routes.php")) {
+		// 		$modules[] = $dir;
+		// 	}
+		// }
 		
-		$path = __DIR__ . "/../storage/meta/modules.json";
-		file_put_contents($path, json_encode($modules));
+		
+		// file_put_contents($path, json_encode($modules));
 	}
 
 	/**

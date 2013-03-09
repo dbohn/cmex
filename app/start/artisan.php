@@ -13,7 +13,7 @@
 
 // Module commands
 Artisan::add(new ModuleCommand);
-Artisan::add(new ModuleAddCommand);
-Artisan::add(new ModuleRefreshCommand);
+Artisan::add(App::make('ModuleAddCommand'));
+Artisan::add(App::make('ModuleRefreshCommand'));
 // Chunk commands
 Artisan::add(new ChunkMakeCommand);
