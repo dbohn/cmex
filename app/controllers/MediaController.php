@@ -2,7 +2,8 @@
 
 use Cmex\Media\FileNotFoundException;
 
-class MediaController extends BaseController {
+class MediaController extends BaseController
+{
     /**
      * This method looksup a file in the virtual file tree and
      * redirects the request towards the file

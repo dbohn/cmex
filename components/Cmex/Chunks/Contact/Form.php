@@ -5,16 +5,23 @@ namespace Cmex\Chunks\Contact;
 use Guzzle\Http\Client;
 use Cmex\Libraries\Chunks\Chunk;
 
-class Form extends Chunk {
+class Form extends Chunk
+{
     private $status = null;
     
-    public function show() {
-        return \View::make('Contact.views.contactForm', array(
-            'status' => $this->status,
-            'me'     => $this->identifier));
+    public function show()
+    {
+        return \View::make(
+            'Contact.views.contactForm',
+            array(
+                'status' => $this->status,
+                'me'     => $this->identifier
+            )
+        );
     }
 
-    public function handleInput($data) {
+    public function handleInput($data)
+    {
         // Send mail
         $content = json_decode($this->content);
         $rules = array(
@@ -26,11 +33,10 @@ class Form extends Chunk {
 
         $validation = \Validator::make($data, $rules);
 
-        if($validation->fails()) {
+        if ($validation->fails()) {
             $messages = $validation->messages();
             $error = "<p>Folgende Fehler sind aufgetreten: </p><ul>";
-            foreach($messages->all() as $msg)
-            {
+            foreach ($messages->all() as $msg) {
                 $error .= "<li>".$msg."</li>";
             }
 
@@ -38,17 +44,29 @@ class Form extends Chunk {
 
             $this->status = array('error' => $error);
         } else {
-
-            if($this->validateUser()) {
-                if(\Mail::send($content->template, array('mailtext' => strip_tags($data['mailtext'])), function($m) use($content, $data) {
-                    $m->to($content->to)->subject($data['subject'])->from($data['sender'], $data['sendername']);
-                })) {
+            if ($this->validateUser()) {
+                $mailfunction = function ($m) use ($content, $data) {
+                    $m->to($content->to);
+                    $m->subject($data['subject']);
+                    $m->from(
+                        $data['sender'],
+                        $data['sendername']
+                    );
+                };
+                if (\Mail::send(
+                    $content->template,
+                    array('mailtext' => strip_tags($data['mailtext'])),
+                    $mailfunction
+                )
+                ) {
                     $this->status = array('success' => 'Mail wurde versandt!');
                 } else {
                     $this->status = array('error' => 'Mail konnte nicht versandt werden!');
                 }
             } else {
-                $this->status = array('error' => 'Die Anfrage wurde nicht verschickt, da sie von Akismet bzw. TypePad als Spam erkannt wurde!');
+                $this->status = array('error' => 'Die Anfrage wurde nicht verschickt, 
+                    da sie von Akismet bzw. TypePad als Spam 
+                    erkannt wurde!');
             }
         }
     }
@@ -63,8 +81,7 @@ class Form extends Chunk {
         // TODO: make a library out of that!
         $apikey = \Config::get('cmex.spam_apikey');
 
-        if (!\Config::get('cmex.spam_enable_check'))
-        {
+        if (!\Config::get('cmex.spam_enable_check')) {
             return true;
         }
 
@@ -78,10 +95,13 @@ class Form extends Chunk {
 
         //print_r($referrer);
 
-        $client = new Client('http://{key}.{endpoint}/{version}', array(
-            'key'       => $apikey,
-            'endpoint'  => 'api.antispam.typepad.com',
-            'version'   => '1.1')
+        $client = new Client(
+            'http://{key}.{endpoint}/{version}',
+            array(
+                'key'       => $apikey,
+                'endpoint'  => 'api.antispam.typepad.com',
+                'version'   => '1.1'
+            )
         );
 
         $req = $client->post('comment-check', null, $reqData);

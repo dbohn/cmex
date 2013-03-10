@@ -6,16 +6,17 @@ use \Cmex\Libraries\Media\File;
 use \Cmex\Libraries\Media\DriverInterface;
 use InvalidArgumentException;
 
-class MediaAccessor {
+class MediaAccessor
+{
     private $storages = array();
 
-    public function addStorage(DriverInterface $driver) 
+    public function addStorage(DriverInterface $driver)
     {
         $key = $driver->respondsToKey();
         $this->storages[$key] = $driver;
     }
 
-    public function lookupFile($path) 
+    public function lookupFile($path)
     {
         $path = $this->cleanFilePath($path);
         // Extract driver
@@ -34,10 +35,10 @@ class MediaAccessor {
         }
     }
 
-    public function cleanFilePath($dirtyPath) 
+    public function cleanFilePath($dirtyPath)
     {
         // Check for driver
-        if($dirtyPath[0] == "/") {
+        if ($dirtyPath[0] == "/") {
             $dirtyPath = substr($dirtyPath, 1);
         }
 
@@ -49,7 +50,7 @@ class MediaAccessor {
             $path = strip_tags($dirtyPath);
 
             // Removes non-ASCII-chars
-            $path = preg_replace('/[^(\x20-\x7F)]*/','', $path);
+            $path = preg_replace('/[^(\x20-\x7F)]*/', '', $path);
 
             // Reomve 0-byte and ../
             $path = str_replace("\0", '', $path);

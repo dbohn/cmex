@@ -2,9 +2,17 @@
 
 namespace Cmex\Modules\Login\Controller;
 
-use BaseController, Authentication, View, Redirect, Input, Log, Cartalyst\Sentry\Users, Exception;
+use BaseController;
+use Authentication;
+use View;
+use Redirect;
+use Input;
+use Log;
+use Cartalyst\Sentry\Users;
+use Exception;
 
-class LoginLogoff extends BaseController {
+class LoginLogoff extends BaseController
+{
     /**
      * login 
      * shows Loginform
@@ -12,8 +20,9 @@ class LoginLogoff extends BaseController {
      * @access public
      * @return void
      */
-    public function login() {
-        if(!Authentication::check()) {
+    public function login()
+    {
+        if (!Authentication::check()) {
             return View::make('Login::loginform');
         } else {
             return Redirect::to('');
@@ -27,20 +36,20 @@ class LoginLogoff extends BaseController {
      * @access public
      * @return void
      */
-    public function auth() {
-        if(Input::has('name') && Input::has('password')) {
+    public function auth()
+    {
+        if (Input::has('name') && Input::has('password')) {
             try {
                 $credentials = array(
-                    'email' => Input::get('name'), 
+                    'email' => Input::get('name'),
                     'password' => Input::get('password')
                 );
 
                 $rememberMe = (Input::has("remember-me") && Input::get("remember-me") == "remember-me") ? true : false;
         
-                if($user = Authentication::authenticate($credentials, $rememberMe)) {
+                if ($user = Authentication::authenticate($credentials, $rememberMe)) {
                     // FIX THAT SECURITY ISSUE! :D
-                    if(Input::has('chunk'))
-                    {
+                    if (Input::has('chunk')) {
                         return Redirect::to(Input::get('chunk'));
                     }
                     return Redirect::to('admin');
@@ -52,7 +61,8 @@ class LoginLogoff extends BaseController {
                 return Redirect::to('login')->with('error', 'Der Benutzer wurde nicht gefunden!');
             } catch (Users\LoginRequiredException $e) {
                 Log::info($e->getMessage());
-                return Redirect::to('login')->with('error', 'Es muss ein Login-Feld angegeben werden!' . $e->getMessage());
+                return Redirect::to('login')
+                    ->with('error', 'Es muss ein Login-Feld angegeben werden!' . $e->getMessage());
             } catch (Users\UserNotActivatedException $e) {
                 Log::info($e->getMessage());
                 return Redirect::to('login')->with('error', 'Der Nutzer ist nicht aktiviert!');
@@ -73,8 +83,9 @@ class LoginLogoff extends BaseController {
      * @access public
      * @return void
      */
-    public function logoff() {
-        if(Authentication::check()) {
+    public function logoff()
+    {
+        if (Authentication::check()) {
             Authentication::logout();
         }
 

@@ -2,7 +2,8 @@
 
 namespace Cmex\Libraries\Notifications;
 
-class Environment {
+class Environment
+{
 
     private $model = null;
 
@@ -11,12 +12,12 @@ class Environment {
         $this->model = $model;
     }
 
-    public function system($title, $message, $sender="cmex", $clickaction="none")
+    public function system($title, $message, $sender = "cmex", $clickaction = "none")
     {
         return $this->user(0, $title, $message, $sender, $clickaction);
     }
 
-    public function user($receiver, $title, $message, $sender="cmex", $clickaction="none")
+    public function user($receiver, $title, $message, $sender = "cmex", $clickaction = "none")
     {
         $data = array(
             'title' => $title,
@@ -33,10 +34,12 @@ class Environment {
 
     public function forUser($userid)
     {
-        $collection = $this->model->where(function($query) use ($userid) {
-            $query->where('receiver_id', '=', 0);
-            $query->orWhere('receiver_id', '=', $userid);
-        })->whereRaw('created_at = updated_at')->get();
+        $collection = $this->model->where(
+            function ($query) use ($userid) {
+                $query->where('receiver_id', '=', 0);
+                $query->orWhere('receiver_id', '=', $userid);
+            }
+        )->whereRaw('created_at = updated_at')->get();
 
 
         // $collection = $this->model->where( function($query) {
@@ -62,9 +65,11 @@ class Environment {
     {
         $collection = $this->model->whereRaw('created_at = updated_at')->get();
 
-        $collection->each(function($notify) {
-            $notify->save();
-        });
+        $collection->each(
+            function ($notify) {
+                $notify->save();
+            }
+        );
 
         //$collection->save();
 

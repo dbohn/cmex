@@ -16,7 +16,7 @@ class MetaInformation
         $this->html = $html;
     }
 
-    public function link($rel, $type, $href="", $title="")
+    public function link($rel, $type, $href = "", $title = "")
     {
         $link = array('rel' => $rel, 'type' => $type);
         if ($href != "") {
@@ -27,7 +27,7 @@ class MetaInformation
             $link["title"] = $title;
         }
 
-        if(func_num_args() > 4 && is_array(func_get_arg(3))) {
+        if (func_num_args() > 4 && is_array(func_get_arg(3))) {
             $link = $link + func_get_arg(4);
         }
 
@@ -37,13 +37,13 @@ class MetaInformation
 
     public function meta($name, $content, $ishttp = false)
     {
-        if(!! $ishttp) {
+        if (!! $ishttp) {
             $meta = array('http-equiv' => $name, 'content' => $content);
         } else {
             $meta = array('name' => $name, 'content' => $content);
         }
 
-        if(func_num_args() > 3 && is_array(func_get_arg(3))) {
+        if (func_num_args() > 3 && is_array(func_get_arg(3))) {
             $meta = $meta + func_get_arg(3);
         }
 
@@ -59,8 +59,8 @@ class MetaInformation
     public function element($tag, $attributes, $content)
     {
         $this->elements[] = array(
-            "tag" => $tag, 
-            "attributes" => $attributes, 
+            "tag" => $tag,
+            "attributes" => $attributes,
             "content" => $content
         );
     }
@@ -70,7 +70,7 @@ class MetaInformation
         $tags = "";
 
         // Generate elements
-        foreach($this->elements as $element) {
+        foreach ($this->elements as $element) {
             $tags .= $this->createTag($element['tag'], $element['attributes'], $element["content"]);
         }
 
@@ -85,12 +85,12 @@ class MetaInformation
         return "__head__";
     }
 
-    private function createTag($tagname, $attributes, $contents="")
+    private function createTag($tagname, $attributes, $contents = "")
     {
         $html = $this->html;
         $attStr = $html::attributes($attributes);
 
-        if($contents !== "") {
+        if ($contents !== "") {
             return '<'.$tagname.' '.$attStr.'>'.$contents.'</'.$tagname.'>';
         }
 

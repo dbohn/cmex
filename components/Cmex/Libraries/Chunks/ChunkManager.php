@@ -31,7 +31,7 @@ class ChunkManager
         $this->pageIdentifier = $this->page->identifier;
     }
 
-    public function add($name, $type, $scope=null)
+    public function add($name, $type, $scope = null)
     {
         if (is_null($scope)) {
             $scope = $this->getPageIdentifier();
@@ -59,8 +59,7 @@ class ChunkManager
 
         if (method_exists($this->chunks[$sysname], "show")) {
             return $sysname;
-        } else
-        {
+        } else {
             return false;
         }
     }
@@ -89,7 +88,7 @@ class ChunkManager
             // Annotate the elements block for the admin panel
             $type = strtolower($chunk->type);
             $multichunk = "";
-            if($chunk->multichunk) {
+            if ($chunk->multichunk) {
                 $multichunk = ' rel="dcterms:hasPart"';
             }
 
@@ -114,7 +113,7 @@ class ChunkManager
      */
     public function renderChunks($view)
     {
-        if($view instanceof \Illuminate\View\View) {
+        if ($view instanceof \Illuminate\View\View) {
             $view = $view->render();
         }
 
@@ -164,8 +163,7 @@ class ChunkManager
             $class = $repositories[0] . ucfirst($name);
             return class_exists($class) ? $class : false;
         } else {
-            foreach ($repositories as $repo)
-            {
+            foreach ($repositories as $repo) {
                 $class = $repo . ucfirst($name);
 
                 if (class_exists($class)) {

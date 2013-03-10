@@ -16,13 +16,15 @@ class TwigConnector extends Extension
         parent::__construct($app, $twig);
 
         $regFunctions = $this->registeredFunctions;
-        $twig->registerUndefinedFunctionCallback(function ($name) use ($regFunctions) {
-            if(in_array($name, $regFunctions)) {
-                return new Twig_Function_Function($name);
-            }
+        $twig->registerUndefinedFunctionCallback(
+            function ($name) use ($regFunctions) {
+                if (in_array($name, $regFunctions)) {
+                    return new Twig_Function_Function($name);
+                }
 
-            return false;
-        });
+                return false;
+            }
+        );
     }
 
     public function getName()

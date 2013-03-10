@@ -7,7 +7,8 @@ use Cmex\Libraries\Chunks\ChunkNotFoundException;
 use Cmex\Libraries\Chunks\InvalidChunkTypeException;
 use Cmex\Libraries\Chunks\Chunk;
 
-class Standard extends Chunk implements SearchableInterface {
+class Standard extends Chunk implements SearchableInterface
+{
     private $loadedChunks = array();
 
     private $errorChunks = array();
@@ -24,8 +25,7 @@ class Standard extends Chunk implements SearchableInterface {
         $chunks = json_decode($this->content);
         $returnedChunks = array();
 
-        foreach($chunks as $chunk)
-        {
+        foreach ($chunks as $chunk) {
             if (property_exists($chunk, 'scope')) {
                 $scope = $chunk->scope;
             } else {
@@ -44,16 +44,14 @@ class Standard extends Chunk implements SearchableInterface {
         return $returnedChunks;
     }
 
-    public function getIndex() 
+    public function getIndex()
     {
         $ret = array();
 
-        foreach($this->loadedChunks as $chunk)
-        {
+        foreach ($this->loadedChunks as $chunk) {
             $inst = \ChunkManager::getChunkForKey($chunk);
 
-            if($inst instanceof SearchableInterface)
-            {
+            if ($inst instanceof SearchableInterface) {
                 $ret[] = array('name' => $chunk, 'index' => $inst->getIndex());
             }
         }
@@ -61,13 +59,12 @@ class Standard extends Chunk implements SearchableInterface {
         return $ret;
     }
 
-    public function show() 
+    public function show()
     {
         
         $ret = "";
 
-        foreach($this->loadedChunks as $chunk)
-        {
+        foreach ($this->loadedChunks as $chunk) {
             try {
                 $ret .= \ChunkManager::showForKey($chunk);
             } catch (ChunkNotFoundException $e) {
@@ -89,7 +86,7 @@ class Standard extends Chunk implements SearchableInterface {
         return array('multipart');
     }
 
-    public function handleInput($data) 
+    public function handleInput($data)
     {
         // Add chunk to container etc...
     }

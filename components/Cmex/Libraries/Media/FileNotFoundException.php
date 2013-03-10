@@ -2,4 +2,8 @@
 
 namespace Cmex\Libraries\Media;
 
-class FileNotFoundException extends \Exception {}
+use Exception;
+
+class FileNotFoundException extends Exception
+{
+}

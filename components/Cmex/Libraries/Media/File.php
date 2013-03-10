@@ -4,7 +4,8 @@ namespace Cmex\Libraries\Media;
 
 use BadMethodCallException;
 
-class File {
+class File
+{
     /**
      * The internal file name
      */
@@ -31,7 +32,7 @@ class File {
 
     private $freeze = false;
 
-    public function setName($name) 
+    public function setName($name)
     {
         if (!$this->freeze) {
             $this->name = $name;
@@ -40,7 +41,7 @@ class File {
         }
     }
 
-    public function setExternPath($path) 
+    public function setExternPath($path)
     {
         if (!$this->freeze) {
             $this->externPath = $path;
@@ -49,7 +50,7 @@ class File {
         }
     }
 
-    public function setInternalPath($path) 
+    public function setInternalPath($path)
     {
         if (!$this->freeze) {
             $this->internalPath = $path;
@@ -58,7 +59,7 @@ class File {
         }
     }
 
-    public function setLocal($local) 
+    public function setLocal($local)
     {
         if (!$this->freeze) {
             $this->local = $local;
@@ -67,10 +68,10 @@ class File {
         }
     }
 
-    public function setMimeType($mime) 
+    public function setMimeType($mime)
     {
         if (!$this->freeze) {
-            $this->mimetype = $mime;    
+            $this->mimetype = $mime;
         } else {
             throw new BadMethodCallException("The object is frozen, you cannot call this method anymore!");
         }
@@ -80,7 +81,7 @@ class File {
      * If this method was called, the object cannot be changed anymore!
      * So any call to a set-Method will fail!
      */
-    public function freezeObject() 
+    public function freezeObject()
     {
         $this->freeze = true;
     }
@@ -90,17 +91,17 @@ class File {
         return $this->freeze;
     }
 
-    public function isLocal() 
+    public function isLocal()
     {
         return $local;
     }
 
-    public function getInternalPath() 
+    public function getInternalPath()
     {
         return $this->internalPath;
     }
 
-    public function getExternPath() 
+    public function getExternPath()
     {
         return $this->externPath;
     }

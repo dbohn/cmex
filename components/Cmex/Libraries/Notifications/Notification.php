@@ -4,6 +4,7 @@ namespace Cmex\Libraries\Notifications;
 
 use Eloquent;
 
-class Notification extends Eloquent {
+class Notification extends Eloquent
+{
     protected $table = "notifications";
 }

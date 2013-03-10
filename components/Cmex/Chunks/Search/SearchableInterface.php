@@ -2,6 +2,7 @@
 
 namespace Cmex\Chunks\Search;
 
-interface SearchableInterface {
+interface SearchableInterface
+{
     public function getIndex();
 }

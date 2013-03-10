@@ -4,7 +4,8 @@ namespace Cmex\Libraries\Installer;
 
 use Symfony\Component\Finder\Finder;
 
-class ModuleListCreator {
+class ModuleListCreator
+{
     private $modulebase = "";
 
     private $storage = "";
@@ -28,7 +29,7 @@ class ModuleListCreator {
 
     public function updateModuleList()
     {
-        if($this->modulebase == "") {
+        if ($this->modulebase == "") {
             throw new \InvalidArgumentException("Module base must not be empty!");
         }
 
@@ -36,15 +37,18 @@ class ModuleListCreator {
         
         $modules = array();
 
-        foreach($this->finder as $file) {
-            if(file_exists($file->getRealpath() . "/routes.php")) {
+        foreach ($this->finder as $file) {
+            if (file_exists($file->getRealpath() . "/routes.php")) {
                 $modules[] = $file->getFilename();
             }
             //var_dump($file->getRealpath());
         }
 
-        if(is_writeable($this->storage . "/meta")) {
-            file_put_contents($this->storage . "/meta/modules.json", json_encode($modules));
+        if (is_writeable($this->storage . "/meta")) {
+            file_put_contents(
+                $this->storage . "/meta/modules.json",
+                json_encode($modules)
+            );
         }
     }
 }

@@ -2,10 +2,11 @@
 
 namespace Cmex\Libraries\Installer;
 
-abstract class ModuleSetup implements SetupableInterface {
-    public abstract function install();
+abstract class ModuleSetup implements SetupableInterface
+{
+    abstract public function install();
 
-    public abstract function update($installedVersion);
+    abstract public function update($installedVersion);
 
-    public abstract function uninstall();
+    abstract public function uninstall();
 }

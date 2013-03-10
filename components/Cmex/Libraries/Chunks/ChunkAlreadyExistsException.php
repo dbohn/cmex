@@ -2,7 +2,8 @@
 
 namespace Cmex\Libraries\Chunks;
 
-class ChunkAlreadyExistsException extends \Exception
+use Exception;
+
+class ChunkAlreadyExistsException extends Exception
 {
-    
 }

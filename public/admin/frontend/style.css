@@ -124,6 +124,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     border-bottom-left-radius: 5px;
 }
 
+.cmex-admin-page-search {
+    text-align: center;
+}
+
+.cmex-admin-page-search input {
+    width: 90%;
+    margin: 3px auto;
+    padding: 3px 2px;
+}
+
 .cmex-admin-page-list {
     list-style-type: none;
     padding-top: 10px;
@@ -131,7 +141,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     padding: 0;
     overflow: scroll;
     overflow-x: hidden;
-    height: 88%;
+    height: 80%;
 }
 
 .cmex-admin-page-list li {

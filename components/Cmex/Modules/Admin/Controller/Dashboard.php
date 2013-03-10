@@ -2,7 +2,9 @@
 
 namespace Cmex\Modules\Admin\Controller;
 
-use Authentication, View, Config;
+use Authentication;
+use View;
+use Config;
 
 class Dashboard extends AdminController
 {
@@ -10,6 +12,12 @@ class Dashboard extends AdminController
     {
         $user = Authentication::getUser();
 
-        return View::make('Admin::dashboard', array('user' => $user, 'test' => Config::get('Admin::test.testkey')));
+        return View::make(
+            'Admin::dashboard',
+            array(
+                'user' => $user,
+                'test' => Config::get('Admin::test.testkey')
+            )
+        );
     }
 }

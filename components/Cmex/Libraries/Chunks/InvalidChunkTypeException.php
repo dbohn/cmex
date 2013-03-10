@@ -2,7 +2,8 @@
 
 namespace Cmex\Libraries\Chunks;
 
-class InvalidChunkTypeException extends \Exception
+use Exception;
+
+class InvalidChunkTypeException extends Exception
 {
-    
 }

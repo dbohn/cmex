@@ -6,7 +6,8 @@ use Cmex\Libraries\Media\DriverInterface;
 use Cmex\Libraries\Media\File;
 use Cmex\Libraries\Media\FileNotFoundException;
 
-class FileSystem implements DriverInterface {
+class FileSystem implements DriverInterface
+{
 
     private $baseUrl;
     private $basePath;
@@ -50,7 +51,7 @@ class FileSystem implements DriverInterface {
 
     public function getFileForPath($path)
     {
-        if($this->fileExists($path)) {
+        if ($this->fileExists($path)) {
             $url = $this->buildRealPath($path, $this->baseUrl);
 
             $file = new File();
@@ -79,8 +80,7 @@ class FileSystem implements DriverInterface {
 
     private function buildRealPath($path, $base)
     {
-        if($path[0] == "/")
-        {
+        if ($path[0] == "/") {
             $path = substr($path, 1);
         }
 
@@ -98,7 +98,7 @@ class FileSystem implements DriverInterface {
     {
         $syspath = $this->buildRealPath($path, $this->basePath);
 
-        if(function_exists('finfo_open')) {
+        if (function_exists('finfo_open')) {
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
 
             $mime = finfo_file($finfo, $syspath);
@@ -108,7 +108,7 @@ class FileSystem implements DriverInterface {
             return $mime;
         }
 
-        if(function_exists('mime_content_type')) {
+        if (function_exists('mime_content_type')) {
             return @mime_content_type($syspath);
         }
 

@@ -2,7 +2,8 @@
 
 namespace Cmex\Libraries\Media;
 
-interface DriverInterface {
+interface DriverInterface
+{
     
     /**
      * Adds a file to the media repository at path $path.
@@ -21,7 +22,9 @@ interface DriverInterface {
      * @return true on success, otherwise Exception
      * @throws FileNotFoundException if the file was not found
      * @throws NotAFileException if the file is not a file but a directory
-     * @throws PermissionDeniedException if there is currently no permission to do the action (unauthenticated or User not allowed...)
+     * @throws PermissionDeniedException if there is currently 
+     * no permission to do the action (unauthenticated or User 
+     * not allowed...)
      */
     public function removeFile($path);
 

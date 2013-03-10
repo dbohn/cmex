@@ -1,18 +1,18 @@
 <?php
 
 // All routes related to the admin system
-Route::group(array('prefix' => 'admin'), function()
+Route::group(array('prefix' => 'admin'), function ()
 {
-    Route::get('/', function()
+    Route::get('/', function ()
     {
         return Redirect::to('admin/dashboard');
     });
 
-    Route::get('notifications', array('before' => 'auth', function() {
+    Route::get('notifications', array('before' => 'auth', function () {
         $user = Authentication::getUser();
         $notify = App::make('Cmex\Libraries\Notifications\Environment');
         $collection = $notify->forUser($user->id);
-        
+
         return $collection;
     }));
 
@@ -24,7 +24,7 @@ Route::group(array('prefix' => 'admin'), function()
     Route::get('media', 'Cmex\Modules\Admin\Controller\Media@index');
     Route::get('media/{path}', 'Cmex\Modules\Admin\Controller\Media@show')->where('path', '[A-Za-z0-9/.]+');
 
-    Route::get('{module}', function($module)
+    Route::get('{module}', function ($module)
     {
         return $module;
     });

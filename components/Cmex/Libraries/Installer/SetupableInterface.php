@@ -2,7 +2,8 @@
 
 namespace Cmex\Libraries\Installer;
 
-interface SetupableInterface {
+interface SetupableInterface
+{
     public function install();
 
     public function update($installedVersion);

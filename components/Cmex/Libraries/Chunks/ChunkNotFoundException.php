@@ -2,4 +2,8 @@
 
 namespace Cmex\Libraries\Chunks;
 
-class ChunkNotFoundException extends \Exception {}
+use Exception;
+
+class ChunkNotFoundException extends Exception
+{
+}
