@@ -2,8 +2,11 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/pageman.html'
-    ], function($, _, Backbone, pagemantemplate) {
+    'PageCollection',
+    'text!templates/pageman.html',
+    'text!templates/pagelist.html'
+    ], function($, _, Backbone, PageCollection, pagemantemplate, pagelist) {
+        //console.log(col.models);
         var PageManView = Backbone.View.extend({
             tagName: 'div',
 
@@ -16,6 +19,9 @@ define([
             visible: false,
 
             initialize: function(options) {
+
+                this.collection = new PageCollection();
+                
                 if(options.toolbar !== null) {
                     this.listenTo(options.toolbar, 'clickToolbarPageButton', this.render);
                     this.listenTo(options.toolbar, 'clickToolbarShow', this.toolbarshow);
@@ -23,10 +29,17 @@ define([
                 }
             },
 
+            updatePageList: function(resp) {
+                var pl = this.$el.find('.cmex-admin-page-list');
+
+                pl.html(_.template(pagelist, {pages: resp}));
+            },
+
             render: function() {
                 if(this.created === false) {
                     this.$el.html(pagemantemplate);
                     $('body').append(this.$el);
+                    this.collection.fetch({ success: _.bind(this.updatePageList, this) });
                     this.created = true;
                     this.visible = true;
                 } else {
@@ -37,7 +50,6 @@ define([
             },
 
             toolbarshow: function() {
-                console.log('show');
                 if(this.visible) {
                     this.$el.removeClass('cmex-admin-pageman-hidden');
                 }

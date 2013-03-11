@@ -8,7 +8,7 @@ use Config;
 
 class Dashboard extends AdminController
 {
-    public function handle()
+    public function getIndex()
     {
         $user = Authentication::getUser();
 
