@@ -3,6 +3,7 @@
 namespace Cmex\Chunks\Search;
 
 use Cmex\Libraries\Chunks\Chunk;
+use URL;
 
 class SmallSearchForm extends Chunk
 {
@@ -12,7 +13,7 @@ class SmallSearchForm extends Chunk
         return \View::make(
             'Search.views.smallSearchView',
             array(
-                'viewPage' => path($cobj->page),
+                'viewPage' => URL::to($cobj->page),
                 'responsibleChunk' => $cobj->page . "_" . $cobj->chunk
             )
         );
