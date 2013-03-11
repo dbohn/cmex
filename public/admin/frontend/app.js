@@ -9,13 +9,13 @@ define([
             $(function() {
                 //Toolbar.initialize();
                 //toolbar.render();
-                var tools = new ToolbarView();
+                var tools = new ToolbarView({page: cmexPage});
 
                 tools.render();
 
                 $('body').append(tools.el);
 
-                var pageman = new PageMan({toolbar: tools});
+                var pageman = new PageMan({toolbar: tools, page: cmexPage});
 
                 // Scan for chunks
 

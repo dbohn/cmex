@@ -18,6 +18,10 @@ define([
 
             visible: false,
 
+            'events': {
+                'click .cmex-admin-page-list a': 'logClick'
+            },
+
             initialize: function(options) {
 
                 this.collection = new PageCollection();
@@ -27,6 +31,12 @@ define([
                     this.listenTo(options.toolbar, 'clickToolbarShow', this.toolbarshow);
                     this.listenTo(options.toolbar, 'clickToolbarHide', this.toolbarhide);
                 }
+            },
+
+            logClick: function(ev) {
+                ev.preventDefault();
+                $(ev.currentTarget).text('Aua');
+                //console.log($(ev));
             },
 
             updatePageList: function(resp) {

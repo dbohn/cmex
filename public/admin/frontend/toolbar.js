@@ -17,7 +17,7 @@ define([
             render: function() {
                 var data = {
                     name : "Benutzer",
-                    title : cmexPage.title
+                    title : this.options.page.title
                 }
                 this.$el.append(_.template(toolbartemplate, data));
             },
@@ -30,7 +30,7 @@ define([
                     this.trigger('clickToolbarHide', event);
                     this.$el.addClass('cmex-admin-toolbar-hidden');
                 }
-                //this.$el.toggleClass('cmex-admin-toolbar-hidden');
+                
                 event.preventDefault();
             },
 
