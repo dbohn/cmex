@@ -2,7 +2,7 @@
 
 namespace Cmex\Libraries;
 
-use Illuminate\Support\ServiceProvider, Symfony\Component\Finder\Finder;
+use Illuminate\Support\ServiceProvider;
 
 class ModuleServiceProvider extends ServiceProvider
 {
@@ -17,7 +17,7 @@ class ModuleServiceProvider extends ServiceProvider
         if (file_exists($modulesfile)) {
             $modules = json_decode(file_get_contents($modulesfile));
         } else {
-            $modrefresh = new \ModuleRefreshCommand(new Installer\ModuleListCreator(new Finder()));
+            $modrefresh = $this->app->make('ModuleRefreshCommand');
             $modrefresh->fire();
             
             $modules = json_decode(file_get_contents($modulesfile));
