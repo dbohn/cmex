@@ -22,7 +22,7 @@ Benutzerverwaltung
 	</div>
 	
 	<div id="delete-confirm" title="Benutzer löschen?">
-		<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Löööööööööööschen!!!</p>
+		<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>{{ Lang_get('Admin::user.delete.ask') }}</p>
 	</div>
 	
 	<a class="btn" href="{{ url('admin/user') }}">Zurück</a>
@@ -39,10 +39,10 @@ Benutzerverwaltung
 				<table class="user-table">
 					<tbody>
 						<tr>
-							<th>Name:</th><td><input type="text" name="lastName" value="{{ user.lastName }}" /></td>
+							<th>Name:</th><td><input type="text" name="last_name" value="{{ user.last_name }}" /></td>
 						</tr>
 						<tr>
-							<th>Vorname:</th><td><input type="text" name="firstName" value="{{ user.firstName }}" /></td>
+							<th>Vorname:</th><td><input type="text" name="first_name" value="{{ user.first_name }}" /></td>
 						</tr>
 						<tr>
 							<th>E-Mail:</th><td><input type="text" name="email" value="{{ user.email }}" /></td>
@@ -92,17 +92,19 @@ Benutzerverwaltung
 		$( "#delete-confirm" ).dialog({
 			autoOpen: false,
 			resizable: false,
-			height: 140,
+			height: 180,
 			modal: true,
 			buttons: {
 				"Delete user": function() {
-					/*$.ajax($(this).attr('href'), {
-						type: 'delete'
+					$.ajax($('.btn.user-delete').attr('href'), {
+						type: 'delete',
+						dataType: 'json'
 					}).done(function(msg) {
-						location.href = "{{ url('admin/user') }}";
+						$('#message-board').message(msg);
+						//location.href = "{{ url('admin/user') }}";
 					}).fail(function(o, s, msg) {
 						$('#message-board').message(msg);
-					});*/
+					});
 					$( this ).dialog( "close" );
 				},
 				Cancel: function() {

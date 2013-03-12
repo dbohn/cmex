@@ -8,7 +8,8 @@ use Redirect;
 use Input;
 use Validator;
 use Lang;
-use Cartalyst\Sentry\Users;
+use Cartalyst\Sentry\Users\UserNotFoundException;
+use Cartalyst\Sentry\Users\UserInterface;
 
 class User extends AdminController
 {
@@ -46,7 +47,7 @@ class User extends AdminController
             return Redirect::to('admin/user')
                 ->with(
                     'error',
-                    Lang::get('Admin::user.noright.create')
+                    Lang::get('Admin::user.create.noright')
                 );
         }
     }
@@ -58,18 +59,19 @@ class User extends AdminController
      */
     public function store()
     {
-        if (!$this->canCreate()) {
+        if (!$this->canCreate())
+		{
             return json_encode(
                 array(
                     'success' => 0,
-                    'message' => Lang::get('Admin::user.noright.create')
+                    'message' => Lang::get('Admin::user.create.noright')
                 )
             );
         }
         
         $rules = array(
-            'lastName' => 'required|min:3',
-            'firstName' => 'required|min:3',
+            'last_name' => 'required|min:3',
+            'first_name' => 'required|min:3',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:5|same:password_confirm',
             'password_confirm' => 'required'
@@ -78,12 +80,13 @@ class User extends AdminController
         $validator = Validator::make(Input::all(), $rules);
         
         // check input data, abort if validation fails
-        if ($validator->fails()) {
+        if ($validator->fails())
+		{
             $message = implode("<br />\n", $validator->messages()->all());
             return json_encode(array('success' => 0, 'message' => $message));
         }
-        Authentication::getUserProvider()->create(Input::only('lastName', 'firstName', 'email', 'password'));
-        return json_encode(array('success' => 1, 'message' => Lang::get('Admin::user.created')));
+        Authentication::getUserProvider()->create(Input::only('last_name', 'first_name', 'email', 'password'));
+        return json_encode(array('success' => 1, 'message' => Lang::get('Admin::user.create.success')));
     }
 
     /**
@@ -95,7 +98,7 @@ class User extends AdminController
     {
         try {
             return Authentication::getUserProvider()->findById($id);
-        } catch (Users\UserNotFoundException $e) {
+        } catch (UserNotFoundException $e) {
             return null;
         }
     }
@@ -107,9 +110,11 @@ class User extends AdminController
      */
     public function edit($id)
     {
-        try {
+        try
+		{
             $user = Authentication::getUserProvider()->findById($id);
-            if ($this->canEdit($id)) {
+            if ($this->canEdit($user))
+			{
                 return View::make(
                     'Admin::user.edit',
                     array(
@@ -117,10 +122,14 @@ class User extends AdminController
                         'groups' => Authentication::getGroupProvider()->findAll()
                     )
                 );
-            } else {
-                return Redirect::to('admin/user')->with('error', Lang::get('Admin::user.noright.edit'));
             }
-        } catch (Users\UserNotFoundException $e) {
+			else
+			{
+                return Redirect::to('admin/user')->with('error', Lang::get('Admin::user.edit.noright'));
+            }
+        }
+		catch (UserNotFoundException $e)
+		{
             return Redirect::to('admin/user')->with('error', Lang::get('Admin::user.notfound'));
         }
     }
@@ -132,12 +141,14 @@ class User extends AdminController
      */
     public function update($id)
     {
-        try {
+        try
+		{
             $user = Authentication::getUserProvider()->findById($id);
-            if ($this->canEdit($id)) {
+            if ($this->canEdit($user))
+			{
                 $rules = array(
-                    'lastName' => 'required|min:3',
-                    'firstName' => 'required|min:3',
+                    'last_name' => 'required|min:3',
+                    'first_name' => 'required|min:3',
                     'email' => 'required|email|unique:users,email,' . $id,
                     'password' => 'min:5|same:password_confirm'
                 );
@@ -145,14 +156,15 @@ class User extends AdminController
                 $validator = Validator::make(Input::all(), $rules);
                 
                 // check input data, abort if validation fails
-                if ($validator->fails()) {
+                if ($validator->fails())
+				{
                     $message = implode("<br />\n", $validator->messages()->all());
                     return json_encode(array('success' => 0, 'message' => $message));
                 }
                 
                 // data validation succeded, now saving data
-                $user->last_name = Input::get('lastName');
-                $user->first_name = Input::get('firstName');
+                $user->last_name = Input::get('last_name');
+                $user->first_name = Input::get('first_name');
                 
                 $user->email = Input::get('email');
                 
@@ -165,12 +177,16 @@ class User extends AdminController
                 $user->save();
                 
                 // successfully saved
-                return json_encode(array('success' => 1, 'message' => Lang::get('Admin::user.edited')));
+                return json_encode(array('success' => 1, 'message' => Lang::get('Admin::user.edit.success')));
                 
-            } else {
-                return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.noright.edit')));
             }
-        } catch (Users\UserNotFoundException $e) {
+			else
+			{
+                return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.edit.noright')));
+            }
+        }
+		catch (UserNotFoundException $e)
+		{
             return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.notfound')));
         }
     }
@@ -182,13 +198,23 @@ class User extends AdminController
      */
     public function destroy($id)
     {
-        if ($this->canDelete($id)) {
-            try {
-                return Authentication::getUserProvider()->findById($id)->delete();
-            } catch (Users\UserNotFoundException $e) {
-            }
+        try
+		{
+			$user = Authentication::getUserProvider()->findById($id);
+			if ($this->canDelete($user))
+			{
+				$user->delete();
+                return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.delete.success')));
+			}
+			else
+			{
+				return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.delete.noright')));
+			}
+		}
+		catch (UserNotFoundException $e)
+		{
+            return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.notfound')));;
         }
-        return null;
     }
     
     private function canCreate()
@@ -196,13 +222,15 @@ class User extends AdminController
         return Authentication::getUser()->hasAccess('user.create');
     }
     
-    private function canEdit($id)
+    private function canEdit(UserInterface $user)
     {
         return Authentication::getUser()->hasAccess('user.edit');
     }
     
-    private function canDelete($id)
+    private function canDelete(UserInterface $user)
     {
-        return Authentication::getUser()->hasAccess('user.delete');
+        if($user->isSuperUser())
+			return false;
+		return Authentication::getUser()->hasAccess('user.delete');
     }
 }
