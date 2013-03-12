@@ -20,22 +20,32 @@ Benutzerverwaltung
         <div class="alert alert-success">{{ session_get('success') }}</div>
     {% endif %}
 	</div>
-	
-	<div id="delete-confirm" title="Benutzer löschen?">
-		<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>{{ Lang_get('Admin::user.delete.ask') }}</p>
+
+	<div id="confirm" class="modal hide fade">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h3>Confirm</h3>
+		</div>
+		<div class="modal-body">
+			<p>{{ Lang_get('Admin::user.delete.ask') }}</p>
+		</div>
+		<div class="modal-footer">
+			<a href="#" id="modal-close" class="btn">Cancel</a>
+			<a href="#" id="modal-confirm" class="btn btn-primary">Ok</a>
+		</div>
 	</div>
 	
 	<a class="btn" href="{{ url('admin/user') }}">Zurück</a>
 	<a class="btn user-delete" href="{{ url('admin/user') }}/{{ user.id }}"><i class="icon-trash"></i> Löschen</a>
 	
-	<form id="user-edit-form" action="{{ url('admin/user') }}/{{ user.id }}" method="post">
-		<div class="tabs" id="user-tabs">
-			<ul>
-				<li><a href="#user-info">Informationen</a></li>
-				<li><a href="#user-groups">Gruppen</a></li>
-				<li><a href="#user-permissions">Rechte</a></li>
-			</ul>
-			<div id="user-info" class="user-edit-content">
+	<form id="main-form" action="{{ url('admin/user') }}/{{ user.id }}" method="post">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#user-info">Informationen</a></li>
+			<li><a href="#user-groups">Gruppen</a></li>
+			<li><a href="#user-permissions">Rechte</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="user-info" class="tab-pane active">
 				<table class="user-table">
 					<tbody>
 						<tr>
@@ -59,23 +69,25 @@ Benutzerverwaltung
 					</tbody>
 				</table>
 			</div>
-			<div id="user-groups" class="user-edit-content">
-				Gruppen...<br />
-				<table>
-	{% for group in groups %}
-					<tr>
-						<td>{{ group.name }}</td><td>{{ user.inGroup(group) ? 'entfernen' : '<a href="#">hinzufügen</a>' }}</td>
-					</tr>
-	{% endfor %}
+			<div id="user-groups" class="tab-pane">
+				<table class="user-table">
+					<tbody>
+{% for group in groups %}
+						<tr>
+							<th><label for="group_{{ group.id }}">{{ group.name }}</label></th>
+							<td><input id="group_{{ group.id }}" type="checkbox" name="groups[]" value="{{ group.id }}" {{ user.inGroup(group) ? 'checked=""checked' : '' }} /></td>
+						</tr>
+{% endfor %}
+					</tbody>
 				</table>
 			</div>
-			<div id="user-permissions" class="user-edit-content">
-	{% for title, permission in user.getPermissions() %}
-			{{ title }}: {{ permission }}<br />
-	{% endfor %}
+			<div id="user-permissions" class="tab-pane">
+{% for title, permission in user.getPermissions() %}
+				{{ title }}: {{ permission }}<br />
+{% endfor %}
 			</div>
 		</div>
-		<input type="submit" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-all" />
+		<input type="submit" class="btn" />
 	</form>
 	
 	<script>
@@ -87,39 +99,35 @@ Benutzerverwaltung
 	}
 	
 	$(function() {
-		$('.tabs').tabs();
-		
-		$( "#delete-confirm" ).dialog({
-			autoOpen: false,
-			resizable: false,
-			height: 180,
-			modal: true,
-			buttons: {
-				"Delete user": function() {
-					$.ajax($('.btn.user-delete').attr('href'), {
-						type: 'delete',
-						dataType: 'json'
-					}).done(function(msg) {
-						$('#message-board').message(msg);
-						//location.href = "{{ url('admin/user') }}";
-					}).fail(function(o, s, msg) {
-						$('#message-board').message(msg);
-					});
-					$( this ).dialog( "close" );
-				},
-				Cancel: function() {
-					$( this ).dialog( "close" );
-				}
-			}
+		$('.nav a').click(function (e) {
+			e.preventDefault();
+			$(this).tab('show');
 		});
 		
-		$('.btn.user-delete').click(function() {
-			$( "#delete-confirm" ).dialog( "open" );
-			
+		$('.user-delete').click(function() {
+			$('#confirm').modal('show');
 			return false;
 		});
 		
-		$('form#user-edit-form').submit(function() {
+		$('#modal-close').click(function() {
+			$('#confirm').modal('hide');
+			return false;
+		});
+		
+		$('#modal-confirm').click(function() {
+			$.ajax($('.btn.user-delete').attr('href'), {
+				type: 'delete',
+				dataType: 'json'
+			}).done(function(msg) {
+				$('#message-board').message(msg);
+			}).fail(function(o, s, msg) {
+				$('#message-board').message(msg);
+			});
+			$('#confirm').modal('hide');
+			return false;
+		});
+		
+		$('form#main-form').submit(function() {
 			$.ajax({
 				url: $(this).attr('action'),
 				type: 'PUT',

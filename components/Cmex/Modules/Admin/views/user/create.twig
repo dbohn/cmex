@@ -24,13 +24,13 @@ Benutzerverwaltung
 	<a href="{{ url('admin/user') }}" class="btn">Zurück</a>
 	
 	<form class="user-create-form" action="{{ url('admin/user') }}" method="post">
-		<div class="tabs" id="user-tabs">
-			<ul>
-				<li><a href="#user-info">Informationen</a></li>
-				<li><a href="#user-groups">Gruppen</a></li>
-				<li><a href="#user-permissions">Rechte</a></li>
-			</ul>
-			<div id="user-info" class="user-edit-content">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#user-info">Informationen</a></li>
+			<li><a href="#user-groups">Gruppen</a></li>
+			<li><a href="#user-permissions">Rechte</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="user-info" class="tab-pane active">
 				<table class="user-table">
 					<tbody>
 						<tr>
@@ -48,23 +48,29 @@ Benutzerverwaltung
 						<tr>
 							<th>Erneut:</th><td><input type="password" name="password_confirm" value="" /></td>
 						</tr>
+						<tr>
+							<th>Aktiv:</th><td><input type="checkbox" name="activated" value="1" /></td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
-			<div id="user-groups" class="user-edit-content">
-				<table>
-	{% for group in groups %}
-					<tr>
-						<td>{{ group.name }}</td><td><a href="#">hinzufügen</a></td>
-					</tr>
-	{% endfor %}
+			<div id="user-groups" class="tab-pane">
+				<table class="user-table">
+					<tbody>
+{% for group in groups %}
+						<tr>
+							<th><label for="group_{{ group.id }}">{{ group.name }}</label></th>
+							<td><input id="group_{{ group.id }}" type="checkbox" name="groups[]" value="{{ group.id }}" /></td>
+						</tr>
+{% endfor %}
+					</tbody>
 				</table>
 			</div>
-			<div id="user-permissions" class="user-edit-content">
+			<div id="user-permissions" class="tab-pane">
 				<p>Rechtesystem sucks</p>
 			</div>
 		</div>
-		<input type="submit" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-all" />
+		<input type="submit" class="btn" />
 	</form>
 	
 	<script>
@@ -76,7 +82,11 @@ Benutzerverwaltung
 	}
 	
 	$(function() {
-		$('.tabs').tabs();
+		
+		$('.nav a').click(function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+		});
 		
 		$('.user-create-form').submit(function() {
 			$.ajax({

@@ -39,7 +39,7 @@ class Group extends AdminController
             return View::make('Admin::group.create');
         } else {
             return Redirect::to('admin/group')
-                ->with('error', 'Sie haben nicht die nötigen Rechte Benutzer zu erstellen!');
+                ->with('error', 'Sie haben nicht die nötigen Rechte Gruppen zu erstellen!');
         }
     }
 
@@ -50,7 +50,36 @@ class Group extends AdminController
      */
     public function store()
     {
-        return json_encode(array('success' => 0, 'message' => 'Deaktiviert...'));
+		$rules = array(
+			'name' => 'required|min:3|unique:groups,name'
+        );
+        
+        $validator = Validator::make(Input::all(), $rules);
+		
+        if ($validator->fails()) {
+            $message = implode(
+				"<br />\n",
+				$validator->messages()->all()
+			);
+			
+            return json_encode(
+				array(
+					'success' => 0,
+					'message' => $message
+				)
+			);
+        }
+		
+		$group = Authentication::getGroupProvider()->create(array(
+			'name' => Input::get('name')
+		));
+		
+        return json_encode(
+			array(
+				'success' => 1,
+				'message' => 'Die Gruppe wurde erstellt.'
+			)
+		);
     }
 
     /**
@@ -80,7 +109,12 @@ class Group extends AdminController
      */
     public function update($id)
     {
-        return json_encode(array('success' => 0, 'message' => 'Deaktiviert...'));
+        return json_encode(
+			array(
+				'success' => 0,
+				'message' => 'Deaktiviert...'
+			)
+		);
     }
 
     /**
@@ -90,7 +124,12 @@ class Group extends AdminController
      */
     public function destroy($id)
     {
-        return json_encode(array('success' => 0, 'message' => 'Deaktiviert...'));
+        return json_encode(
+			array(
+				'success' => 0,
+				'message' => 'Deaktiviert...'
+			)
+		);
     }
     
     

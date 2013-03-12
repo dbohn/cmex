@@ -24,25 +24,25 @@ Gruppenverwaltung
 	<a href="{{ url('admin/group') }}" class="btn">Zurück</a>
 	
 	<form class="group-create-form" action="{{ url('admin/group') }}" method="post">
-		<div class="tabs" id="group-tabs">
-			<ul>
-				<li><a href="#group-info">Informationen</a></li>
-				<li><a href="#group-permissions">Rechte</a></li>
-			</ul>
-			<div id="group-info" class="group-edit-content">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#group-info">Informationen</a></li>
+			<li><a href="#group-permissions">Rechte</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="group-info" class="tab-pane active">
 				<table class="group-table">
 					<tbody>
 						<tr>
-							<th>Gruppenname:</th><td><input type="text" name="lastName" value="" /></td>
+							<th>Gruppenname:</th><td><input type="text" name="name" value="" /></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			<div id="group-permissions" class="group-edit-content">
+			<div id="group-permissions" class="tab-pane">
 				<p>Rechtesystem sucks</p>
 			</div>
 		</div>
-		<input type="submit" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-all" />
+		<input type="submit" class="btn" />
 	</form>
 	
 	<script>
@@ -54,7 +54,11 @@ Gruppenverwaltung
 	}
 	
 	$(function() {
-		$('.tabs').tabs();
+		
+		$('.nav a').click(function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+		});
 		
 		$('.group-create-form').submit(function() {
 			$.ajax({

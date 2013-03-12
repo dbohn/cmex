@@ -9,6 +9,7 @@ use Input;
 use Validator;
 use Lang;
 use Cartalyst\Sentry\Users\UserNotFoundException;
+use Cartalyst\Sentry\Groups\GroupNotFoundException;
 use Cartalyst\Sentry\Users\UserInterface;
 
 class User extends AdminController
@@ -59,8 +60,7 @@ class User extends AdminController
      */
     public function store()
     {
-        if (!$this->canCreate())
-		{
+        if (!$this->canCreate()) {
             return json_encode(
                 array(
                     'success' => 0,
@@ -80,13 +80,35 @@ class User extends AdminController
         $validator = Validator::make(Input::all(), $rules);
         
         // check input data, abort if validation fails
-        if ($validator->fails())
-		{
-            $message = implode("<br />\n", $validator->messages()->all());
-            return json_encode(array('success' => 0, 'message' => $message));
+        if ($validator->fails()) {
+            $message = implode(
+				"<br />\n",
+				$validator->messages()->all()
+			);
+            
+			return json_encode(
+				array(
+					'success' => 0,
+					'message' => $message
+				)
+			);
         }
-        Authentication::getUserProvider()->create(Input::only('last_name', 'first_name', 'email', 'password'));
-        return json_encode(array('success' => 1, 'message' => Lang::get('Admin::user.create.success')));
+        Authentication::getUserProvider()
+			->create(
+				Input::only(
+					'last_name',
+					'first_name',
+					'email',
+					'password'
+				)
+			);
+		
+        return json_encode(
+			array(
+				'success' => 1,
+				'message' => Lang::get('Admin::user.create.success')
+			)
+		);
     }
 
     /**
@@ -110,11 +132,9 @@ class User extends AdminController
      */
     public function edit($id)
     {
-        try
-		{
+        try {
             $user = Authentication::getUserProvider()->findById($id);
-            if ($this->canEdit($user))
-			{
+            if ($this->canEdit($user)) {
                 return View::make(
                     'Admin::user.edit',
                     array(
@@ -122,15 +142,19 @@ class User extends AdminController
                         'groups' => Authentication::getGroupProvider()->findAll()
                     )
                 );
+            } else {
+                return Redirect::to('admin/user')
+					->with(
+						'error',
+						Lang::get('Admin::user.edit.noright')
+					);
             }
-			else
-			{
-                return Redirect::to('admin/user')->with('error', Lang::get('Admin::user.edit.noright'));
-            }
-        }
-		catch (UserNotFoundException $e)
-		{
-            return Redirect::to('admin/user')->with('error', Lang::get('Admin::user.notfound'));
+        } catch (UserNotFoundException $e) {
+            return Redirect::to('admin/user')
+				->with(
+					'error',
+					Lang::get('Admin::user.notfound')
+				);
         }
     }
 
@@ -141,11 +165,9 @@ class User extends AdminController
      */
     public function update($id)
     {
-        try
-		{
+        try {
             $user = Authentication::getUserProvider()->findById($id);
-            if ($this->canEdit($user))
-			{
+            if ($this->canEdit($user)) {
                 $rules = array(
                     'last_name' => 'required|min:3',
                     'first_name' => 'required|min:3',
@@ -156,10 +178,18 @@ class User extends AdminController
                 $validator = Validator::make(Input::all(), $rules);
                 
                 // check input data, abort if validation fails
-                if ($validator->fails())
-				{
-                    $message = implode("<br />\n", $validator->messages()->all());
-                    return json_encode(array('success' => 0, 'message' => $message));
+                if ($validator->fails()) {
+                    $message = implode(
+						"<br />\n",
+						$validator->messages()->all()
+					);
+					
+                    return json_encode(
+						array(
+							'success' => 0,
+							'message' => $message
+						)
+					);
                 }
                 
                 // data validation succeded, now saving data
@@ -169,25 +199,49 @@ class User extends AdminController
                 $user->email = Input::get('email');
                 
                 if (Input::has('password')) {
-                    $user->attemptResetPassword($user->getResetPasswordCode(), Input::get('password'));
+                    $user->attemptResetPassword(
+						$user->getResetPasswordCode(),
+						Input::get('password')
+					);
                 }
                 
                 $user->activated = Input::get('activated', 0);
                 
                 $user->save();
                 
+				if(Input::has('groups')) {
+					foreach(Input::get('groups') as $key => $value) {
+						try {
+							$group = Authentication::getGroupProvider()->findById($id);
+							$user->addGroup($group);
+						} catch (GroupNotFoundException $e) {
+							// do something
+						}
+					}
+				}
+				
                 // successfully saved
-                return json_encode(array('success' => 1, 'message' => Lang::get('Admin::user.edit.success')));
-                
+                return json_encode(
+					array(
+						'success' => 1,
+						'message' => Lang::get('Admin::user.edit.success')
+					)
+				);
+            } else {
+                return json_encode(
+					array(
+						'success' => 0,
+						'message' => Lang::get('Admin::user.edit.noright')
+					)
+				);
             }
-			else
-			{
-                return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.edit.noright')));
-            }
-        }
-		catch (UserNotFoundException $e)
-		{
-            return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.notfound')));
+        } catch (UserNotFoundException $e) {
+            return json_encode(
+				array(
+					'success' => 0,
+					'message' => Lang::get('Admin::user.notfound')
+				)
+			);
         }
     }
 
@@ -198,22 +252,31 @@ class User extends AdminController
      */
     public function destroy($id)
     {
-        try
-		{
+        try {
 			$user = Authentication::getUserProvider()->findById($id);
-			if ($this->canDelete($user))
-			{
+			if ($this->canDelete($user)) {
 				$user->delete();
-                return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.delete.success')));
+                return json_encode(
+					array(
+						'success' => 0,
+						'message' => Lang::get('Admin::user.delete.success')
+					)
+				);
+			} else {
+				return json_encode(
+					array(
+						'success' => 0,
+						'message' => Lang::get('Admin::user.delete.noright')
+					)
+				);
 			}
-			else
-			{
-				return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.delete.noright')));
-			}
-		}
-		catch (UserNotFoundException $e)
-		{
-            return json_encode(array('success' => 0, 'message' => Lang::get('Admin::user.notfound')));;
+		} catch (UserNotFoundException $e) {
+            return json_encode(
+				array(
+					'success' => 0,
+					'message' => Lang::get('Admin::user.notfound')
+				)
+			);
         }
     }
     

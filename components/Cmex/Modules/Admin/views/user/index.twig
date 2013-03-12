@@ -30,26 +30,28 @@ Benutzerverwaltung
 	<a class="btn" href="{{ url('admin/group/create') }}">Gruppe hinzufügen</a>
 	
 	<div class="tabs" id="user-tabs">
-		<ul>
-			<li><a href="#users">Informationen</a></li>
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#users">Informationen</a></li>
 			<li><a href="#groups">Gruppen</a></li>
 			<li><a href="#permissions">Rechte</a></li>
 		</ul>
-		<div id="users">
-			<ul>
-			{% for user in users %}
-				<li><a href="{{ url('admin/user/') }}/{{ user.id }}/edit">{{ user.lastName }} {{ user.firstName }} {{ user.email }}</a></li>
-			{% endfor %}
-				<li><a href="{{ url('admin/user/35674567845683456/edit') }}">Der Ich-Nicht</a></li>
-			</ul>
-		</div>
-		
-		<div id="groups">
-			Gruppenverwaltung
-		</div>
-		
-		<div id="permissions">
-			Rechteverwaltung
+		<div class="tab-content">
+			<div id="users" class="tab-pane active">
+				<ul>
+				{% for user in users %}
+					<li><a href="{{ url('admin/user/') }}/{{ user.id }}/edit">{{ user.lastName }} {{ user.firstName }} {{ user.email }}</a></li>
+				{% endfor %}
+					<li><a href="{{ url('admin/user/35674567845683456/edit') }}">Der Ich-Nicht</a></li>
+				</ul>
+			</div>
+			
+			<div id="groups" class="tab-pane">
+				Gruppenverwaltung
+			</div>
+			
+			<div id="permissions" class="tab-pane">
+				Rechteverwaltung
+			</div>
 		</div>
 	</div>
 	
@@ -63,7 +65,12 @@ Benutzerverwaltung
 	}
 	
 	$(function() {
-		$('.tabs').tabs();
+		
+		$('.nav a').click(function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+		});
+		
 	});
 	
 	//-->
