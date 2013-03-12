@@ -18,6 +18,8 @@ define([
 
             visible: false,
 
+            currentPage: null,
+
             'events': {
                 'click .cmex-admin-page-list a': 'logClick'
             },
@@ -31,12 +33,16 @@ define([
                     this.listenTo(options.toolbar, 'clickToolbarShow', this.toolbarshow);
                     this.listenTo(options.toolbar, 'clickToolbarHide', this.toolbarhide);
                 }
+
+                this.currentPage = options.page.id;
+
+                console.log(options.page);
             },
 
             logClick: function(ev) {
                 ev.preventDefault();
-                $(ev.currentTarget).text('Aua');
-                //console.log($(ev));
+                // $(ev.currentTarget).text('Aua');
+                console.log($(ev.currentTarget).attr('href'));
             },
 
             updatePageList: function(resp) {
@@ -49,11 +55,12 @@ define([
                 if(this.created === false) {
                     this.$el.html(pagemantemplate);
                     $('body').append(this.$el);
-                    this.collection.fetch({ success: _.bind(this.updatePageList, this) });
+                    this.collection.fetch({
+                        success: _.bind(this.updatePageList, this)
+                    });
                     this.created = true;
                     this.visible = true;
                 } else {
-                    //console.log('Toggle');
                     this.visible = !this.visible;
                     this.$el.toggleClass('cmex-admin-pageman-hidden');
                 }

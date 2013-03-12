@@ -49,12 +49,7 @@ class PageController extends BaseController
                 Meta::element(
                     'script',
                     array('type' => 'text/javascript'),
-                    'window.cmexPage = ' . json_encode(
-                        array(
-                            'identifier' => $dbpage->identifier,
-                            'title' => $dbpage->title
-                        )
-                    )
+                    'window.cmexPage = ' . $dbpage->toJson()
                 );
             }
 
