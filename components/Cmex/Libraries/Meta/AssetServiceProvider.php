@@ -24,7 +24,7 @@ class AssetServiceProvider extends ServiceProvider
 
         $this->app->after(
             function ($request, $response) use ($app) {
-                if (!($response instanceof \Illuminate\Http\RedirectResponse)) {
+                if (property_exists($response, "original")) {
                     $response->setContent(
                         str_replace(
                             '__scripts__',

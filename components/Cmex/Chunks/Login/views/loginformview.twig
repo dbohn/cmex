@@ -1,6 +1,6 @@
 {% if logged_in() %}
     <p>Hallo {{ full_username() }}!</p>
-    <p><a href="{{ url('logout') }}">Abmelden</a></p>
+    <p><a href="{{ url('login/logout') }}">Abmelden</a></p>
 {% else %}
 {{ form_open({'method': 'post', name: 'frontendlogin', 'url': url('login/doLogin')}) }}
 {{ form_hidden('chunk', current_page()) }}

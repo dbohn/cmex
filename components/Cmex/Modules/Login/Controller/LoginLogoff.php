@@ -49,10 +49,7 @@ class LoginLogoff extends BaseController
         
                 if ($user = Authentication::authenticate($credentials, $rememberMe)) {
                     // FIX THAT SECURITY ISSUE! :D
-                    if (Input::has('chunk')) {
-                        return Redirect::to(Input::get('chunk'));
-                    }
-                    return Redirect::to('admin');
+                    return Redirect::to(\URL::previous());
                 } else {
                     return Redirect::to('login')->with('error', 'Falsche Logindaten!');
                 }

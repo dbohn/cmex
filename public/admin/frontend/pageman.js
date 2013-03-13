@@ -46,6 +46,7 @@ define([
             },
 
             updatePageList: function(resp) {
+                //console.log(this.collection.get(this.options.page.id))
                 var pl = this.$el.find('.cmex-admin-page-list');
 
                 pl.html(_.template(pagelist, {pages: resp}));
