@@ -4,7 +4,8 @@
 		"guzzle/guzzle": "v3.0.7",
 		"cartalyst/sentry": "2.0.*",
 		"rcrowe/twigbridge": "0.1.*",
-		"symfony/yaml": "2.3.*"
+		"symfony/yaml": "2.3.*",
+		"filp/damnit": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

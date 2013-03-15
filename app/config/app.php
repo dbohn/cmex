@@ -112,6 +112,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'TwigBridge\TwigServiceProvider',
+		'Damnit\Provider\Illuminate\DamnitServiceProvider',
 		'Cmex\Libraries\Media\MediaServiceProvider',
 		'Cmex\Libraries\Chunks\ChunkManagerServiceProvider',
 		'Cmex\Libraries\Meta\AssetServiceProvider',
