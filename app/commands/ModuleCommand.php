@@ -73,6 +73,8 @@ class ModuleCommand extends Command
         touch($base . $name . "/config/.gitkeep");
 
         file_put_contents($base . $name . "/routes.php", "<?php\n //");
+
+        file_put_contents($base . $name . "/info.php", "<?php\n return array();");
     }
 
     private function addToModuleList($base, $name)

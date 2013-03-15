@@ -6,6 +6,7 @@ use Cmex\Libraries\Installer\ModuleSetup;
 
 class Setup extends ModuleSetup
 {
+
     public function install()
     {
         // Create schema for blogs

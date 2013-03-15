@@ -72,6 +72,10 @@ class ModuleAddCommand extends Command
             if (!file_exists($modulebase . $name . '/routes.php')) {
                 file_put_contents($base . $name . "/routes.php", "<?php\n //");
             }
+
+            if (!file_exists($modulebase . $name . '/info.php')) {
+                file_put_contents($base . $name . "/info.php", "<?php\n return array();");
+            }
         } else {
             $this->error("Module does not exist!");
             return;

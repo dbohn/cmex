@@ -3,9 +3,10 @@ define([
     'underscore',
     'backbone',
     'PageCollection',
+    'Page',
     'text!templates/pageman.html',
     'text!templates/pagelist.html'
-    ], function($, _, Backbone, PageCollection, pagemantemplate, pagelist) {
+    ], function($, _, Backbone, PageCollection, Page, pagemantemplate, pagelist) {
         //console.log(col.models);
         var PageManView = Backbone.View.extend({
             tagName: 'div',
