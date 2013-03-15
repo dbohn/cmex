@@ -2,16 +2,12 @@
 
 namespace Cmex\Libraries\Chunks;
 
-use Cmex\Modules\Page\Model\Page;
-
 class ChunkManager
 {
 
     private $chunks = array();
 
     private $chunkRepositories = array();
-
-    private $page = null;
 
     private $pageIdentifier = "";
 
@@ -23,12 +19,6 @@ class ChunkManager
     {
         $this->loadChunkRepositories();
         $this->initializeExecutionStack();
-    }
-
-    public function setPage(Page $p)
-    {
-        $this->page = $p;
-        $this->pageIdentifier = $this->page->identifier;
     }
 
     public function add($name, $type, $scope = null)
@@ -140,6 +130,11 @@ class ChunkManager
     public function getPageIdentifier()
     {
         return $this->pageIdentifier;
+    }
+
+    public function setPageIdentifier($pi)
+    {
+        $this->pageIdentifier = $pi;
     }
 
     public function getLoadedChunks()

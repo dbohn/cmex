@@ -2,7 +2,8 @@
 
 namespace Cmex\Modules\Page\Controller;
 
-use BaseController;
+//use BaseController;
+use Cmex\Libraries\System\FrontendController;
 use ChunkManager;
 use Authentication;
 use Asset;
@@ -13,8 +14,9 @@ use Meta;
 
 use Cmex\Modules\Page\Model\Page;
 
-class PageController extends BaseController
+class PageController extends FrontendController
 {
+
     /**
      * handlePageRequest
      * Looks the page up in the database, loads chunks etc.
@@ -26,14 +28,11 @@ class PageController extends BaseController
      */
     public function handlePageRequest($page)
     {
-        $template = Config::get('cmex.template');
+        $this->setPageIdentifier($page);
 
         // Look up page in database
         $dbpage = Page::where('identifier', $page)->first();
         if (!is_null($dbpage)) {
-
-            // Inject the page into the ChunkManager
-            ChunkManager::setPage($dbpage);
 
             if (Authentication::check()) {
                 Asset::add('ckeditor', 'admin/frontend/ckeditor/ckeditor.js');
@@ -55,7 +54,7 @@ class PageController extends BaseController
 
             // Load view
             $view = View::make(
-                $template.'.'.$dbpage->template,
+                $this->template.'.'.$dbpage->template,
                 array(
                     'page' => $page,
                     'title' => $dbpage->title
