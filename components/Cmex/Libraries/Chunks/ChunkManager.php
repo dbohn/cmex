@@ -2,6 +2,8 @@
 
 namespace Cmex\Libraries\Chunks;
 
+use Illuminate\Support\Contracts\RenderableInterface as Renderable;
+
 class ChunkManager
 {
 
@@ -103,8 +105,10 @@ class ChunkManager
      */
     public function renderChunks($view)
     {
-        if ($view instanceof \Illuminate\View\View) {
+        if ($view instanceof Renderable) {
             $view = $view->render();
+        } else {
+            return $view;
         }
 
         if (!$this->inputHandled) {

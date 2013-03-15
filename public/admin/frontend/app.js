@@ -22,6 +22,8 @@ define([
                 var chunks = $('[about]');
 
                 var textblocks = chunks.filter('[typeof="text.block"]');
+                
+                CKEDITOR.disableAutoInline = true;
 
                 textblocks.attr('contenteditable', 'true');
 

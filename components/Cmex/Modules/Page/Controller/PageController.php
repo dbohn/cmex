@@ -2,7 +2,6 @@
 
 namespace Cmex\Modules\Page\Controller;
 
-//use BaseController;
 use Cmex\Libraries\System\FrontendController;
 use ChunkManager;
 use Authentication;
@@ -28,11 +27,11 @@ class PageController extends FrontendController
      */
     public function handlePageRequest($page)
     {
-        $this->setPageIdentifier($page);
 
         // Look up page in database
         $dbpage = Page::where('identifier', $page)->first();
         if (!is_null($dbpage)) {
+            $this->setPageIdentifier($page);
 
             if (Authentication::check()) {
                 Asset::add('ckeditor', 'admin/frontend/ckeditor/ckeditor.js');
@@ -61,7 +60,7 @@ class PageController extends FrontendController
                 )
             );
 
-            return ChunkManager::renderChunks($view);
+            return $view;
         }
 
         App::abort(404);
