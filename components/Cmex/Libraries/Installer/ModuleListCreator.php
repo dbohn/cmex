@@ -44,9 +44,9 @@ class ModuleListCreator
             //var_dump($file->getRealpath());
         }
 
-        if (is_writeable($this->storage . "/meta")) {
+        if (is_writeable($this->storage)) {
             file_put_contents(
-                $this->storage . "/meta/modules.json",
+                $this->storage,
                 json_encode($modules)
             );
         }

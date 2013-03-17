@@ -4,6 +4,8 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+use Cmex\Libraries\Installer\ModuleListCreator;
+
 class ModuleCommand extends Command
 {
 
@@ -21,14 +23,17 @@ class ModuleCommand extends Command
      */
     protected $description = 'Creates a cmex! module and registers it.';
 
+    private $mlc;
+
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ModuleListCreator $mlc)
     {
         parent::__construct();
+        $this->mlc = $mlc;
     }
 
     /**
@@ -50,7 +55,7 @@ class ModuleCommand extends Command
         }
 
         $this->createModuleStructure($modulebase, $name);
-        $this->addToModuleList($modulebase, $name);
+        $this->addToModuleList($modulebase);
 
         $this->info("Module created successfully!");
     }
@@ -77,24 +82,29 @@ class ModuleCommand extends Command
         file_put_contents($base . $name . "/info.php", "<?php\n return array();");
     }
 
-    private function addToModuleList($base, $name)
+    private function addToModuleList($base)
     {
         $path = __DIR__ . "/../storage/meta/modules.json";
-        if (file_exists($path)) {
-            $modules = json_decode(file_get_contents($path));
-        } else {
-            $modules = array();
-        }
 
-        if ($modules === null) {
-            $modules = array();
-        }
+        $this->mlc->setModuleBase($base);
+        $this->mlc->setStorage($path);
+        $this->mlc->updateModuleList();
 
-        if (!in_array($name, $modules)) {
-            $modules[] = $name;
-        }
+        // if (file_exists($path)) {
+        //     $modules = json_decode(file_get_contents($path));
+        // } else {
+        //     $modules = array();
+        // }
 
-        file_put_contents($path, json_encode($modules));
+        // if ($modules === null) {
+        //     $modules = array();
+        // }
+
+        // if (!in_array($name, $modules)) {
+        //     $modules[] = $name;
+        // }
+
+        // file_put_contents($path, json_encode($modules));
         
     }
 

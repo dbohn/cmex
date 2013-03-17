@@ -17,8 +17,10 @@ class ModuleServiceProvider extends ServiceProvider
         if (file_exists($modulesfile)) {
             $modules = json_decode(file_get_contents($modulesfile));
         } else {
-            $modrefresh = $this->app->make('ModuleRefreshCommand');
-            $modrefresh->fire();
+            $modrefresh = $this->app->make('ModuleListCreator');
+            $modrefresh->setModuleBase($modulebase);
+            $modrefresh->setStorage($modulesfile);
+            $modrefresh->updateModuleList();
             
             $modules = json_decode(file_get_contents($modulesfile));
         }

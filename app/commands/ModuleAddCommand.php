@@ -46,7 +46,7 @@ class ModuleAddCommand extends Command
         $name = $this->argument('name');
 
         $modulebase = __DIR__ . '/../../components/Cmex/Modules/';
-        $path = __DIR__ . "/../storage";
+        $path = __DIR__ . "/../storage/meta/modules.json";
 
         if (is_dir($modulebase . $name)) {
             if (!is_dir($modulebase . $name . '/Controller')) {
