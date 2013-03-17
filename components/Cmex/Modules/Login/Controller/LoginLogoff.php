@@ -8,6 +8,8 @@ use View;
 use Redirect;
 use Input;
 use Log;
+use URL;
+use Session;
 use Cartalyst\Sentry\Users;
 use Exception;
 
@@ -49,7 +51,7 @@ class LoginLogoff extends BaseController
         
                 if ($user = Authentication::authenticate($credentials, $rememberMe)) {
                     // FIX THAT SECURITY ISSUE! :D
-                    return Redirect::to(\URL::previous());
+                    return Redirect::to(URL::previous());
                 } else {
                     return Redirect::to('login')->with('error', 'Falsche Logindaten!');
                 }

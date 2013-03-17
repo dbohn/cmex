@@ -4,5 +4,6 @@ return array(
     'name'          => 'Seiten',
     'author'        => 'David Bohn',
     'website'       => 'http://cancrisoft.net',
-    'description'   => 'Simple Page Module'
+    'description'   => 'Simple Page Module',
+    'system'        => true
 );
