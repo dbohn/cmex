@@ -1,3 +1,3 @@
 <% pages.each(function(page) { %>
-    <li><a href="admin/frontend/page/<%=page.get('identifier') %>"><%=page.get('title') %></a></li>
+    <li><a data-id="<%=page.get('id') %>" href="admin/frontend/page/<%=page.get('identifier') %>"><%=page.get('title') %></a></li>
 <% }); %>

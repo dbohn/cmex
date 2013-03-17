@@ -41,6 +41,9 @@ class Frontend extends AdminController
 
     public function getPage($page)
     {
+        if (is_numeric($page)) {
+            return Page::where('id', '=', $page)->first();
+        }
         return Page::where('identifier', '=', $page)->take(1)->get();
     }
 
@@ -53,7 +56,8 @@ class Frontend extends AdminController
         $templates = array();
 
         foreach ($this->finder as $file) {
-            $templates[] = str_replace('.twig', '', $file->getFilename());
+            $templatename = str_replace('.twig', '', $file->getFilename());
+            $templates[] = array("id" => $templatename, "name" => $templatename ." Template");
         }
 
         return Response::json($templates);
