@@ -44,7 +44,7 @@ class Frontend extends AdminController
         if (is_numeric($page)) {
             return Page::where('id', '=', $page)->first();
         }
-        return Page::where('identifier', '=', $page)->take(1)->get();
+        return Page::where('identifier', '=', $page)->first();
     }
 
     public function getTemplateList()
