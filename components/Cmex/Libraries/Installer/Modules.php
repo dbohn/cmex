@@ -9,6 +9,8 @@ class Modules
     private $finder;
     private $modulebase;
 
+    private $infos = null;
+
     public function __construct(Finder $finder)
     {
         $this->finder = $finder;
@@ -18,15 +20,19 @@ class Modules
 
     public function infos()
     {
-        $this->finder->files()->in($this->modulebase)->name('info.php')->depth('== 1');
+        if (is_null($this->infos)) {
+            $this->finder->files()->in($this->modulebase)->name('info.php')->depth('== 1');
 
-        $files = array();
+            $this->infos = array();
 
-        foreach ($this->finder as $file) {
-            $files[] = require $file->getPathname();
+            foreach ($this->finder as $file) {
+                $this->infos[] = require $file->getPathname();
+            }
+
+            return $this->infos;
         }
 
-        return $files;
+        return $this->infos;
     }
 
     public function infoForModule($module)
