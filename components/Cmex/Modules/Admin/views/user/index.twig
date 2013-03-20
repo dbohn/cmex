@@ -46,7 +46,9 @@ Benutzerverwaltung
 			</div>
 			
 			<div id="groups" class="tab-pane">
-				Gruppenverwaltung
+				{% for group in groups %}
+					<li><a href="{{ url('admin/group/') }}/{{ group.id }}/edit">{{ group.name }}</a></li>
+				{% endfor %}
 			</div>
 			
 			<div id="permissions" class="tab-pane">
@@ -70,6 +72,10 @@ Benutzerverwaltung
 			e.preventDefault();
 			$(this).tab('show');
 		});
+		
+		if (window.location.hash) {
+			$("ul.nav-tabs li > a[href='" + window.location.hash + "']").click();
+		} 
 		
 	});
 	

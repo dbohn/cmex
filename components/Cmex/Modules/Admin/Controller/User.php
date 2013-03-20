@@ -25,7 +25,8 @@ class User extends AdminController
         return View::make(
             'Admin::user.index',
             array(
-                'users' => Authentication::getUserProvider()->findAll()
+                'users' => Authentication::getUserProvider()->findAll(),
+                'groups' => Authentication::getGroupProvider()->findAll()
             )
         );
     }
@@ -37,7 +38,7 @@ class User extends AdminController
      */
     public function create()
     {
-        if ($this->canCreate()) {
+        if (Authentication::getUser()->hasAccess('user.create')) {
             return View::make(
                 'Admin::user.create',
                 array(
@@ -60,7 +61,7 @@ class User extends AdminController
      */
     public function store()
     {
-        if (!$this->canCreate()) {
+        if (!Authentication::getUser()->hasAccess('user.create')) {
             return json_encode(
                 array(
                     'success' => 0,
@@ -282,7 +283,7 @@ class User extends AdminController
     
     private function canCreate()
     {
-        return Authentication::getUser()->hasAccess('user.create');
+        return ;
     }
     
     private function canEdit(UserInterface $user)

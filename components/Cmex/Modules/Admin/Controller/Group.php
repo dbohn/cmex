@@ -8,7 +8,7 @@ use Redirect;
 use Input;
 use Validator;
 use Lang;
-use Cartalyst\Sentry\Groups;
+use Cartalyst\Sentry\Groups\GroupNotFoundException;
 
 class Group extends AdminController
 {
@@ -20,12 +20,7 @@ class Group extends AdminController
      */
     public function index()
     {
-        return View::make(
-            'Admin::group.index',
-            array(
-                'groups' => Authentication::getGroupProvider()->findAll()
-            )
-        );
+		return Redirect::to('admin/user#groups');
     }
 
     /**
@@ -35,7 +30,7 @@ class Group extends AdminController
      */
     public function create()
     {
-        if ($this->canCreate()) {
+        if (Authentication::getUser()->hasAccess('group.create')) {
             return View::make('Admin::group.create');
         } else {
             return Redirect::to('admin/group')
@@ -50,6 +45,15 @@ class Group extends AdminController
      */
     public function store()
     {
+        if (!Authentication::getUser()->hasAccess('group.create')) {
+            return json_encode(
+                array(
+                    'success' => 0,
+                    'message' => Lang::get('Admin::group.create.noright')
+                )
+            );
+        }
+        
 		$rules = array(
 			'name' => 'required|min:3|unique:groups,name'
         );
@@ -89,7 +93,11 @@ class Group extends AdminController
      */
     public function show($id)
     {
-        //
+        try {
+            return Authentication::getGroupProvider()->findById($id);
+        } catch (GroupNotFoundException $e) {
+            return null;
+        }
     }
 
     /**
@@ -99,7 +107,29 @@ class Group extends AdminController
      */
     public function edit($id)
     {
-        //
+        try {
+            $group = Authentication::getGroupProvider()->findById($id);
+            if (Authentication::getUser()->hasAccess('group.edit')) {
+                return View::make(
+                    'Admin::group.edit',
+                    array(
+                        'group' => $group
+                    )
+                );
+            } else {
+                return Redirect::to('admin/group')
+					->with(
+						'error',
+						Lang::get('Admin::group.edit.noright')
+					);
+            }
+        } catch (UserNotFoundException $e) {
+            return Redirect::to('admin/group')
+				->with(
+					'error',
+					Lang::get('Admin::group.notfound')
+				);
+        }
     }
 
     /**
@@ -109,12 +139,53 @@ class Group extends AdminController
      */
     public function update($id)
     {
-        return json_encode(
-			array(
-				'success' => 0,
-				'message' => 'Deaktiviert...'
-			)
-		);
+        try {
+            $group = Authentication::getGroupProvider()->findById($id);
+            if (Authentication::getUser()->hasAccess('group.edit')) {
+				$rules = array(
+					'name' => 'required|min:3|unique:groups,name,' . $group->name
+				);
+				
+				$validator = Validator::make(Input::all(), $rules);
+				
+				if ($validator->fails()) {
+					$message = implode(
+						"<br />\n",
+						$validator->messages()->all()
+					);
+					
+					return json_encode(
+						array(
+							'success' => 0,
+							'message' => $message
+						)
+					);
+				}
+				
+                $group->name = Input::get('name');
+                $group->save();
+                
+                // successfully saved
+                return json_encode(
+					array(
+						'success' => 1,
+						'message' => Lang::get('Admin::user.edit.success')
+					)
+				);
+            } else {
+                return Redirect::to('admin/group')
+					->with(
+						'error',
+						Lang::get('Admin::group.edit.noright')
+					);
+            }
+        } catch (UserNotFoundException $e) {
+            return Redirect::to('admin/group')
+				->with(
+					'error',
+					Lang::get('Admin::group.notfound')
+				);
+        }
     }
 
     /**
@@ -124,27 +195,31 @@ class Group extends AdminController
      */
     public function destroy($id)
     {
-        return json_encode(
-			array(
-				'success' => 0,
-				'message' => 'Deaktiviert...'
-			)
-		);
-    }
-    
-    
-    private function canCreate()
-    {
-        return Authentication::getUser()->hasAccess('group.create');
-    }
-    
-    private function canEdit($id)
-    {
-        return Authentication::getUser()->hasAccess('group.edit');
-    }
-    
-    private function canDelete($id)
-    {
-        return Authentication::getUser()->hasAccess('group.delete');
+        try {
+			$group = Authentication::getGroupProvider()->findById($id);
+			if (Authentication::getUser()->hasAccess('group.delete')) {
+				$group->delete();
+                return json_encode(
+					array(
+						'success' => 0,
+						'message' => Lang::get('Admin::group.delete.success')
+					)
+				);
+			} else {
+				return json_encode(
+					array(
+						'success' => 0,
+						'message' => Lang::get('Admin::group.delete.noright')
+					)
+				);
+			}
+		} catch (GroupNotFoundException $e) {
+            return json_encode(
+				array(
+					'success' => 0,
+					'message' => Lang::get('Admin::group.notfound')
+				)
+			);
+        }
     }
 }

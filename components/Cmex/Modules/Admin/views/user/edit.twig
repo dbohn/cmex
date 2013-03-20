@@ -130,7 +130,7 @@ Benutzerverwaltung
 		$('form#main-form').submit(function() {
 			$.ajax({
 				url: $(this).attr('action'),
-				type: 'PUT',
+				type: 'put',
 				data: $(this).serialize(),
 				dataType: 'json'
 			}).done(function(msg) {
