@@ -134,7 +134,7 @@ class User extends AdminController
     {
         try {
             $user = Authentication::getUserProvider()->findById($id);
-            if ($this->canEdit($user)) {
+            if (Authentication::getUser()->hasGroupAccess('user.edit', $user)) {
                 return View::make(
                     'Admin::user.edit',
                     array(
@@ -167,7 +167,7 @@ class User extends AdminController
     {
         try {
             $user = Authentication::getUserProvider()->findById($id);
-            if ($this->canEdit($user)) {
+            if (Authentication::getUser()->hasGroupAccess('user.edit', $user)) {
                 $rules = array(
                     'last_name' => 'required|min:3',
                     'first_name' => 'required|min:3',
@@ -254,7 +254,7 @@ class User extends AdminController
     {
         try {
 			$user = Authentication::getUserProvider()->findById($id);
-			if ($this->canDelete($user)) {
+			if (Authentication::getUser()->hasGroupAccess('user.delete', $user)) {
 				$user->delete();
                 return json_encode(
 					array(
