@@ -27,7 +27,7 @@ class LoginLogoff extends BaseController
         if (!Authentication::check()) {
             return View::make('Login::loginform');
         } else {
-            return Redirect::to('');
+            return Redirect::to('admin');
         }
     }
 
@@ -53,25 +53,25 @@ class LoginLogoff extends BaseController
                     // FIX THAT SECURITY ISSUE! :D
                     return Redirect::to(URL::previous());
                 } else {
-                    return Redirect::to('login')->with('error', 'Falsche Logindaten!');
+                    return Redirect::to('login')->with('error', 'Falsche Logindaten!')->withInput();
                 }
             } catch (Users\UserNotFoundException $e) {
                 Log::info($e->getMessage());
-                return Redirect::to('login')->with('error', 'Der Benutzer wurde nicht gefunden!');
+                return Redirect::to('login')->with('error', 'Der Benutzer wurde nicht gefunden!')->withInput();
             } catch (Users\LoginRequiredException $e) {
                 Log::info($e->getMessage());
                 return Redirect::to('login')
-                    ->with('error', 'Es muss ein Login-Feld angegeben werden!' . $e->getMessage());
+                    ->with('error', 'Es muss ein Login-Feld angegeben werden!' . $e->getMessage())->withInput();
             } catch (Users\UserNotActivatedException $e) {
                 Log::info($e->getMessage());
-                return Redirect::to('login')->with('error', 'Der Nutzer ist nicht aktiviert!');
+                return Redirect::to('login')->with('error', 'Der Nutzer ist nicht aktiviert!')->withInput();
             } catch (Exception $e) {
                 Log::error($e->getMessage());
-                return Redirect::to('login')->with('error', $e->getMessage());
+                return Redirect::to('login')->with('error', $e->getMessage())->withInput();
             }
             
         } else {
-            return Redirect::to('login')->with('error', 'Direktaufruf der Authentifizierung nicht möglich!');
+            return Redirect::to('login')->with('error', 'Zur Anmeldung werden Benutzername und Passwort benötigt!')->withInput();
         }
     }
 

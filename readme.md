@@ -25,6 +25,7 @@ This might take a couple of minutes as composer has to fetch all Laravel compone
 After this process has finished, modify the file app/config/database.php to match your database config and run the following commands in your shell:
 ```
 php artisan migrate
+php artisan migrate --package=cartalyst/sentry
 php artisan db:seed
 ```
 

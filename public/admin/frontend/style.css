@@ -160,6 +160,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     background-color: #eee;
 }
 
+.cmex-admin-page-list li.active a {
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+    background-color: #0088cc;
+    font-weight: normal;
+}
+
 .cmex-admin-page-tools {
     position: absolute;
     bottom: 0;
