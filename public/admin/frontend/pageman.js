@@ -4,21 +4,15 @@ define([
     'backbone',
     'PageCollection',
     'Page',
+    'SlidingPanel',
     'text!templates/pageman.html',
     'text!templates/pagelist.html',
     'dependencies/backbone-forms/backbone-forms.min'
-    ], function($, _, Backbone, PageCollection, Page, pagemantemplate, pagelist) {
+    ], function($, _, Backbone, PageCollection, Page, SlidingPanel, pagemantemplate, pagelist) {
         //console.log(col.models);
-        var PageManView = Backbone.View.extend({
-            tagName: 'div',
 
+        var PageManView = SlidingPanel.extend({
             id: 'cmex-admin-pageman',
-
-            toolbar: null,
-
-            created: false,
-
-            visible: false,
 
             currentPage: null,
 
@@ -29,18 +23,18 @@ define([
             },
 
             initialize: function(options) {
+                // Call parent initalize for registering the events
+                init = _.bind(SlidingPanel.prototype.initialize, this);
+                init(options);
 
-                this.collection = new PageCollection();
-                
                 if(options.toolbar !== null) {
                     this.listenTo(options.toolbar, 'clickToolbarPageButton', this.render);
-                    this.listenTo(options.toolbar, 'clickToolbarShow', this.toolbarshow);
-                    this.listenTo(options.toolbar, 'clickToolbarHide', this.toolbarhide);
                 }
 
+                this.collection = new PageCollection();
+
                 this.currentPage = new Page(options.page);
-                console.log(this.currentPage.url());
-                //this.currentPage = options.page.id;
+                // console.log(this.currentPage.url());
             },
 
             logClick: function(ev) {
@@ -64,40 +58,21 @@ define([
             },
 
             updatePageForm: function() {
+                // this.currentPage.on("change", function(ev) {
+                //     console.log(ev);
+                // });
                 this.form = new Backbone.Form({model: this.currentPage}).render();
                 this.$el.find('.cmex-admin-property-column').html('').append(this.form.el);
             },
 
-            render: function() {
-                if(this.created === false) {
-                    this.$el.html(pagemantemplate);
+            buildUI: function() {
+                this.$el.html(pagemantemplate);
 
-                    //var curpage = new Page(this.options.page);
-                    $('body').append(this.$el);
-
-                    this.updatePageForm();
-                    
-                    this.collection.fetch({
-                        success: _.bind(this.updatePageList, this)
-                    });
-                    this.created = true;
-                    this.visible = true;
-                } else {
-                    this.visible = !this.visible;
-                    this.$el.toggleClass('cmex-admin-pageman-hidden');
-                }
-            },
-
-            toolbarshow: function() {
-                if(this.visible) {
-                    this.$el.removeClass('cmex-admin-pageman-hidden');
-                }
-            },
-
-            toolbarhide: function() {
-                if(this.visible) {
-                    this.$el.addClass('cmex-admin-pageman-hidden');
-                }
+                this.updatePageForm();
+                
+                this.collection.fetch({
+                    success: _.bind(this.updatePageList, this)
+                });
             }
         });
 

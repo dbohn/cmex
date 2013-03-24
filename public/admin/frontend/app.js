@@ -3,12 +3,11 @@ define([
     'underscore',
     'backbone',
     'toolbar',
-    'pageman'
-    ], function($, _, Backbone, ToolbarView, PageMan){
+    'pageman',
+    'SlidingPanel'
+    ], function($, _, Backbone, ToolbarView, PageMan, SlidingPanel){
         var initialize = function(){
             $(function() {
-                //Toolbar.initialize();
-                //toolbar.render();
                 var tools = new ToolbarView({page: cmexPage});
 
                 tools.render();

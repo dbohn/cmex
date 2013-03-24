@@ -30,7 +30,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 .cmex-admin-toolbar-hidden .cmex-admin-toolbar,
 .cmex-admin-toolbar-hidden .cmex-admin-pagebar,
-.cmex-admin-pageman-hidden {
+.cmex-admin-sliding-panel-hidden {
     display: none;
 }
 
@@ -102,7 +102,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     text-decoration: none;
 }
 
-#cmex-admin-pageman {
+.cmex-admin-sliding-panel {
     position: fixed;
     top: 42px;
     width: 60%;
