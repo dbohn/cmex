@@ -48,6 +48,9 @@ define([
                 this.currentPage.fetch({
                     success: _.bind(this.updatePageForm, this)
                 });
+
+                this.$el.find('.cmex-admin-page-list li.active').removeClass('active');
+                $(ev.currentTarget).parent().addClass('active');
             },
 
             updatePageList: function(resp) {
@@ -55,6 +58,8 @@ define([
                 var pl = this.$el.find('.cmex-admin-page-list');
 
                 pl.html(_.template(pagelist, {pages: resp}));
+
+                this.$el.find('.cmex-admin-page-list a[data-id=' + this.currentPage.get('id') + ']').parent().addClass('active');
             },
 
             updatePageForm: function() {
