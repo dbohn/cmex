@@ -34,14 +34,11 @@ define([
                 this.collection = new PageCollection();
 
                 this.currentPage = new Page(options.page);
-                // console.log(this.currentPage.url());
             },
 
             logClick: function(ev) {
                 ev.preventDefault();
-                // $(ev.currentTarget).text('Aua');
                 var id = $(ev.currentTarget).attr('data-id');
-                //console.log($(ev.currentTarget).attr('data-id'));
 
                 this.currentPage = new Page({id: id});
 
@@ -54,7 +51,6 @@ define([
             },
 
             updatePageList: function(resp) {
-                //console.log(this.collection.get(this.options.page.id))
                 var pl = this.$el.find('.cmex-admin-page-list');
 
                 pl.html(_.template(pagelist, {pages: resp}));
