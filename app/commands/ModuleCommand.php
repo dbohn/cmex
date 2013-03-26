@@ -84,28 +84,11 @@ class ModuleCommand extends Command
 
     private function addToModuleList($base)
     {
-        $path = __DIR__ . "/../storage/meta/modules.json";
+        $path = storage_path() . '/meta/modules.json';
 
         $this->mlc->setModuleBase($base);
         $this->mlc->setStorage($path);
         $this->mlc->updateModuleList();
-
-        // if (file_exists($path)) {
-        //     $modules = json_decode(file_get_contents($path));
-        // } else {
-        //     $modules = array();
-        // }
-
-        // if ($modules === null) {
-        //     $modules = array();
-        // }
-
-        // if (!in_array($name, $modules)) {
-        //     $modules[] = $name;
-        // }
-
-        // file_put_contents($path, json_encode($modules));
-        
     }
 
     /**

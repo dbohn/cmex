@@ -45,7 +45,8 @@ class ModuleRefreshCommand extends Command
     public function fire()
     {
         $modulebase = __DIR__ . '/../../components/Cmex/Modules/';
-        $path = __DIR__ . "/../storage/meta/modules.json";
+
+        $path = storage_path() . '/meta/modules.json';
 
         $this->mlc->setModuleBase($modulebase);
         $this->mlc->setStorage($path);
