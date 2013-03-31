@@ -4,8 +4,8 @@ define([
     'backbone',
     'toolbar',
     'pageman',
-    'SlidingPanel'
-    ], function($, _, Backbone, ToolbarView, PageMan, SlidingPanel){
+    'editors/InlineEditor'
+    ], function($, _, Backbone, ToolbarView, PageMan, InlineEditor){
         var initialize = function(){
             $(function() {
                 var tools = new ToolbarView({page: cmexPage});
@@ -22,12 +22,13 @@ define([
 
                 var textblocks = chunks.filter('[typeof="text.block"]');
                 
-                CKEDITOR.disableAutoInline = true;
+                //CKEDITOR.disableAutoInline = true;
 
-                textblocks.attr('contenteditable', 'true');
-
+                //textblocks.attr('contenteditable', 'true');
                 _.each(textblocks, function(block) {
-                    CKEDITOR.inline(block);
+                    //CKEDITOR.inline(block);
+                    var bl = new InlineEditor(block);
+                    //bl.initialize(block);
                 });
 
             });
