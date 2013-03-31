@@ -120,7 +120,7 @@ return array(
 	|
 	*/
 
-	'manifest' => __DIR__.'/../storage/meta',
+	'manifest' => storage_path().'/meta',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -151,7 +151,7 @@ return array(
 		'File'            => 'Illuminate\Support\Facades\File',
 		'Form'            => 'Illuminate\Support\Facades\Form',
 		'Hash'            => 'Illuminate\Support\Facades\Hash',
-		'Html'            => 'Illuminate\Html\HtmlBuilder',
+		'Html'            => 'Illuminate\Support\Facades\Html',
 		'Input'           => 'Illuminate\Support\Facades\Input',
 		'Lang'            => 'Illuminate\Support\Facades\Lang',
 		'Log'             => 'Illuminate\Support\Facades\Log',
