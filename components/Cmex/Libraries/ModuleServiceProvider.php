@@ -25,10 +25,21 @@ class ModuleServiceProvider extends ServiceProvider
             $modules = json_decode(file_get_contents($modulesfile));
         }
 
+        $adminmodules = array();
+
+        // TODO: Could be stored in modules.json...
+        foreach($modules as $module) {
+            if(file_exists($modulebase . $module . '/Controller/Admin.php')) {
+                $adminmodules[] = $module;
+            }
+        }
+
+        $this->app['admin.modules'] = $adminmodules;
+
         foreach ($modules as $module) {
             $this->package('modules/'.$module, $module, $modulebase . $module);
+
             include $modulebase . $module . '/routes.php';
-            
         }
     }
 

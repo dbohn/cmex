@@ -9,7 +9,16 @@ use Twig_Function_Function;
 
 class TwigConnector extends Extension
 {
-    private $registeredFunctions = array("full_username","chunk", "asset", "path");
+    private $registeredFunctions = array(
+        "full_username",
+        "chunk",
+        "asset",
+        "path",
+        'link_to',
+        'link_to_asset',
+        'link_to_route',
+        'link_to_action'
+    );
 
     public function __construct(Application $app, Twig_Environment $twig)
     {

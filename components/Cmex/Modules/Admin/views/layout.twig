@@ -26,29 +26,6 @@
                 font-size: 90%;
             }
         </style>
-        <script>
-            $(function() {
-                $.getJSON($('#notifyButton').attr('data-load'), function(data) {
-                    var badge = $('#notifyButton').find('.badge');
-                    badge.text(data.length);
-                    if(data.length > 0) {
-                        badge.addClass('badge-important');
-                    }
-
-                    var notificode = "";
-                    for(var i = 0; i < data.length; i++) {
-                        notificode += '<div class="notification"><div class="notification_title">' + data[i].title + '</div><div class="notification_content">' + data[i].message + '</div></div>';
-                    }
-                    $('#notifyButton').popover({
-                        html: true,
-                        content: notificode
-                    });
-                });
-                $('#notifyButton').on('click', function(ev) {
-                    ev.preventDefault();
-                });
-            });
-        </script>
     {% endblock %}
 </head>
 <body>
@@ -69,13 +46,12 @@
                 </a>
                 <ul class="dropdown-menu">
                 {% for module in cmexmodules %}
-                  <li><a href="#">{{ module.name }}</a></li>
+                  <li><a href='{{ url('admin' ~ '/' ~ module.name|lower) }}'>{{ module.name }}</a></li>
                 {% endfor %}
                 </ul>
             </li>
         </ul>
         <ul class="nav pull-right">
-            <li><a id="notifyButton" href="#" data-toggle="popover" data-placement="bottom" title="Benachrichtigungen" data-load="{{ url('admin/notifications') }}"><span class="badge">0</span></a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> {{ authentication_getuser().email }} <b class="caret"></b> </a>
                 <ul class="dropdown-menu">

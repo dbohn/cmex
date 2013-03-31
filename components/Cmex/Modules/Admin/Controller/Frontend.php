@@ -13,11 +13,6 @@ class Frontend extends AdminController
 {
     private $finder = null;
 
-    // This is an AJAX-only controller, which needs admin
-    // permissions so we want to utilize the AdminController
-    // but don't need the layout view!
-    protected $layout = null;
-
     public function __construct(Finder $finder)
     {
         parent::__construct();
