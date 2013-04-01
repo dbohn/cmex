@@ -26,9 +26,7 @@ define([
 
                 //textblocks.attr('contenteditable', 'true');
                 _.each(textblocks, function(block) {
-                    //CKEDITOR.inline(block);
                     var bl = new InlineEditor(block);
-                    //bl.initialize(block);
                 });
 
             });
