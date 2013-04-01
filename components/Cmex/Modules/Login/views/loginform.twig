@@ -40,18 +40,17 @@
     </head>
     <body>
             <div class="container">
-
-      <form action="{{ url('login/doLogin') }}" class="form-signin" method="post">
+      {{form_open({'method': 'post', 'url': 'login/doLogin', 'class': 'form-signin'})}}
         <h2 class="form-signin-heading">Bitte anmelden!</h2>
         {% if (session_has('error')) %}
         <div class="alert alert-error">{{ session('error') }}</div>
         {% elseif (session_has('success')) %}
         <div class="alert alert-success">{{ session('success') }}</div>
         {% endif %}
-        <input type="text" name="name" class="input-block-level" placeholder="Benutzername">
-        <input type="password" name="password" class="input-block-level" placeholder="Passwort">
+        {{ form_text('name', null, {'placeholder': 'Benutzername', 'class' : 'input-block-level'}) }}
+        {{ form_password('password', {'placeholder': 'Passwort', 'class': 'input-block-level'}) }}
         <label class="checkbox">
-          <input type="checkbox" name="remember-me" value="remember-me"> Angemeldet bleiben
+          {{ form_checkbox('remember-me', 'remember-me')}} Angemeldet bleiben
         </label>
         <button class="btn btn-large btn-primary" type="submit">Login</button>
         <p style="display: block; margin-top: 10px"><a href="{{url('forgotpassword')}}">&rarr; Passwort zurücksetzen</a></p>

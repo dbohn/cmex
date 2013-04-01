@@ -27,6 +27,10 @@ class ModuleListCreator
         $this->storage = $newstorage;
     }
 
+    /**
+     * Creates the modules.json-file which contains all modules that are loaded
+     * @return boolean true on success
+     */
     public function updateModuleList()
     {
         if ($this->modulebase == "") {
@@ -41,14 +45,15 @@ class ModuleListCreator
             if (file_exists($file->getRealpath() . "/routes.php")) {
                 $modules[] = $file->getFilename();
             }
-            //var_dump($file->getRealpath());
         }
 
-        if (is_writeable($this->storage)) {
+        if (is_writeable(dirname($this->storage))) {
             file_put_contents(
                 $this->storage,
                 json_encode($modules)
             );
         }
+
+        return true;
     }
 }

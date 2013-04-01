@@ -87,8 +87,7 @@ class MetaInformation
 
     private function createTag($tagname, $attributes, $contents = "")
     {
-        $html = $this->html;
-        $attStr = $html::attributes($attributes);
+        $attStr = $this->html->attributes($attributes);
 
         if ($contents !== "") {
             return '<'.$tagname.' '.$attStr.'>'.$contents.'</'.$tagname.'>';

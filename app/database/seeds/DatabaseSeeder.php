@@ -9,6 +9,8 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run()
 	{
+		Eloquent::unguard();
+
         $this->call('ChunkSeeder');
 
         $this->call('MenuSeeder');
@@ -16,6 +18,8 @@ class DatabaseSeeder extends Seeder {
         $this->call('PageSeeder');
 
         $this->call('UserSeeder');
+
+		// $this->call('UserTableSeeder');
 	}
 
 }

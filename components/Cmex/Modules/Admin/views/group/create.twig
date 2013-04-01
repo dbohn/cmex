@@ -72,7 +72,7 @@ Gruppenverwaltung
 					$('.group-create-form')[0].reset();
 				}
 			}).fail(function(o, s, msg) {
-				$('<div class="alert alert-error">' + msg + '</div>').appendTo('#message-board').delay(1500).fadeOut(1000, function() { $(this).remove(); });
+				$('#message-board').message(msg);
 			});
 			return false;
 		});

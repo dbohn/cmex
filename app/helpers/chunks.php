@@ -7,12 +7,9 @@ if(!function_exists('chunk')) {
             if(($chunkKey = ChunkManager::add($name, $type, $scope)) !== false)
             {
                 if(func_num_args() > 3) {
-                    $properties = func_get_args();
-                    unset($properties[0]);
-                    unset($properties[1]);
-                    unset($properties[2]);
+                    $properties = array_slice(func_get_args(), 3);
 
-                    ChunkManager::getChunkForKey($chunkKey)->setProperties((array)$properties);
+                    ChunkManager::getChunkForKey($chunkKey)->setProperties($properties);
                 }
 
                 return '__' . $chunkKey . '__';

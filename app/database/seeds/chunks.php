@@ -4,7 +4,7 @@ return array(
     array(
         'name' => 'home_content',
         'type' => 'Container.Standard',
-        'content' => '[{"name":"main","type":"Text.Block"}]',
+        'content' => '[{"name":"main","type":"Text.Html"}]',
         'page' => 1,
         'created_at' => new DateTime,
         'updated_at' => new DateTime
@@ -12,7 +12,7 @@ return array(
     array(
         'name' => 'contact_content',
         'type' => 'Container.Standard',
-        'content' => '[{"name":"main","type":"Text.Block"},{"name":"mailform","type":"Contact.Form"}]',
+        'content' => '[{"name":"main","type":"Text.Html"},{"name":"mailform","type":"Contact.Form"}]',
         'page' => 2,
         'created_at' => new DateTime,
         'updated_at' => new DateTime
@@ -20,7 +20,7 @@ return array(
     array(
         'name' => 'aboutus_content',
         'type' => 'Container.Standard',
-        'content' => '[{"name":"main","type":"Text.Block"}]',
+        'content' => '[{"name":"main","type":"Text.Html"}]',
         'page' => 3,
         'created_at' => new DateTime,
         'updated_at' => new DateTime
@@ -43,7 +43,7 @@ return array(
     ),
     array(
         'name' => 'home_main',
-        'type' => 'Text.Block',
+        'type' => 'Text.Html',
         'content' => '<h4>Download</h4> <p>Laden Sie die neueste Version herunter!</p>',
         'page' => 1,
         'created_at' => new DateTime,
@@ -51,7 +51,7 @@ return array(
     ),
     array(
         'name' => 'contact_main',
-        'type' => 'Text.Block',
+        'type' => 'Text.Html',
         'content' => '<p>Wir freuen uns über jede Ihrer Anfragen. Selbstverständlich unterbreiten wir Ihnen auch unverbindliche Angebote zu Ihren Projekten.</p>',
         'page' => 2,
         'created_at' => new DateTime,
@@ -59,7 +59,7 @@ return array(
     ),
     array(
         'name' => 'aboutus_main',
-        'type' => 'Text.Block',
+        'type' => 'Text.Html',
         'content' => '<p>Wir über uns</p>',
         'page' => 3,
         'created_at' => new DateTime,
