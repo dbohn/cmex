@@ -16,10 +16,10 @@ class User extends AdminController
 {
 
     /**
-    * Display a listing of the resource.
-    *
-    * @return Response
-    */
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
     public function index()
     {
         return View::make(
@@ -31,10 +31,10 @@ class User extends AdminController
     }
 
     /**
-    * Show the form for creating a new resource.
-    *
-    * @return Response
-    */
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
     public function create()
     {
         if ($this->canCreate()) {
@@ -54,10 +54,10 @@ class User extends AdminController
     }
 
     /**
-    * Store a newly created resource in storage.
-    *
-    * @return Response
-    */
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
     public function store()
     {
         if (!$this->canCreate()) {
@@ -118,11 +118,11 @@ class User extends AdminController
      */
     public function show($id)
     {
-    try {
-    return Authentication::getUserProvider()->findById($id);
-    } catch (UserNotFoundException $e) {
-    return null;
-    }
+        try {
+            return Authentication::getUserProvider()->findById($id);
+        } catch (UserNotFoundException $e) {
+            return null;
+        }
     }
 
     /**
@@ -159,10 +159,10 @@ class User extends AdminController
     }
 
     /**
-    * Update the specified resource in storage.
-    *
-    * @return Response
-    */
+     * Update the specified resource in storage.
+     *
+     * @return Response
+     */
     public function update($id)
     {
         try {
@@ -246,10 +246,10 @@ class User extends AdminController
     }
 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @return Response
-    */
+     * Remove the specified resource from storage.
+     *
+     * @return Response
+     */
     public function destroy($id)
     {
         try {
