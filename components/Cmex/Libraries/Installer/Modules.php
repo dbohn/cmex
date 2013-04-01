@@ -37,13 +37,16 @@ class Modules
 
     public function infosForModulesWithAdmin()
     {
-        if(is_null($this->adminInfos)) {
+        if (is_null($this->adminInfos)) {
             $adminModules = \App::make('admin.modules');
 
             $modulebase = $this->modulebase;
-            array_walk($adminModules, function(&$path) use ($modulebase) {
-                $path = $modulebase . $path;
-            });
+            array_walk(
+                $adminModules,
+                function (&$path) use ($modulebase) {
+                    $path = $modulebase . $path;
+                }
+            );
 
             $this->finder->files()->in($adminModules)->name('info.php')->depth('== 0');
 
@@ -51,7 +54,7 @@ class Modules
 
             foreach ($this->finder as $file) {
                 $moduleinfos = require $file->getPathname();
-                if(!isset($moduleinfos["system"]) || $moduleinfos["system"] === false) {
+                if (!isset($moduleinfos["system"]) || $moduleinfos["system"] === false) {
                     $this->adminInfos[] = require $file->getPathname();
                 }
             }
