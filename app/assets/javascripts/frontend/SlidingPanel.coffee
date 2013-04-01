@@ -14,10 +14,10 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
             @$el.html 'Sliding Panel'
 
         render: ->
-            if @created == false
+            if @created is false
                 @buildUI()
 
-                if $.type(@$el.parent().prop('tagName')) == "undefined"
+                if $.type(@$el.parent().prop('tagName')) is "undefined"
                     $('body').append @$el
 
                 @created = true

@@ -17,7 +17,7 @@
           page: cmexPage
         });
         chunks = $('[about]');
-        textblocks = chunks.filter('[typeof="text.block"]');
+        textblocks = chunks.filter('[typeof="text.html"]');
         _.each(textblocks, function(block) {
           var bl;
 

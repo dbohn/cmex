@@ -11,7 +11,7 @@ use Cmex\Libraries\Chunks\Chunk;
 * @author David Bohn
 * @copyright 2013 cmex! Team
 */
-class Block extends Chunk implements SearchableInterface
+class Html extends Chunk implements SearchableInterface
 {
 
     public function getIndex()

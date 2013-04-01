@@ -9,7 +9,7 @@ define ['jquery', 'underscore', 'backbone', 'toolbar', 'pageman', 'editors/Inlin
             pageman = new PageMan {toolbar: tools, page: cmexPage}
 
             chunks = $ '[about]'
-            textblocks = chunks.filter '[typeof="text.block"]'
+            textblocks = chunks.filter '[typeof="text.html"]'
 
             _.each textblocks, (block) ->
                 bl = new InlineEditor(block)
