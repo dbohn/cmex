@@ -20,6 +20,10 @@ class Modules
         $this->modulebase = __DIR__ . "/../../Modules/";
     }
 
+    /**
+     * Reads the infos to the installed modules
+     * @return array descriptions for the modules
+     */
     public function infos()
     {
         if (is_null($this->infos)) {
@@ -35,6 +39,10 @@ class Modules
         return $this->infos;
     }
 
+    /**
+     * Reads the infos for the installed modules with an Admin interface
+     * @return array descriptions for the modules
+     */
     public function infosForModulesWithAdmin()
     {
         if (is_null($this->adminInfos)) {
@@ -63,6 +71,11 @@ class Modules
         return $this->adminInfos;
     }
 
+    /**
+     * Reads the info for a certain module
+     * @param  string $module the module name
+     * @return array         the description array
+     */
     public function infoForModule($module)
     {
         $module = ucfirst($module);
