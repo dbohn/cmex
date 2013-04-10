@@ -136,7 +136,7 @@ Benutzerverwaltung
 			}).done(function(msg) {
 				$('#message-board').message(msg);
 			}).fail(function(o, s, msg) {
-				$('#message-board').message(msg);
+				$('<div class="alert alert-error">' + msg + '</div>').appendTo('#message-board').delay(1500).fadeOut(1000, function() { $(this).remove(); });
 			});
 			return false;
 		});

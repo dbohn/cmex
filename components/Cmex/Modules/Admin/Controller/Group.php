@@ -20,7 +20,12 @@ class Group extends AdminController
      */
     public function index()
     {
-		return Redirect::to('admin/user#groups');
+		return View::make(
+            'Admin::group.index',
+            array(
+                'groups' => Authentication::getGroupProvider()->findAll()
+            )
+        );
     }
 
     /**
@@ -123,7 +128,7 @@ class Group extends AdminController
 						Lang::get('Admin::group.edit.noright')
 					);
             }
-        } catch (UserNotFoundException $e) {
+        } catch (GroupNotFoundException $e) {
             return Redirect::to('admin/group')
 				->with(
 					'error',
@@ -169,7 +174,7 @@ class Group extends AdminController
                 return json_encode(
 					array(
 						'success' => 1,
-						'message' => Lang::get('Admin::user.edit.success')
+						'message' => Lang::get('Admin::group.edit.success')
 					)
 				);
             } else {

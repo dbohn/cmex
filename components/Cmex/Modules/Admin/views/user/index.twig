@@ -27,13 +27,12 @@ Benutzerverwaltung
 	</div>
 	
 	<a class="btn" href="{{ url('admin/user/create') }}">Benutzer hinzufügen</a>
-	<a class="btn" href="{{ url('admin/group/create') }}">Gruppe hinzufügen</a>
 	
 	<div class="tabs" id="user-tabs">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#users">Informationen</a></li>
-			<li><a href="#groups">Gruppen</a></li>
-			<li><a href="#permissions">Rechte</a></li>
+			<li class="active"><a href="{{ url('admin/user') }}">Informationen</a></li>
+			<li><a href="{{ url('admin/group') }}">Gruppen</a></li>
+			<li><a href="{{ url('admin/permissions') }}">Rechte</a></li>
 		</ul>
 		<div class="tab-content">
 			<div id="users" class="tab-pane active">
@@ -44,19 +43,8 @@ Benutzerverwaltung
 					<li><a href="{{ url('admin/user/35674567845683456/edit') }}">Der Ich-Nicht</a></li>
 				</ul>
 			</div>
-			
-			<div id="groups" class="tab-pane">
-				{% for group in groups %}
-					<li><a href="{{ url('admin/group/') }}/{{ group.id }}/edit">{{ group.name }}</a></li>
-				{% endfor %}
-			</div>
-			
-			<div id="permissions" class="tab-pane">
-				Rechteverwaltung
-			</div>
 		</div>
 	</div>
-	
 	
 	<script>
 	<!--
@@ -67,15 +55,6 @@ Benutzerverwaltung
 	}
 	
 	$(function() {
-		
-		$('.tabs .nav a').click(function (e) {
-			e.preventDefault();
-			$(this).tab('show');
-		});
-		
-		if (window.location.hash) {
-			$("ul.nav-tabs li > a[href='" + window.location.hash + "']").click();
-		} 
 		
 	});
 	
