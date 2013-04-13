@@ -40,9 +40,9 @@ class Html extends Chunk implements SearchableInterface
             }
         );
 
-        if (Authentication::check() && Authentication::getUser()->hasChunkAccess($this)) {
-            return '<div property="text">' . $value . '</div>';
-        }
+        // if (Authentication::check() && Authentication::getUser()->hasChunkAccess($this)) {
+        //     return '<div property="text">' . $value . '</div>';
+        // }
 
         return $value;
     }
