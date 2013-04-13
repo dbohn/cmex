@@ -1,11 +1,10 @@
 {
 	"require": {
-		"laravel/framework": "4.0.*",
+		"laravel/framework": "dev-master",
 		"guzzle/guzzle": "v3.0.7",
 		"cartalyst/sentry": "2.0.*",
 		"rcrowe/twigbridge": "0.1.*",
-		"symfony/yaml": "2.3.*",
-		"filp/whoops": "dev-master"
+		"symfony/yaml": "2.3.*"
 	},
 	"autoload": {
 		"classmap": [
@@ -18,6 +17,9 @@
 			"Cmex" : "components/"
 			},
 		"files": ["app/helpers/chunks.php"]
+	},
+	"scripts": {
+		"post-update-cmd": "php artisan optimize"
 	},
 	"minimum-stability": "dev"
 }

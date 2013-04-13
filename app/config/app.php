@@ -17,6 +17,19 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
+	| Application URL
+	|--------------------------------------------------------------------------
+	|
+	| This URL is used by the console to properly generate URLs when using
+	| the Artisan command line tool. You should set this to the root of
+	| your application so that it is used when running Artisan tasks.
+	|
+	*/
+
+	'url' => 'http://localhost',
+
+	/*
+	|--------------------------------------------------------------------------
 	| Application Timezone
 	|--------------------------------------------------------------------------
 	|
@@ -40,19 +53,6 @@ return array(
 	*/
 
 	'locale' => 'de',
-
-	/*
-	|--------------------------------------------------------------------------
-	| Application Fallback Locale
-	|--------------------------------------------------------------------------
-	|
-	| The fallback locale determines the locale to use when the current one
-	| is not available. You may change the value to correspond to any of
-	| the language folders that are provided through your application.
-	|
-	*/
-
-	'fallback_locale' => 'en',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -97,11 +97,13 @@ return array(
 		'Illuminate\Log\LogServiceProvider',
 		'Illuminate\Mail\MailServiceProvider',
 		'Illuminate\Database\MigrationServiceProvider',
+		'Illuminate\Foundation\Providers\OptimizeServiceProvider',
 		'Illuminate\Pagination\PaginationServiceProvider',
 		'Illuminate\Foundation\Providers\PublisherServiceProvider',
 		'Illuminate\Queue\QueueServiceProvider',
 		'Illuminate\Redis\RedisServiceProvider',
 		'Illuminate\Auth\Reminders\ReminderServiceProvider',
+		'Illuminate\Foundation\Providers\RouteListServiceProvider',
 		'Illuminate\Database\SeedServiceProvider',
 		'Illuminate\Foundation\Providers\ServerServiceProvider',
 		'Illuminate\Session\SessionServiceProvider',
@@ -112,7 +114,6 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'TwigBridge\TwigServiceProvider',
-		'Whoops\Provider\Illuminate\WhoopsServiceProvider',
 		'Cmex\Libraries\Media\MediaServiceProvider',
 		'Cmex\Libraries\Chunks\ChunkManagerServiceProvider',
 		'Cmex\Libraries\Meta\AssetServiceProvider',
@@ -131,7 +132,7 @@ return array(
 	|
 	*/
 
-	'manifest' => __DIR__.'/../storage/meta',
+	'manifest' => storage_path().'/meta',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -162,7 +163,7 @@ return array(
 		'File'            => 'Illuminate\Support\Facades\File',
 		'Form'            => 'Illuminate\Support\Facades\Form',
 		'Hash'            => 'Illuminate\Support\Facades\Hash',
-		'Html'            => 'Illuminate\Html\HtmlBuilder',
+		'Html'            => 'Illuminate\Support\Facades\Html',
 		'Input'           => 'Illuminate\Support\Facades\Input',
 		'Lang'            => 'Illuminate\Support\Facades\Lang',
 		'Log'             => 'Illuminate\Support\Facades\Log',
