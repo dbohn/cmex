@@ -1,0 +1,80 @@
+{% extends "layout.twig" %}
+
+{% block title %}
+Gruppenverwaltung
+{% endblock %}
+
+{% block head %}
+{{ parent() }}
+{% include "group/head.twig" %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block content %}
+	<div id="message-board">
+    {% if (session_has('error')) %}
+        <div class="alert alert-error">{{ session_get('error') }}</div>
+    {% elseif (session_has('success')) %}
+        <div class="alert alert-success">{{ session_get('success') }}</div>
+    {% endif %}
+	</div>
+	
+	<a href="{{ url('admin/group') }}" class="btn">Zurück</a>
+	
+	<form class="group-edit-form" action="{{ url('admin/group') }}/{{ group.id }}" method="post">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#group-info">Informationen</a></li>
+			<li><a href="#group-permissions">Rechte</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="group-info" class="tab-pane active">
+				<table class="group-table">
+					<tbody>
+						<tr>
+							<th>Gruppenname:</th><td><input type="text" name="name" value="{{ group.name }}" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="group-permissions" class="tab-pane">
+				<p>Rechtesystem sucks</p>
+			</div>
+		</div>
+		<input type="submit" class="btn" />
+	</form>
+	
+	<script>
+	<!--
+	
+	$.fn.message = function(msg) {
+		$('<div class="alert alert-' + (msg.success ? 'success' : 'error') + '">' + (msg.message) + '</div>').appendTo(this).delay(1500).fadeOut(1000, function() { $(this).remove(); });
+		return this;
+	}
+	
+	$(function() {
+		
+		$('.nav a').click(function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+		});
+		
+		$('.group-edit-form').submit(function() {
+			$.ajax({
+				url: $(this).attr('action'),
+				type: 'put',
+				data: $(this).serialize(),
+				dataType: 'json'
+			}).done(function(msg) {
+				$('#message-board').message(msg);
+			}).fail(function(o, s, msg) {
+				$('#message-board').message(msg);
+			});
+			return false;
+		});
+	});
+	
+	//-->
+	</script>
+{% endblock %}

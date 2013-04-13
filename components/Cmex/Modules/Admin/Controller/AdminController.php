@@ -8,20 +8,15 @@ use App;
 
 class AdminController extends Controller
 {
-    protected $layout = "Admin::layout";
+    protected $layout = null;
 
     public function __construct()
     {
         $this->beforeFilter('auth');
-    }
 
-    protected function setupLayout()
-    {
-        if (!is_null($this->layout)) {
-            $modules = App::make('Cmex\Libraries\Installer\Modules');
-            $data = $modules->infos();
-            View::share('cmexmodules', $data);
-            $this->layout = View::make($this->layout);
-        }
+        $modules = App::make('Cmex\Libraries\Installer\Modules');
+        
+        $data = $modules->infosForModulesWithAdmin();
+        View::share('cmexmodules', $data);
     }
 }

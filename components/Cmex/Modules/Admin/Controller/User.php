@@ -25,8 +25,7 @@ class User extends AdminController
         return View::make(
             'Admin::user.index',
             array(
-                'users' => Authentication::getUserProvider()->findAll(),
-                'groups' => Authentication::getGroupProvider()->findAll()
+                'users' => Authentication::getUserProvider()->findAll()
             )
         );
     }
@@ -38,7 +37,7 @@ class User extends AdminController
      */
     public function create()
     {
-        if (Authentication::getUser()->hasAccess('user.create')) {
+        if ($this->canCreate()) {
             return View::make(
                 'Admin::user.create',
                 array(
@@ -61,7 +60,7 @@ class User extends AdminController
      */
     public function store()
     {
-        if (!Authentication::getUser()->hasAccess('user.create')) {
+        if (!$this->canCreate()) {
             return json_encode(
                 array(
                     'success' => 0,
@@ -69,7 +68,7 @@ class User extends AdminController
                 )
             );
         }
-        
+
         $rules = array(
             'last_name' => 'required|min:3',
             'first_name' => 'required|min:3',
@@ -77,39 +76,39 @@ class User extends AdminController
             'password' => 'required|min:5|same:password_confirm',
             'password_confirm' => 'required'
         );
-        
+
         $validator = Validator::make(Input::all(), $rules);
-        
+
         // check input data, abort if validation fails
         if ($validator->fails()) {
             $message = implode(
-				"<br />\n",
-				$validator->messages()->all()
-			);
-            
-			return json_encode(
-				array(
-					'success' => 0,
-					'message' => $message
-				)
-			);
+                "<br />\n",
+                $validator->messages()->all()
+            );
+
+            return json_encode(
+                array(
+                    'success' => 0,
+                    'message' => $message
+                )
+            );
         }
         Authentication::getUserProvider()
-			->create(
-				Input::only(
-					'last_name',
-					'first_name',
-					'email',
-					'password'
-				)
-			);
-		
+            ->create(
+                Input::only(
+                    'last_name',
+                    'first_name',
+                    'email',
+                    'password'
+                )
+            );
+
         return json_encode(
-			array(
-				'success' => 1,
-				'message' => Lang::get('Admin::user.create.success')
-			)
-		);
+            array(
+                'success' => 1,
+                'message' => Lang::get('Admin::user.create.success')
+            )
+        );
     }
 
     /**
@@ -135,7 +134,7 @@ class User extends AdminController
     {
         try {
             $user = Authentication::getUserProvider()->findById($id);
-            if (Authentication::getUser()->hasGroupAccess('user.edit', $user)) {
+            if (Authentication::getUser()->hasGroupWideAccess('user.edit', $user)) {
                 return View::make(
                     'Admin::user.edit',
                     array(
@@ -145,17 +144,17 @@ class User extends AdminController
                 );
             } else {
                 return Redirect::to('admin/user')
-					->with(
-						'error',
-						Lang::get('Admin::user.edit.noright')
-					);
+                    ->with(
+                        'error',
+                        Lang::get('Admin::user.edit.noright')
+                    );
             }
         } catch (UserNotFoundException $e) {
             return Redirect::to('admin/user')
-				->with(
-					'error',
-					Lang::get('Admin::user.notfound')
-				);
+                ->with(
+                    'error',
+                    Lang::get('Admin::user.notfound')
+                );
         }
     }
 
@@ -168,81 +167,81 @@ class User extends AdminController
     {
         try {
             $user = Authentication::getUserProvider()->findById($id);
-            if (Authentication::getUser()->hasGroupAccess('user.edit', $user)) {
+            if (Authentication::getUser()->hasGroupWideAccess('user.edit', $user)) {
                 $rules = array(
                     'last_name' => 'required|min:3',
                     'first_name' => 'required|min:3',
                     'email' => 'required|email|unique:users,email,' . $id,
                     'password' => 'min:5|same:password_confirm'
                 );
-                
+
                 $validator = Validator::make(Input::all(), $rules);
-                
+
                 // check input data, abort if validation fails
                 if ($validator->fails()) {
                     $message = implode(
-						"<br />\n",
-						$validator->messages()->all()
-					);
-					
+                        "<br />\n",
+                        $validator->messages()->all()
+                    );
+
                     return json_encode(
-						array(
-							'success' => 0,
-							'message' => $message
-						)
-					);
+                        array(
+                            'success' => 0,
+                            'message' => $message
+                        )
+                    );
                 }
-                
+
                 // data validation succeded, now saving data
                 $user->last_name = Input::get('last_name');
                 $user->first_name = Input::get('first_name');
-                
+
                 $user->email = Input::get('email');
-                
+
                 if (Input::has('password')) {
                     $user->attemptResetPassword(
-						$user->getResetPasswordCode(),
-						Input::get('password')
-					);
+                        $user->getResetPasswordCode(),
+                        Input::get('password')
+                    );
                 }
-                
+
                 $user->activated = Input::get('activated', 0);
-                
+
                 $user->save();
-                
-				if(Input::has('groups')) {
-					foreach(Input::get('groups') as $key => $value) {
-						try {
-							$group = Authentication::getGroupProvider()->findById($id);
-							$user->addGroup($group);
-						} catch (GroupNotFoundException $e) {
-							// do something
-						}
-					}
-				}
-				
+
+                if(Input::has('groups')) {
+                    foreach(Input::get('groups') as $key => $value) {
+                        try {
+                            $group = Authentication::getGroupProvider()->findById($id);
+                            $user->addGroup($group);
+                        } catch (GroupNotFoundException $e) {
+                            // do something
+                        }
+                    }
+                }
+
                 // successfully saved
                 return json_encode(
-					array(
-						'success' => 1,
-						'message' => Lang::get('Admin::user.edit.success')
-					)
-				);
+                    array(
+                        'success' => 1,
+                        'message' => Lang::get('Admin::user.edit.success')
+                    )
+                );
             } else {
                 return json_encode(
-					array(
-						'success' => 0,
-						'message' => Lang::get('Admin::user.edit.noright')
-					)
-				);
+                    array(
+                        'success' => 0,
+                        'message' => Lang::get('Admin::user.edit.noright')
+                    )
+                );
             }
         } catch (UserNotFoundException $e) {
             return json_encode(
-				array(
-					'success' => 0,
-					'message' => Lang::get('Admin::user.notfound')
-				)
-			);
+                array(
+                    'success' => 0,
+                    'message' => Lang::get('Admin::user.notfound')
+                )
+            );
         }
     }
 
@@ -254,47 +253,31 @@ class User extends AdminController
     public function destroy($id)
     {
         try {
-			$user = Authentication::getUserProvider()->findById($id);
-			if (Authentication::getUser()->hasGroupAccess('user.delete', $user)) {
-				$user->delete();
+            $user = Authentication::getUserProvider()->findById($id);
+            if (Authentication::getUser()->hasGroupWideAccess('user.delete', $user)) {
+                $user->delete();
                 return json_encode(
-					array(
-						'success' => 0,
-						'message' => Lang::get('Admin::user.delete.success')
-					)
-				);
-			} else {
-				return json_encode(
-					array(
-						'success' => 0,
-						'message' => Lang::get('Admin::user.delete.noright')
-					)
-				);
-			}
-		} catch (UserNotFoundException $e) {
+                    array(
+                        'success' => 0,
+                        'message' => Lang::get('Admin::user.delete.success')
+                    )
+                );
+            } else {
+                return json_encode(
+                    array(
+                        'success' => 0,
+                        'message' => Lang::get('Admin::user.delete.noright')
+                    )
+                );
+            }
+        } catch (UserNotFoundException $e) {
             return json_encode(
-				array(
-					'success' => 0,
-					'message' => Lang::get('Admin::user.notfound')
-				)
-			);
+                array(
+                    'success' => 0,
+                    'message' => Lang::get('Admin::user.notfound')
+                )
+            );
         }
     }
-    
-    private function canCreate()
-    {
-        return ;
-    }
-    
-    private function canEdit(UserInterface $user)
-    {
-        return Authentication::getUser()->hasAccess('user.edit');
-    }
-    
-    private function canDelete(UserInterface $user)
-    {
-        if($user->isSuperUser())
-			return false;
-		return Authentication::getUser()->hasAccess('user.delete');
-    }
+
 }
