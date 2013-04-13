@@ -148,7 +148,7 @@ class Group extends AdminController
             $group = Authentication::getGroupProvider()->findById($id);
             if (Authentication::getUser()->hasAccess('group.edit')) {
 				$rules = array(
-					'name' => 'required|min:3|unique:groups,name,' . $group->name
+					'name' => 'required|min:3|unique:groups,name,' . $id
 				);
 				
 				$validator = Validator::make(Input::all(), $rules);

@@ -13,9 +13,21 @@ use Cartalyst\Sentry\Users\UserExistsException;
 */
 use Cartalyst\Sentry\Users\UserInterface;
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
+use Cmex\Libraries\Chunks\Chunk;
 
 class User extends SentryUser implements UserInterface {
-
+	
+	public function hasChunkAccess(Chunk $chunk) {
+		// global chunk right
+		if($this->hasAccess('chunk.' . $chunk->type)) {
+			return true;
+		// direct chunk right
+		} else if($this->hasAccess('chunk.' . $chunk->type . '.' . $chunk->identifier)) {
+			return true;
+		}
+		return false;
+	}
+	
     public function hasGroupWideAccess($right, UserInterface $user, $all = true)
     {
         // Fix problems with wildcard * and .groupWide

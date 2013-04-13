@@ -3,6 +3,7 @@ namespace Cmex\Chunks\Text;
 
 use Cmex\Chunks\Search\SearchableInterface;
 use Cmex\Libraries\Chunks\Chunk;
+use Authentication;
 
 /**
 * cmex! Standard Text
@@ -39,7 +40,7 @@ class Html extends Chunk implements SearchableInterface
             }
         );
 
-        if (\Authentication::check()) {
+        if (Authentication::getUser()->hasChunkAccess($this)) {
             return '<div property="text">' . $value . '</div>';
         }
 
