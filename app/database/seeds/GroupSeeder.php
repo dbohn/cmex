@@ -11,5 +11,9 @@ class GroupSeeder extends Seeder
         foreach ($user as $usr) {
             DB::table('groups')->insert($usr);
         }
+
+        $adminUser = DB::table('users')->where('email', 'admin@admin.com')->first();
+        $group = DB::table('groups')->where('name', 'Administrator')->first();
+        DB::table('users_groups')->insert(array('user_id' => $adminUser->id, 'group_id' => $group->id));
     }
 }
