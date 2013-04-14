@@ -31,6 +31,12 @@ class PageController extends FrontendController
         // Look up page in database
         $dbpage = Page::where('identifier', $page)->first();
         if (!is_null($dbpage)) {
+            // If site is not live, only admins or superuser are allowed to view the page
+            // That should be changed later as this should be more customisable
+            // but we need the working right system first
+            if ($dbpage->status !== 'live' && !(Authentication::check() && (Authentication::getUser()->inGroup(Authentication::getGroupProvider()->findByName('Administrator')) || Authentication::getUser()->isSuperUser()))) {
+                App::abort(404);
+            }
             $this->setPageIdentifier($page);
 
             if (Authentication::check()) {

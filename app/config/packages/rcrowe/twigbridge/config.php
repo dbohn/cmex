@@ -88,7 +88,7 @@ return array(
         'Twig_Extension_Debug',
         'TwigBridge\Extensions\AliasLoader',
         'Twig_Extension_StringLoader',
-        'Cmex\Libraries\TwigConnector',
+        'Cmex\Libraries\System\TwigConnector',
         // 'TwigBridge\Extensions\Html',
     ),
 

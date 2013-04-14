@@ -117,7 +117,7 @@ return array(
 		'Cmex\Libraries\Media\MediaServiceProvider',
 		'Cmex\Libraries\Chunks\ChunkManagerServiceProvider',
 		'Cmex\Libraries\Meta\AssetServiceProvider',
-		'Cmex\Libraries\ModuleServiceProvider'
+		'Cmex\Libraries\System\ModuleServiceProvider'
 
 	),
 

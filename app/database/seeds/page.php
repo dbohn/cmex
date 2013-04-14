@@ -2,30 +2,34 @@
 
 return array(
     array(
-        'title' => 'Startseite',
+        'title'      => 'Startseite',
         'identifier' => 'home',
-        'template' => 'homepage',
+        'template'   => 'homepage',
+        'status'     => 'live',
         'created_at' => new DateTime,
         'updated_at' => new DateTime
     ),
     array(
-        'title' => 'Kontakt',
+        'title'      => 'Kontakt',
         'identifier' => 'contact',
-        'template' => 'main',
+        'template'   => 'main',
+        'status'     => 'live',
         'created_at' => new DateTime,
         'updated_at' => new DateTime
     ),
     array(
-        'title' => 'Über uns',
+        'title'      => 'Über uns',
         'identifier' => 'aboutus',
-        'template' => 'main',
+        'template'   => 'main',
+        'status'     => 'live',
         'created_at' => new DateTime,
         'updated_at' => new DateTime
     ),
     array(
-        'title' => 'Suchergebnisse',
+        'title'      => 'Suchergebnisse',
         'identifier' => 'searchresults',
-        'template' => 'main',
+        'template'   => 'main',
+        'status'     => 'live',
         'created_at' => new DateTime,
         'updated_at' => new DateTime
     )

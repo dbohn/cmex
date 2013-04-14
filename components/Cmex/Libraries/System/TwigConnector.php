@@ -1,6 +1,6 @@
 <?php
 
-namespace Cmex\Libraries;
+namespace Cmex\Libraries\System;
 
 use TwigBridge\Extension;
 use Twig_Environment;

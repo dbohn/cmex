@@ -1,6 +1,6 @@
 <?php
 
-namespace Cmex\Libraries;
+namespace Cmex\Libraries\System;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -9,7 +9,7 @@ class ModuleServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $modulebase = __DIR__ . '/../Modules/';
+        $modulebase = __DIR__ . '/../../Modules/';
         $modulesfile = storage_path() . '/meta/modules.json';
 
         // Load registered modules
@@ -28,8 +28,8 @@ class ModuleServiceProvider extends ServiceProvider
         $adminmodules = array();
 
         // TODO: Could be stored in modules.json...
-        foreach($modules as $module) {
-            if(file_exists($modulebase . $module . '/Controller/Admin.php')) {
+        foreach ($modules as $module) {
+            if (file_exists($modulebase . $module . '/Controller/Admin.php')) {
                 $adminmodules[] = $module;
             }
         }
