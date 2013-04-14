@@ -64,4 +64,23 @@ class PageValidatorTest extends TestCase
 
         $this->assertInstanceOf('\Illuminate\Support\MessageBag', $validator->errors());
     }
+
+    public function testCustomErrorForTemplate()
+    {
+        $input = array('title' => 'Page title', 'identifier' => 'page_title', 'template' => 'gibt_s_nicht');
+
+        $trueify = function () {
+            return true;
+        };
+
+        $validator = new PageValidator($input);
+
+        $validator->passes($trueify);
+
+        $errors = $validator->errors();
+
+        $this->assertTrue($errors->has('template'));
+
+        $this->assertEquals('Das angegebene Template ist ungültig', $errors->first('template'));
+    }
 }

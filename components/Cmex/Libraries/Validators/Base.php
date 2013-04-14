@@ -40,7 +40,7 @@ abstract class Base
      */
     public function passes(Closure $callback_success, Closure $callback_fail = null)
     {
-        $validator = \Validator::make($this->data, $this->rules);
+        $validator = $this->setupValidator($this->data, $this->rules);
 
         if ($validator->passes()) {
             return $callback_success($validator);
@@ -61,7 +61,7 @@ abstract class Base
      */
     public function fails(Closure $callback_fail, Closure $callback_success = null)
     {
-        $validator = \Validator::make($this->data, $this->rules);
+        $validator = $this->setupValidator($this->data, $this->rules);
 
         if ($validator->fails()) {
             return $callback_fail($validator);
@@ -73,6 +73,11 @@ abstract class Base
     public function errors()
     {
         return ($this->errors) ? $this->errors : false;
+    }
+
+    protected function setupValidator($data, $rules)
+    {
+        return \Validator::make($data, $rules);
     }
 
     abstract protected function setRules();

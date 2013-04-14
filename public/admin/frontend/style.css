@@ -108,12 +108,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     width: 60%;
     left: 20%;
     background: #fff;
-    height: 50%;
+    height: 35%;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     box-shadow: 3px 3px 5px #777;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     font-size: 14px;
+    overflow: auto;
 }
 
 /* Page manager */
