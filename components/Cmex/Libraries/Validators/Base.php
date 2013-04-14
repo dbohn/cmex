@@ -46,6 +46,8 @@ abstract class Base
             return $callback_success($validator);
         }
 
+        $this->errors = $validator->errors();
+
         return ($callback_fail) ? $callback_fail($validator) : false;
     }
 
@@ -70,7 +72,7 @@ abstract class Base
 
     public function errors()
     {
-        return ($errors) ? $errors : false;
+        return ($this->errors) ? $this->errors : false;
     }
 
     abstract protected function setRules();
