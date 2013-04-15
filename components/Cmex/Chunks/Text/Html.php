@@ -30,7 +30,7 @@ class Html extends Chunk implements SearchableInterface
             10,
             function () use ($_) {
                 $v = \View::make(
-                    "Text.views.textview",
+                    "Chunks/Text::textview",
                     array(
                         'content' => $_->content
                     )

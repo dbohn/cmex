@@ -17,10 +17,14 @@ class ChunkManager
 
     private $inputHandled = false;
 
+    private $componentPath = "";
+
     public function __construct()
     {
         $this->loadChunkRepositories();
         $this->initializeExecutionStack();
+
+        $this->componentPath = app_path() . '/../components/';
     }
 
     public function add($name, $type, $scope = null)
@@ -41,6 +45,14 @@ class ChunkManager
 
         $this->chunks[$sysname] = new $class();
         $this->chunks[$sysname]->setChunkName($scope, $name);
+
+        // Add chunk collection as a View-namespace, allows for easy view name syntax (like for modules)
+        $path = '../components/'. dirname(str_replace('\\', '/', $class));
+
+        $collection = basename($path);
+
+        \View::addNamespace("Chunks/".$collection, $path . '/views');
+        
 
         if (method_exists($this->chunks[$sysname], "initialize")) {
             $this->chunks[$sysname]->initialize();

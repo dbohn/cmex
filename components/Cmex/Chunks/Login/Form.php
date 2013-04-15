@@ -10,7 +10,7 @@ class Form extends Chunk
     public function show()
     {
         $content = json_decode($this->content);
-        $view = 'Login.views.loginformview';
+        $view = 'Chunks/Login::loginformview';
         if (isset($content->view)) {
             $view = $content->view;
         }

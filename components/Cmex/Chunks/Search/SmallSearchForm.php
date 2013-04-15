@@ -11,7 +11,7 @@ class SmallSearchForm extends Chunk
     {
         $cobj = json_decode($this->content);
         return \View::make(
-            'Search.views.smallSearchView',
+            'Chunks/Search::smallSearchView',
             array(
                 'viewPage' => URL::to($cobj->page),
                 'responsibleChunk' => $cobj->page . "_" . $cobj->chunk

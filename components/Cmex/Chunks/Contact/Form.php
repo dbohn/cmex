@@ -12,7 +12,7 @@ class Form extends Chunk
     public function show()
     {
         return \View::make(
-            'Contact.views.contactForm',
+            'Chunks/Contact::contactForm',
             array(
                 'status' => $this->status,
                 'me'     => $this->identifier
