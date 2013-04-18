@@ -50,8 +50,6 @@ Dashboard
 
 {% block primarycolumn %}
         <div class="span12">
-
-<div class="span6 column">
  
   <div class="portlet">
     <div class="portlet-header">Statistik</div>
@@ -62,43 +60,5 @@ Dashboard
     <div class="portlet-header">News</div>
     <div class="portlet-content"><p>News aus der Entwicklung</p></div>
   </div>
- 
-</div>
- 
-<div class="span6 column">
- 
-  <div class="portlet">
-    <div class="portlet-header">Hilfe</div>
-    <div class="portlet-content"><p>Lästig zu erstellen, praktisch für den Nutzer...</p></div>
-  </div>
-
-  <div class="portlet">
-    <div class="portlet-header">ModuleServiceProvider-Test</div>
-    <div class="portlet-content"><p>{{ test }}</p></div>
-  </div>
- 
-</div>
-
-<script>
-  $(function() {
-    $( ".column" ).sortable({
-      connectWith: ".column"
-    });
- 
-    $( ".portlet" ).addClass( "ui-helper-clearfix" )
-      .find( ".portlet-header" )
-        //.addClass( "ui-widget-header ui-corner-all" )
-        .prepend( "<span class='ui-icon ui-icon-minusthick'></span>")
-        .end()
-      .find( ".portlet-content" );
- 
-    $( ".portlet-header .ui-icon" ).click(function() {
-      $( this ).toggleClass( "ui-icon-minusthick" ).toggleClass( "ui-icon-plusthick" );
-      $( this ).parents( ".portlet:first" ).find( ".portlet-content" ).toggle();
-    });
- 
-    $( ".portlet-header" ).disableSelection();
-  });
-  </script>
-        </div>
+      </div>
 {% endblock %}

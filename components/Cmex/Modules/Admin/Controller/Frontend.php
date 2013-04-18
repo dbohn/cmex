@@ -2,6 +2,7 @@
 
 namespace Cmex\Modules\Admin\Controller;
 
+use Cmex\Libraries\System\AdminController;
 use Cmex\Modules\Page\Model\Page;
 use Symfony\Component\Finder\Finder;
 use Request;

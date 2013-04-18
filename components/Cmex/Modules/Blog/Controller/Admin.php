@@ -2,7 +2,7 @@
 
 namespace Cmex\Modules\Blog\Controller;
 
-use Cmex\Modules\Admin\Controller\AdminController;
+use Cmex\Libraries\System\AdminController;
 
 class Admin extends AdminController
 {

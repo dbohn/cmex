@@ -2,6 +2,7 @@
 
 namespace Cmex\Modules\Admin\Controller;
 
+use Cmex\Libraries\System\AdminController;
 use Authentication;
 use View;
 use Redirect;
@@ -209,8 +210,8 @@ class User extends AdminController
 
                 $user->save();
 
-                if(Input::has('groups')) {
-                    foreach(Input::get('groups') as $key => $value) {
+                if (Input::has('groups')) {
+                    foreach (Input::get('groups') as $key => $value) {
                         try {
                             $group = Authentication::getGroupProvider()->findById($id);
                             $user->addGroup($group);
@@ -279,5 +280,4 @@ class User extends AdminController
             );
         }
     }
-
 }

@@ -2,6 +2,7 @@
 
 namespace Cmex\Modules\Admin\Controller;
 
+use Cmex\Libraries\System\AdminController;
 use Authentication;
 use View;
 use Redirect;
@@ -20,7 +21,7 @@ class Group extends AdminController
      */
     public function index()
     {
-		return View::make(
+        return View::make(
             'Admin::group.index',
             array(
                 'groups' => Authentication::getGroupProvider()->findAll()
@@ -59,36 +60,38 @@ class Group extends AdminController
             );
         }
         
-		$rules = array(
-			'name' => 'required|min:3|unique:groups,name'
+        $rules = array(
+            'name' => 'required|min:3|unique:groups,name'
         );
         
         $validator = Validator::make(Input::all(), $rules);
-		
+        
         if ($validator->fails()) {
             $message = implode(
-				"<br />\n",
-				$validator->messages()->all()
-			);
-			
+                "<br />\n",
+                $validator->messages()->all()
+            );
+            
             return json_encode(
-				array(
-					'success' => 0,
-					'message' => $message
-				)
-			);
+                array(
+                    'success' => 0,
+                    'message' => $message
+                )
+            );
         }
-		
-		$group = Authentication::getGroupProvider()->create(array(
-			'name' => Input::get('name')
-		));
-		
+        
+        $group = Authentication::getGroupProvider()->create(
+            array(
+                'name' => Input::get('name')
+            )
+        );
+        
         return json_encode(
-			array(
-				'success' => 1,
-				'message' => 'Die Gruppe wurde erstellt.'
-			)
-		);
+            array(
+                'success' => 1,
+                'message' => 'Die Gruppe wurde erstellt.'
+            )
+        );
     }
 
     /**
@@ -123,17 +126,17 @@ class Group extends AdminController
                 );
             } else {
                 return Redirect::to('admin/group')
-					->with(
-						'error',
-						Lang::get('Admin::group.edit.noright')
-					);
+                    ->with(
+                        'error',
+                        Lang::get('Admin::group.edit.noright')
+                    );
             }
         } catch (GroupNotFoundException $e) {
             return Redirect::to('admin/group')
-				->with(
-					'error',
-					Lang::get('Admin::group.notfound')
-				);
+                ->with(
+                    'error',
+                    Lang::get('Admin::group.notfound')
+                );
         }
     }
 
@@ -147,49 +150,49 @@ class Group extends AdminController
         try {
             $group = Authentication::getGroupProvider()->findById($id);
             if (Authentication::getUser()->hasAccess('group.edit')) {
-				$rules = array(
-					'name' => 'required|min:3|unique:groups,name,' . $id
-				);
-				
-				$validator = Validator::make(Input::all(), $rules);
-				
-				if ($validator->fails()) {
-					$message = implode(
-						"<br />\n",
-						$validator->messages()->all()
-					);
-					
-					return json_encode(
-						array(
-							'success' => 0,
-							'message' => $message
-						)
-					);
-				}
-				
+                $rules = array(
+                    'name' => 'required|min:3|unique:groups,name,' . $id
+                );
+                
+                $validator = Validator::make(Input::all(), $rules);
+                
+                if ($validator->fails()) {
+                    $message = implode(
+                        "<br />\n",
+                        $validator->messages()->all()
+                    );
+                    
+                    return json_encode(
+                        array(
+                            'success' => 0,
+                            'message' => $message
+                        )
+                    );
+                }
+                
                 $group->name = Input::get('name');
                 $group->save();
                 
                 // successfully saved
                 return json_encode(
-					array(
-						'success' => 1,
-						'message' => Lang::get('Admin::group.edit.success')
-					)
-				);
+                    array(
+                        'success' => 1,
+                        'message' => Lang::get('Admin::group.edit.success')
+                    )
+                );
             } else {
                 return Redirect::to('admin/group')
-					->with(
-						'error',
-						Lang::get('Admin::group.edit.noright')
-					);
+                    ->with(
+                        'error',
+                        Lang::get('Admin::group.edit.noright')
+                    );
             }
         } catch (UserNotFoundException $e) {
             return Redirect::to('admin/group')
-				->with(
-					'error',
-					Lang::get('Admin::group.notfound')
-				);
+                ->with(
+                    'error',
+                    Lang::get('Admin::group.notfound')
+                );
         }
     }
 
@@ -201,30 +204,30 @@ class Group extends AdminController
     public function destroy($id)
     {
         try {
-			$group = Authentication::getGroupProvider()->findById($id);
-			if (Authentication::getUser()->hasAccess('group.delete')) {
-				$group->delete();
+            $group = Authentication::getGroupProvider()->findById($id);
+            if (Authentication::getUser()->hasAccess('group.delete')) {
+                $group->delete();
                 return json_encode(
-					array(
-						'success' => 0,
-						'message' => Lang::get('Admin::group.delete.success')
-					)
-				);
-			} else {
-				return json_encode(
-					array(
-						'success' => 0,
-						'message' => Lang::get('Admin::group.delete.noright')
-					)
-				);
-			}
-		} catch (GroupNotFoundException $e) {
+                    array(
+                        'success' => 0,
+                        'message' => Lang::get('Admin::group.delete.success')
+                    )
+                );
+            } else {
+                return json_encode(
+                    array(
+                        'success' => 0,
+                        'message' => Lang::get('Admin::group.delete.noright')
+                    )
+                );
+            }
+        } catch (GroupNotFoundException $e) {
             return json_encode(
-				array(
-					'success' => 0,
-					'message' => Lang::get('Admin::group.notfound')
-				)
-			);
+                array(
+                    'success' => 0,
+                    'message' => Lang::get('Admin::group.notfound')
+                )
+            );
         }
     }
 }

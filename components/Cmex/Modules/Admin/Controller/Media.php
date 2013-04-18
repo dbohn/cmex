@@ -2,7 +2,7 @@
 
 namespace Cmex\Modules\Admin\Controller;
 
-use BaseController;
+use Cmex\Libraries\System\AdminController;
 use Authentication;
 use View;
 

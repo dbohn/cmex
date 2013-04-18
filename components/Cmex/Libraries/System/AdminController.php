@@ -1,6 +1,6 @@
 <?php
 
-namespace Cmex\Modules\Admin\Controller;
+namespace Cmex\Libraries\System;
 
 use Controller;
 use View;
