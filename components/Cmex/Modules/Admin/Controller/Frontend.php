@@ -57,4 +57,17 @@ class Frontend extends AdminController
 
         return Response::json($templates);
     }
+
+    /**
+     * Calls the chunk editor and asks for the frontend editing module
+     * @param  string $chunk The chunk name to pass to the editor
+     * @param  string $type  The chunk type (e.g. Text.Html)
+     * @return string        JSON encoded response
+     */
+    public function getChunkEditor($chunk, $type)
+    {
+        // (1) Retrieve chunk editor
+        
+        // (2) Call static frontendEditor-method
+    }
 }

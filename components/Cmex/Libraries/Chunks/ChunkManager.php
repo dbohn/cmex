@@ -96,7 +96,7 @@ class ChunkManager
                 $multichunk = ' rel="dcterms:hasPart"';
             }
 
-            $attributes .= $multichunk . ' typeof="' . $type . '" about="chunks/' . $key . '"';
+            $attributes .= $multichunk . ' typeof="' . $type . '" data-cmex-type="chunks/' . $key . '"';
 
         }
 

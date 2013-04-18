@@ -1,4 +1,4 @@
-define ['jquery', 'underscore', 'backbone', 'toolbar', 'pageman', 'editors/InlineEditor'], ($, _, Backbone, ToolbarView, PageMan, InlineEditor) ->
+define ['jquery', 'underscore', 'backbone', 'toolbar', 'pageman', 'ChunkDetector'], ($, _, Backbone, ToolbarView, PageMan, ChunkDetector) ->
     initialize = ->
         $ ->
             tools = new ToolbarView {page: cmexPage}
@@ -8,12 +8,10 @@ define ['jquery', 'underscore', 'backbone', 'toolbar', 'pageman', 'editors/Inlin
 
             pageman = new PageMan {toolbar: tools, page: cmexPage}
 
-            chunks = $ '[about]'
-            textblocks = chunks.filter '[typeof="text.html"]'
-
-            _.each textblocks, (block) ->
-                bl = new InlineEditor(block)
-                return
+            # Load chunk detector, which scans the page for
+            # existing chunks and loads the corresponding editors
+            chunkdetector = new ChunkDetector()
+            chunkdetector.detect()
             return
         return
 
