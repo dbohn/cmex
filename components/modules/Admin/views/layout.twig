@@ -47,6 +47,8 @@
                 <ul class="dropdown-menu">
                 {% for module in cmexmodules %}
                   <li><a href='{{ url('admin' ~ '/' ~ module.name|lower) }}'>{{ module.name }}</a></li>
+                {% else %}
+                    <li class="disabled"><a href="#" tabindex="-1">Keine Module installiert!</a></li>
                 {% endfor %}
                 </ul>
             </li>
