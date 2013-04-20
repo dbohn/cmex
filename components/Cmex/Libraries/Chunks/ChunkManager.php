@@ -47,11 +47,13 @@ class ChunkManager
         $this->chunks[$sysname]->setChunkName($scope, $name);
 
         // Add chunk collection as a View-namespace, allows for easy view name syntax (like for modules)
-        $path = '../components/'. dirname(str_replace('\\', '/', $class));
+        $path = dirname(str_replace('\\', '/', $class));
 
         $collection = basename($path);
 
-        \View::addNamespace("Chunks/".$collection, $path . '/views');
+        $rpath = \App::make('path.base') . '/components/chunks/'.$collection;
+
+        \View::addNamespace("Chunks/".$collection, $rpath . '/views');
         
 
         if (method_exists($this->chunks[$sysname], "initialize")) {

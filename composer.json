@@ -14,7 +14,7 @@
 			"app/tests/TestCase.php"
 		],
 		"psr-0": {
-			"Cmex" : "components/"
+			"Cmex\\Libraries" : "components/"
 			},
 		"files": ["app/helpers/chunks.php"]
 	},

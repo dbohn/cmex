@@ -9,7 +9,8 @@ class ModuleServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $modulebase = __DIR__ . '/../../Modules/';
+        CmexLoader::register();
+        $modulebase = $this->app->make('path.base') . '/components/modules/';
         $modulesfile = storage_path() . '/meta/modules.json';
 
         // Load registered modules
@@ -27,9 +28,9 @@ class ModuleServiceProvider extends ServiceProvider
 
         $adminmodules = array();
 
-        // TODO: Could be stored in modules.json...
         foreach ($modules as $module) {
-            if (file_exists($modulebase . $module . '/Controller/Admin.php')) {
+            CmexLoader::addNamespace('Cmex\Modules\\'.$module, $modulebase . $module . "/src");
+            if (file_exists($modulebase . $module . '/src/Controller/Admin.php')) {
                 $adminmodules[] = $module;
             }
         }

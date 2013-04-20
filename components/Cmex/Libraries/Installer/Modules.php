@@ -4,6 +4,8 @@ namespace Cmex\Libraries\Installer;
 
 use Symfony\Component\Finder\Finder;
 
+use App;
+
 class Modules
 {
     private $finder;
@@ -17,7 +19,7 @@ class Modules
     {
         $this->finder = $finder;
 
-        $this->modulebase = __DIR__ . "/../../Modules/";
+        $this->modulebase = App::make('path.base') . "/components/modules/";
     }
 
     /**
@@ -46,25 +48,29 @@ class Modules
     public function infosForModulesWithAdmin()
     {
         if (is_null($this->adminInfos)) {
-            $adminModules = \App::make('admin.modules');
+            $adminModules = App::make('admin.modules');
 
-            $modulebase = $this->modulebase;
-            array_walk(
-                $adminModules,
-                function (&$path) use ($modulebase) {
-                    $path = $modulebase . $path;
+            if (count($adminModules) > 0) {
+                $modulebase = $this->modulebase;
+                array_walk(
+                    $adminModules,
+                    function (&$path) use ($modulebase) {
+                        $path = $modulebase . $path;
+                    }
+                );
+
+                $this->finder->files()->in($adminModules)->name('info.php')->depth('== 0');
+
+                $this->adminInfos = array();
+
+                foreach ($this->finder as $file) {
+                    $moduleinfos = require $file->getPathname();
+                    if (!isset($moduleinfos["system"]) || $moduleinfos["system"] === false) {
+                        $this->adminInfos[] = require $file->getPathname();
+                    }
                 }
-            );
-
-            $this->finder->files()->in($adminModules)->name('info.php')->depth('== 0');
-
-            $this->adminInfos = array();
-
-            foreach ($this->finder as $file) {
-                $moduleinfos = require $file->getPathname();
-                if (!isset($moduleinfos["system"]) || $moduleinfos["system"] === false) {
-                    $this->adminInfos[] = require $file->getPathname();
-                }
+            } else {
+                $this->adminInfos = array();
             }
         }
 
