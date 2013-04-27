@@ -21,5 +21,8 @@
 	"scripts": {
 		"post-update-cmd": "php artisan optimize"
 	},
+	"config": {
+		"preferred-install": "dist"
+	},
 	"minimum-stability": "dev"
 }
