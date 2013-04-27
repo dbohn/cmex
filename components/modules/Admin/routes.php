@@ -1,13 +1,13 @@
 <?php
 
 // All routes related to the admin system
-Route::get('admin/', function()
-{
-    return Redirect::to('admin/dashboard');
-});
 
 Route::group(array('prefix' => 'admin'), function ()
 {
+    Route::get('/', function()
+    {
+        return Redirect::to('admin/dashboard');
+    });
 
     Route::controller('frontend', 'Cmex\Modules\Admin\Controller\Frontend');
 

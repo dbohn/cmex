@@ -1,4 +1,4 @@
-define ['jquery', 'underscore', 'backbone', 'toolbar', 'pageman', 'ChunkDetector'], ($, _, Backbone, ToolbarView, PageMan, ChunkDetector) ->
+define ['jquery', 'underscore', 'backbone', 'toolbar', 'Pageman', 'ChunkDetector'], ($, _, Backbone, ToolbarView, PageMan, ChunkDetector) ->
     initialize = ->
         $ ->
             tools = new ToolbarView {page: cmexPage}
