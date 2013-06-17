@@ -1,4 +1,7 @@
 {
+	"name": "laravel/laravel",
+	"description": "The Laravel Framework.",
+	"keywords": ["framework", "laravel"],
 	"require": {
 		"laravel/framework": "dev-master",
 		"guzzle/guzzle": "v3.0.7",
@@ -19,7 +22,18 @@
 		"files": ["app/helpers/chunks.php"]
 	},
 	"scripts": {
-		"post-update-cmd": "php artisan optimize"
+		"post-install-cmd": [
+			"php artisan optimize"
+		],
+		"pre-update-cmd": [
+			"php artisan clear-compiled"
+		],
+		"post-update-cmd": [
+			"php artisan optimize"
+		],
+		"post-create-project-cmd": [
+			"php artisan key:generate"
+		]
 	},
 	"config": {
 		"preferred-install": "dist"
