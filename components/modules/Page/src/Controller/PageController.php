@@ -40,15 +40,15 @@ class PageController extends FrontendController
             $this->setPageIdentifier($page);
 
             if (Authentication::check()) {
-                Asset::add('ckeditor', 'admin/frontend/ckeditor/ckeditor.js');
+                Asset::add('ckeditor', 'assets/js/admin/frontend/ckeditor/ckeditor.js');
                 Asset::add(
                     'frontend',
-                    'admin/frontend/dependencies/require.js',
+                    'assets/js/admin/frontend/dependencies/require.js',
                     array(
-                        "data-main" => asset('admin/frontend/frontend.js')
+                        "data-main" => asset('assets/js/admin/frontend/frontend.js')
                     )
                 );
-                Asset::add('frontendstyle', 'admin/frontend/style.css');
+                Asset::add('frontendstyle', 'assets/js/admin/frontend/style.css');
 
                 Meta::element(
                     'script',
@@ -58,15 +58,13 @@ class PageController extends FrontendController
             }
 
             // Load view
-            $view = View::make(
+            return View::make(
                 $this->template.'.'.$dbpage->template,
                 array(
                     'page' => $page,
                     'title' => $dbpage->title
                 )
             );
-
-            return $view;
         }
 
         App::abort(404);
