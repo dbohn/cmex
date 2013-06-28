@@ -3,11 +3,12 @@
 	"description": "The Laravel Framework.",
 	"keywords": ["framework", "laravel"],
 	"require": {
-		"laravel/framework": "dev-master",
+		"laravel/framework": "4.0.*",
 		"guzzle/guzzle": "v3.0.7",
 		"cartalyst/sentry": "2.0.*",
 		"rcrowe/twigbridge": "0.1.*",
-		"symfony/yaml": "2.3.*"
+		"symfony/yaml": "2.3.*",
+		"baum/baum": "~1.0"
 	},
 	"autoload": {
 		"classmap": [
